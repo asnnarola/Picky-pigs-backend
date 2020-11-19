@@ -1,0 +1,2082 @@
+[2020-10-03T13:06:43.985] [TRACE] development - Login api called with this email =  ssi@nrola.email
+[2020-10-03T13:06:44.026] [ERROR] development - User is not found with this email  =  { email: 'ssi@nrola.email', password: '1234567' }
+[2020-10-03T13:06:59.304] [TRACE] development - Login api called with this email =  ssi@nrola.email
+[2020-10-03T13:06:59.333] [ERROR] development - User is not found with this email  =  { email: 'ssi@nrola.email', password: '12345676' }
+[2020-10-03T13:07:52.388] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-03T13:07:52.395] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7820538fe5552844ea2601,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-03T06:55:15.996Z,
+     modifiedAt: 2020-10-03T06:55:15.996Z } }
+[2020-10-03T13:14:41.657] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-03T13:14:41.692] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7820538fe5552844ea2601,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-03T06:55:15.996Z,
+     modifiedAt: 2020-10-03T06:55:15.996Z } }
+[2020-10-03T13:17:15.792] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-03T13:17:15.795] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7820538fe5552844ea2601,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-03T06:55:15.996Z,
+     modifiedAt: 2020-10-03T06:55:15.996Z } }
+[2020-10-03T13:17:24.315] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-03T13:17:24.318] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7820538fe5552844ea2601,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-03T06:55:15.996Z,
+     modifiedAt: 2020-10-03T06:55:15.996Z } }
+[2020-10-03T13:17:34.402] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-03T13:17:34.407] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7820538fe5552844ea2601,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     createdAt: 2020-10-03T06:55:15.996Z,
+     modifiedAt: 2020-10-03T06:55:15.996Z,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmNzgyMDUzOGZlNTU1Mjg0NGVhMjYwMSIsImlhdCI6MTYwMTcxMTI1NCwiZXhwIjoxNjAyMzE2MDU0fQ.AMkhhBCnIxtCzdxj81c3gtewNMrjO98mkmp7SB6dstA' } }
+[2020-10-05T21:22:42.145] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:22:42.152] [ERROR] development - User is not found with this email  =  { email: 'ssi@narola.email', password: '1234567' }
+[2020-10-05T21:23:05.190] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:23:05.193] [ERROR] development - User is not found with this email  =  { email: 'ssi@narola.email', password: '1234567' }
+[2020-10-05T21:23:17.731] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:23:17.734] [ERROR] development - User is not found with this email  =  { email: 'ssi@narola.email', password: '123' }
+[2020-10-05T21:25:39.638] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:25:39.670] [ERROR] development - User is not found with this email  =  { email: 'ssi@narola.email', password: '123' }
+[2020-10-05T21:26:59.520] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:26:59.523] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4228aa4b800fdc1ba3ef,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T15:56:24.249Z,
+     modifiedAt: 2020-10-05T15:56:24.249Z } }
+[2020-10-05T21:27:12.254] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:27:12.257] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4228aa4b800fdc1ba3ef,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T15:56:24.249Z,
+     modifiedAt: 2020-10-05T15:56:24.249Z } }
+[2020-10-05T21:48:01.629] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:48:01.639] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4228aa4b800fdc1ba3ef,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T15:56:24.249Z,
+     modifiedAt: 2020-10-05T15:56:24.249Z } }
+[2020-10-05T21:48:31.925] [TRACE] development - Login api called with this email =  ssi@narola.email
+[2020-10-05T21:48:31.930] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4228aa4b800fdc1ba3ef,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T15:56:24.249Z,
+     modifiedAt: 2020-10-05T15:56:24.249Z } }
+[2020-10-05T22:25:33.847] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:25:39.151] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token: undefined } }
+[2020-10-05T22:31:23.890] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTkxNzI4MywiZXhwIjoxNjAyNTIyMDgzfQ.MrloPX2um1nXFpEGqJ6OvBG7sH77A6pKLpPlgGc0rdA' } }
+[2020-10-05T22:36:10.860] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:38:26.601] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:40:09.272] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:40:36.348] [ERROR] development - User is not found with this email  =  { email: 'ssi3@narola.email', password: '1234567' }
+[2020-10-05T22:42:01.684] [ERROR] development - User is not found with this email  =  { email: 'ssi3@narola.email', password: '1234567' }
+[2020-10-05T22:42:26.511] [ERROR] development - User is not found with this email  =  { email: 'ssi3@narola.email', password: '1234567' }
+[2020-10-05T22:42:37.621] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:42:46.831] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTkxNzk2NiwiZXhwIjoxNjAyNTIyNzY2fQ.bOmqN0qgZx59tUVPT35MkWVayXXJZNo7SpmI-QURxQM' } }
+[2020-10-05T22:45:36.023] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:45:46.622] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTkxODE0NiwiZXhwIjoxNjAyNTIyOTQ2fQ.FBDVGdYQX1JjK_Xb4xVuj7N_S1Z-ZHmHbWhuto2huQ0' } }
+[2020-10-05T22:46:09.078] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTkxODE2OSwiZXhwIjoxNjAyNTIyOTY5fQ.E-0CopxgHSqrnYAL5zgRN0njLAhfSXDHeiRIRowdrag' } }
+[2020-10-05T22:46:26.333] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:46:42.813] [ERROR] development - User is not found with this email  =  { email: 'ss1i@narola.email', password: '1234567' }
+[2020-10-05T22:48:47.459] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:48:52.666] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:50:27.300] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-05T22:50:35.898] [ERROR] development - User is not found with this email  =  { email: 'ss3i@narola.email', password: '1234561' }
+[2020-10-06T09:37:24.922] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { email: 'ssi@narola.email',
+     fullName: 'Sejal Singh',
+     accountType: 'email',
+     isVerified: true,
+     token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1NzI0NCwiZXhwIjoxNjAyNTYyMDQ0fQ.RvAMN_rd2fHzQrdSAyqDU9GE7DFPnmy-pRSRZD3B9gs' } }
+[2020-10-06T09:38:58.366] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1NzMzOCwiZXhwIjoxNjAyNTYyMTM4fQ.92A7epOMVnkMsSOz6mRMM7DHUmbfL0rpjRokiwyvaf0' }
+[2020-10-06T09:58:34.267] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1ODUxNCwiZXhwIjoxNjAyNTYzMzE0fQ.qCP9Uti2i30ft-hLvlb6PaqldzNF00baQTjOgJlxHnI' }
+[2020-10-06T10:03:25.440] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1ODgwNSwiZXhwIjoxNjAyNTYzNjA1fQ.4eS80mVvkBN6qjX7mWxKmYYwaQsTfJUxNwZga36nzys' }
+[2020-10-06T10:06:41.785] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1OTAwMSwiZXhwIjoxNjAyNTYzODAxfQ.hsPRExeQmhUVWUU2BojwvE1RoKpzJ6Hfl60wAHeVM2U' }
+[2020-10-06T10:07:43.597] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1OTA2MywiZXhwIjoxNjAyNTYzODYzfQ.gLMaAdtTHwePxgZKmwhuI2_MkJO1dLRndY9NJN6vVEM' }
+[2020-10-06T10:13:56.441] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1OTQzNiwiZXhwIjoxNjAyNTY0MjM2fQ.t6SKjo42GijBEwxFuLBSsYpAcC5r7_oYdeV3uKRx7oc' }
+[2020-10-06T10:16:12.001] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk1OTU3MiwiZXhwIjoxNjAyNTY0MzcyfQ.Cads_-kEWHNWi0FEm62ZknfzLfFo5LQxYbQAPYvF2IQ' }
+[2020-10-06T12:10:57.037] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk2NjQ1NywiZXhwIjoxNjAyNTcxMjU3fQ._7FAX-JlBZnGNb8fAV2XmR0h7fMAkhMkcAhtMCO9O18' }
+[2020-10-06T14:20:08.492] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-06T14:20:13.110] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7b4cb4578cbd41c005c6b9,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-05T16:41:24.009Z,
+     modifiedAt: 2020-10-05T16:41:24.009Z } }
+[2020-10-06T14:20:25.390] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2I0Y2I0NTc4Y2JkNDFjMDA1YzZiOSIsImlhdCI6MTYwMTk3NDIyNSwiZXhwIjoxNjAyNTc5MDI1fQ.M0fN2KDpyVg4-yIsff-8Luqk3iIQpJtE-j7uzndyTxg' }
+[2020-10-06T14:38:10.937] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c33b02eebee3fc09bdc81,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:06:56.461Z,
+     modifiedAt: 2020-10-06T09:06:56.461Z } }
+[2020-10-06T14:38:16.285] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'Sejal Singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2MzM2IwMmVlYmVlM2ZjMDliZGM4MSIsImlhdCI6MTYwMTk3NTI5NiwiZXhwIjoxNjAyNTgwMDk2fQ.JoeW30y4EajzH62krabbzAcwZWj54XBqcTRseU3qHqM' }
+[2020-10-06T16:37:44.220] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'sejal singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2MzYjdjNjc0N2RlMDM3ODY2NWEzOSIsImlhdCI6MTYwMTk4MjQ2NCwiZXhwIjoxNjAyNTg3MjY0fQ.xdtsgEKDKFQtHDZGoWK74AAcC-cX0Q7KTSCnh5cuGpY' }
+[2020-10-06T16:39:18.591] [TRACE] development - Login successfully =  { email: 'ssi@narola.email',
+  fullName: 'sejal singh',
+  accountType: 'email',
+  isVerified: true,
+  token:
+   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2MzYjdjNjc0N2RlMDM3ODY2NWEzOSIsImlhdCI6MTYwMTk4MjU1OCwiZXhwIjoxNjAyNTg3MzU4fQ.biOGIqj9H99zua8cmXoNJRNzGDMyHBChrpIA5J5jPB4' }
+[2020-10-06T16:51:51.570] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T16:52:49.114] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T16:55:57.755] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:04:11.864] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:05:36.595] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:09:41.280] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:13:08.951] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:26:05.753] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:30:50.378] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:34:56.197] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:37:18.710] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:38:43.295] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:40:11.484] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:43:35.840] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:44:29.834] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:44:29.849] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:44:52.286] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:44:52.293] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:49:15.656] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:49:15.674] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:49:36.435] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:49:36.452] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:50:43.048] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:50:43.052] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:51:51.886] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:51:51.898] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:54:36.851] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:54:36.859] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:55:49.880] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:55:49.892] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:56:46.068] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:56:46.076] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:57:49.254] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:57:49.278] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:59:51.652] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T17:59:51.671] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:00:13.235] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:00:13.253] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:00:20.698] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:00:20.703] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:06:59.467] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:07:49.529] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:09:20.493] [ERROR] development - User is not found with this email  =  { email: 'fsdfs@yahoo.com', password: 'dfsdfsdfs' }
+[2020-10-06T18:10:12.811] [ERROR] development - User is not found with this email  =  { email: 'aam@yahoo.oc', password: 'sdfdf' }
+[2020-10-06T18:11:22.242] [ERROR] development - User is not found with this email  =  { email: 'aam@yahoo.com', password: 'jkhb' }
+[2020-10-06T18:11:22.263] [ERROR] development - User is not found with this email  =  { email: 'aam@yahoo.com', password: 'jkhb' }
+[2020-10-06T18:12:16.167] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:12:16.189] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:12:16.193] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:13:39.933] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:13:39.953] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-06T18:14:30.893] [ERROR] development - User is not found with this email  =  { email: 'jkgbhjhg@yhaoo.ocm', password: 'jkhkj' }
+[2020-10-06T18:15:10.961] [ERROR] development - User is not found with this email  =  { email: 'ssi@yahoo.com', password: 'lkhk' }
+[2020-10-06T18:19:46.586] [ERROR] development - User is not found with this email  =  { email: 'ssi@naorla.email', password: '1234567' }
+[2020-10-06T18:20:00.018] [ERROR] development - User is not found with this email  =  { email: 'ssi@naorla.email', password: '123456' }
+[2020-10-06T18:21:01.297] [ERROR] development - User is not found with this email  =  { email: 'dfdf@narola.email', password: '123456' }
+[2020-10-06T18:21:32.315] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f7c3b7c6747de0378665a39,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     fullName: 'sejal singh',
+     email: 'ssi@narola.email',
+     password: '123456',
+     createdAt: 2020-10-06T09:40:12.927Z,
+     modifiedAt: 2020-10-06T09:40:12.927Z } }
+[2020-10-10T12:21:14.659] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:225:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:77:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:06:26.034] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:316:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:81:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:08:01.095] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:316:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:81:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:08:53.388] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:318:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:81:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:11:56.689] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:318:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:84:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:14:35.086] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:318:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:84:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:16:38.837] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_object is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:318:15)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:84:45)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-12T16:18:17.201] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_obj is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:326:14)
+       at process._tickCallback (internal/process/next_tick.js:68:7) }
+[2020-10-12T16:19:00.194] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the $sort key specification must be an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15973,
+     codeName: 'Location15973',
+     name: 'MongoError' } }
+[2020-10-12T16:33:07.072] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the $sort key specification must be an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15973,
+     codeName: 'Location15973',
+     name: 'MongoError' } }
+[2020-10-12T16:36:14.252] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_obj is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:346:42)
+       at process._tickCallback (internal/process/next_tick.js:68:7) }
+[2020-10-12T16:37:03.514] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: filter_obj is not defined
+       at Object.common_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\common.js:346:42)
+       at process._tickCallback (internal/process/next_tick.js:68:7) }
+[2020-10-12T22:20:47.700] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-12T22:21:52.392] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-12T22:25:26.048] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T10:50:08.324] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T19:53:29.379] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-13T20:17:42.345] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T20:17:59.553] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T20:20:49.951] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T20:22:16.983] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-13T20:23:57.292] [ERROR] development - User is not found with this email  =  { email: 'ssi@email.com', password: '123456' }
+[2020-10-13T20:24:00.614] [ERROR] development - User is not found with this email  =  { email: 'ssi@email.com', password: '123456' }
+[2020-10-13T20:24:18.024] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8487f190e488411ce9f2ee,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'ssi@narola.email',
+     phone: 9726046946,
+     password: '123456',
+     createdAt: 2020-10-12T16:44:33.338Z,
+     modifiedAt: 2020-10-12T16:44:33.338Z } }
+[2020-10-14T10:17:59.917] [ERROR] development - User is not found with this email  =  { email: 'ssiadmin@narola.email', password: '123456' }
+[2020-10-14T10:21:25.928] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8683bdd48eef41e955b046,
+     email: 'ssiadmin@narola.email',
+     password: '123456' } }
+[2020-10-14T10:22:56.672] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8683bdd48eef41e955b046,
+     email: 'ssiadmin@narola.email',
+     password: '123456' } }
+[2020-10-14T10:23:06.546] [ERROR] development - User is not found with this email  =  { email: 'as@narola.email', password: '123456' }
+[2020-10-14T15:52:44.411] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: searched_record_count is not defined
+       at Object.ingredient_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\ingredient.js:120:49)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:137:49)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-14T15:53:14.061] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: searched_record_count is not defined
+       at Object.ingredient_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\ingredient.js:120:49)
+       at router.post (E:\picky-pigs\picky-pigs-backned\routes\admin\ingredient.js:137:49)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:137:13)
+       at Route.dispatch (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\route.js:112:3)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:281:22
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10)
+       at Function.handle (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:174:3)
+       at router (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:47:12)
+       at Layer.handle [as handle_request] (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\layer.js:95:5)
+       at trim_prefix (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:317:13)
+       at E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:284:7
+       at Function.process_params (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:335:12)
+       at next (E:\picky-pigs\picky-pigs-backned\node_modules\express\lib\router\index.js:275:10) }
+[2020-10-14T16:27:09.461] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-14T17:53:05.775] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: Argument to $skip cannot be negative
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15956,
+     codeName: 'Location15956',
+     name: 'MongoError' } }
+[2020-10-14T17:57:04.072] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: Argument to $skip cannot be negative
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15956,
+     codeName: 'Location15956',
+     name: 'MongoError' } }
+[2020-10-14T17:57:10.401] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   ReferenceError: searched_record_count is not defined
+       at Object.ingredient_helper.get_filtered_records (E:\picky-pigs\picky-pigs-backned\helpers\ingredient.js:171:50)
+       at process._tickCallback (internal/process/next_tick.js:68:7) }
+[2020-10-14T19:33:07.394] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8704fccf3ec948a48488cf,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'dda@narola.email',
+     phone: 6454851218,
+     password: '123456',
+     createdAt: 2020-10-14T14:02:36.069Z,
+     modifiedAt: 2020-10-14T14:02:36.070Z } }
+[2020-10-14T19:34:26.276] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8704fccf3ec948a48488cf,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'dda@narola.email',
+     phone: 6454851218,
+     password: '123456',
+     createdAt: 2020-10-14T14:02:36.069Z,
+     modifiedAt: 2020-10-14T14:02:36.070Z } }
+[2020-10-14T19:37:58.665] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8704fccf3ec948a48488cf,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh R.',
+     email: 'dda@narola.email',
+     phone: 6454851218,
+     password: '123456',
+     createdAt: 2020-10-14T14:02:36.069Z,
+     modifiedAt: 2020-10-14T14:02:36.070Z } }
+[2020-10-14T19:39:14.692] [ERROR] development - User is not found with this email  =  { email: 'dda4@narola.email', password: '123456' }
+[2020-10-14T19:39:24.581] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f8704fccf3ec948a48488cf,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Darshan D',
+     email: 'dda@narola.email',
+     phone: 6454851218,
+     password: '123456',
+     createdAt: 2020-10-14T14:02:36.069Z,
+     modifiedAt: 2020-10-14T14:02:36.070Z } }
+[2020-10-15T12:17:33.139] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-15T14:11:28.739] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:12:42.837] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:14:10.375] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:22:53.757] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-15T14:25:51.419] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-15T14:28:54.791] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: the match filter must be an expression in an object
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17)
+     ok: 0,
+     code: 15959,
+     codeName: 'Location15959',
+     name: 'MongoError' } }
+[2020-10-15T14:32:35.345] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:44:50.113] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:46:31.261] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:46:56.828] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:49:07.786] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:49:34.952] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T14:59:24.272] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T15:09:07.322] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-15T15:13:32.199] [ERROR] development - Error while fetching searched data =  { status: 0,
+  message: 'Error occured while filtering data',
+  error:
+   { MongoError: $or/$and/$nor entries need to be full objects
+       at MessageStream.messageHandler (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\connection.js:268:20)
+       at MessageStream.emit (events.js:182:13)
+       at processIncomingData (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:144:12)
+       at MessageStream._write (E:\picky-pigs\picky-pigs-backned\node_modules\mongodb\lib\cmap\message_stream.js:42:5)
+       at doWrite (_stream_writable.js:410:12)
+       at writeOrBuffer (_stream_writable.js:394:5)
+       at MessageStream.Writable.write (_stream_writable.js:294:11)
+       at Socket.ondata (_stream_readable.js:666:20)
+       at Socket.emit (events.js:182:13)
+       at addChunk (_stream_readable.js:283:12)
+       at readableAddChunk (_stream_readable.js:264:11)
+       at Socket.Readable.push (_stream_readable.js:219:10)
+       at TCP.onStreamRead [as onread] (internal/stream_base_commons.js:94:17) ok: 0, code: 2, codeName: 'BadValue', name: 'MongoError' } }
+[2020-10-16T09:25:30.568] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T09:25:31.193] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T09:25:46.580] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T09:25:53.521] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:30:09.195] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:30:13.839] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:31:18.041] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:31:21.423] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:35:48.863] [ERROR] development - invalid password request =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:35:58.848] [ERROR] development - User is not found with this email  =  { email: 'ssi@narolahgfh.email', password: '123456' }
+[2020-10-16T11:36:05.376] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f869c70073442012023a379,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Sejal Singh',
+     email: 'ssi@narola.email',
+     phone: 7895631455,
+     password: '123456',
+     createdAt: 2020-10-14T06:36:32.747Z,
+     modifiedAt: 2020-10-14T06:36:32.747Z } }
+[2020-10-16T11:40:35.901] [ERROR] development - Error occured while checking login/verification =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f89393f5d3c8229c0c034a4,
+     isVerified: false,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Mitul Gohil',
+     email: 'mitul@narola.email',
+     phone: 4569871212,
+     password: '1234567',
+     createdAt: 2020-10-16T06:10:07.076Z,
+     modifiedAt: 2020-10-16T06:10:07.076Z } }
+[2020-10-16T11:41:41.960] [TRACE] development - Login successfully =  { status: 1,
+  message: 'Data found',
+  data:
+   { _id: 5f89393f5d3c8229c0c034a4,
+     isVerified: true,
+     accountType: 'email',
+     googleId: null,
+     facebookId: null,
+     role: 'user',
+     fullName: 'Mitul Gohil',
+     email: 'mitul@narola.email',
+     phone: 4569871212,
+     password: '1234567',
+     createdAt: 2020-10-16T06:10:07.076Z,
+     modifiedAt: 2020-10-16T06:10:07.076Z } }

@@ -3,13 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const bodyParser = require('body-parser');
 const cors = require("cors");
 var indexRouter = require('./routes/index');
 require('./database/mongoDbConnection');
 var fileupload = require("express-fileupload");
 
 var app = express();
+app.use(bodyParser.urlencoded({ limit: "500mb", extended: false }));
+app.use(bodyParser.json({ limit: "500mb" }));
 app.use(cors());
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(fileupload());
 app.use(logger('dev'));

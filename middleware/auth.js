@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var config = require('../config');
 
-module.exports = function (req, res, next) {
+exports.jwtValidation = function (req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     if (token) {
         jwt.verify(token, config.SECRET_KEY, function (err, decoded) {
@@ -20,3 +20,27 @@ module.exports = function (req, res, next) {
         });
     }
 }
+
+exports.authorization = function (req, res, next) {
+    if (req.decoded) {
+        if (req.decoded.role == "restaurant_admin" && req.baseUrl.match('/restaurant_admin')) {
+            console.log("as a restaurant admin")
+            req.loginUser = req.decoded;
+            next();
+        }
+        else if (req.decoded.role == "user" && req.baseUrl.match('/user')) {
+            console.log("as a user")
+            req.loginUser = req.decoded;
+            next();
+        } else {
+            return res.status(config.UNAUTHORIZED).json({
+                message: 'Unauthorized access ---'
+            });
+        }
+    } else {
+        return res.status(config.UNAUTHORIZED).json({
+            message: 'Unauthorized access'
+        });
+    }
+}
+

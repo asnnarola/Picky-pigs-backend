@@ -4,7 +4,7 @@ const async = require("async");
 const menus_helper = {};
 
 menus_helper.get_filtered_records = async (filter_object) => {
-    skip = filter_object.pageSize * filter_object.page;
+    let skip = filter_object.pageSize * filter_object.page;
 
     try {
         var aggre = [

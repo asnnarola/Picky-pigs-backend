@@ -14,10 +14,9 @@ const validation_response = require('../../validation/validation_response');
 
 //signup
 router.post('/signup', auth.signup, validation_response, async (req, res, next) => {
-    var data = await common_helper.findOne(user,{ "email": req.body.email})
+    var data = await common_helper.findOne(user, { "email": req.body.email })
     if (data.status === 1 && data.data) {
-        // res.json({ status: 0, message: "Email is already registered" });
-        res.status(config.BAD_REQUEST).json({ status: 0,message: "Email is already registered"  });
+        res.status(config.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
     } else {
         var obj = {
             fullName: req.body.fullName,
@@ -28,8 +27,13 @@ router.post('/signup', auth.signup, validation_response, async (req, res, next) 
         var register_resp = await common_helper.insert(user, obj);
         //token generate with user data then send it
         var token = jwt.sign({ id: register_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-        // var token = common_helper.sign({ id: register_resp.data._id })
-        sendMail(req.body.email, template.confirm(token))
+        const emailContent = {
+            to: req.body.email,
+            subject: 'Reset password for Picky pigs',
+            token: `${config.CLIENT_ORIGIN}/reset_password/${token}`,
+            filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
+        }
+        const emailResp = await sendMail(emailContent);
 
         register_resp.data = {
             email: register_resp.data.email,
@@ -38,12 +42,11 @@ router.post('/signup', auth.signup, validation_response, async (req, res, next) 
             accountType: register_resp.data.accountType,
             isVerified: register_resp.data.isVerified,
         }
-         res.status(config.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id"});
+        res.status(config.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id" });
     }
 });
 
 // verify email
-
 router.post('/verification', async (req, res, next) => {
     let token = req.body.token;
     let decodeToken = jwt.verify(token, config.SECRET_KEY)
@@ -60,14 +63,14 @@ router.post('/verification', async (req, res, next) => {
         } else {
             var user_data = await common_helper.update(user, { "_id": decodeToken.id }, { isVerified: true })
             user_data.data = {
-            email: user_data.data.email,
-            accountType: user_data.data.fullName,
-            isVerified: user_data.data.isVerified,
-        }
-            return res.status(config.OK_STATUS).json({ ...user_data.data, message: "Email has been verified !" ,error: false })
+                email: user_data.data.email,
+                accountType: user_data.data.fullName,
+                isVerified: user_data.data.isVerified,
+            }
+            return res.status(config.OK_STATUS).json({ ...user_data.data, message: "Email has been verified !", error: false })
         }
     } else {
-        return res.status(config.OK_STATUS).json({ status: 1, message: "Email is not found !" , error: true });
+        return res.status(config.OK_STATUS).json({ status: 1, message: "Email is not found !", error: true });
     }
 })
 
@@ -86,10 +89,10 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
                 var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
                 LOGGER.trace("Login successfully = ", user_data);
-                return res.status(config.OK_STATUS).json({ token, message: "Logged in successfully",error:false  });
+                return res.status(config.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
             } else {
                 LOGGER.error("Error occured while checking login/verification = ", user_data);
-                return res.status(config.UNAUTHORIZED).json({ message: "Email is not verified.",error:true });
+                return res.status(config.UNAUTHORIZED).json({ message: "Email is not verified.", error: true });
             }
         } else {
             LOGGER.error("invalid password request = ", user_data);

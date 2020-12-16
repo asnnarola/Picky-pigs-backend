@@ -2080,3 +2080,198 @@
      password: '1234567',
      createdAt: 2020-10-16T06:10:07.076Z,
      modifiedAt: 2020-10-16T06:10:07.076Z } }
+[2020-11-19T15:54:04.844] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vmd6WaAdA/i7lwmtOOMwyuSacir2eGuR1h/b3.G3aC63eM7zERJ9e',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T10:23:39.315Z,
+    __v: 0
+  }
+}
+[2020-11-19T15:57:41.303] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vmd6WaAdA/i7lwmtOOMwyuSacir2eGuR1h/b3.G3aC63eM7zERJ9e',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T10:23:39.315Z,
+    __v: 0
+  }
+}
+[2020-11-19T15:57:45.991] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vmd6WaAdA/i7lwmtOOMwyuSacir2eGuR1h/b3.G3aC63eM7zERJ9e',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T10:23:39.315Z,
+    __v: 0
+  }
+}
+[2020-11-19T15:57:48.219] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vmd6WaAdA/i7lwmtOOMwyuSacir2eGuR1h/b3.G3aC63eM7zERJ9e',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T10:23:39.315Z,
+    __v: 0
+  }
+}
+[2020-11-19T16:22:34.171] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vmd6WaAdA/i7lwmtOOMwyuSacir2eGuR1h/b3.G3aC63eM7zERJ9e',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T10:23:39.315Z,
+    __v: 0
+  }
+}
+[2020-11-19T16:36:15.921] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vWDOHxUlLr6bSv7n0XH/AOyd78gJz7F2sRPGpDD4ZquiJyQ2p8E9y',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T11:06:11.099Z,
+    __v: 0
+  }
+}
+[2020-11-19T16:36:20.826] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vWDOHxUlLr6bSv7n0XH/AOyd78gJz7F2sRPGpDD4ZquiJyQ2p8E9y',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T11:06:11.099Z,
+    __v: 0
+  }
+}
+[2020-11-19T16:39:17.562] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vWDOHxUlLr6bSv7n0XH/AOyd78gJz7F2sRPGpDD4ZquiJyQ2p8E9y',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T11:06:11.099Z,
+    __v: 0
+  }
+}
+[2020-12-15T11:37:02.828] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vWDOHxUlLr6bSv7n0XH/AOyd78gJz7F2sRPGpDD4ZquiJyQ2p8E9y',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T11:06:11.099Z,
+    __v: 0
+  }
+}
+[2020-12-15T12:13:59.190] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}
+[2020-12-15T12:19:09.404] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}
+[2020-12-15T12:19:33.535] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}
+[2020-12-15T12:19:56.682] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}
+[2020-12-15T12:21:42.589] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}
+[2020-12-15T14:37:40.604] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$fQdKzakOpztV.CCPewks3urE1KB4k/T8E4/qEuQjCtFj2uj5E17.K',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-15T06:42:51.236Z,
+    __v: 0
+  }
+}

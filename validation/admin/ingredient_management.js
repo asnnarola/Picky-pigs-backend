@@ -7,10 +7,10 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('image')
-            .trim()
-            .not().isEmpty().withMessage('Image is required')
-            .exists().withMessage('Image is required')
+        // check('image')
+        //     .trim()
+        //     .not().isEmpty().withMessage('Image is required')
+        //     .exists().withMessage('Image is required')
     ],
     dietary: [
         check('name')

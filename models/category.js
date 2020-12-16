@@ -1,12 +1,35 @@
-//Define name of collection
-const collectionName = "category";
+// //Define name of collection
+// const collectionName = "category";
+// //Define Collection schema
+// const collectionSchema = {
+//     name: { type: String, required: true, unique: true},
+//     isDeleted: { type: Number, default: 0 },
+//     createdAt: { type: Date, default: Date.now },
+//     modifiedAt: { type: Date, default: Date.now },
+// };
+// module.exports = require("./index")(collectionSchema, collectionName);
 
-//Define Collection schema
-const collectionSchema = {
-    name: { type: String, required: true, unique: true},
+
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+let categorySchema = new Schema({
+    name: { type: String, required: true, unique: true },
+    restaurantAdminId: {
+        type: Schema.Types.ObjectId,
+        ref: 'restaurant_admins'
+    },
+    menuId: {
+        type: Schema.Types.ObjectId,
+        ref: 'menus'
+    },
     isDeleted: { type: Number, default: 0 },
-    createdAt: { type: Date, default: Date.now },
-    modifiedAt: { type: Date, default: Date.now },
-};
+},
+    {
+        timestamps: true//, adds createdAt and updatedAt fields automatically
+        //minimize: false   // will make sure all properties exist, even if null
+    });
 
-module.exports = require("./index")(collectionSchema, collectionName);
+const CategoryModel = mongoose.model('category', categorySchema);
+
+module.exports = CategoryModel;

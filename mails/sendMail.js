@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer')
+const ejs = require('ejs')
 console.log('HI in sendMail');
 
 // The credentials for the email account you want to send mail from.
@@ -12,34 +13,28 @@ const credentials = {
     pass: process.env.MAIL_PASS
   }
 }
-
-// Getting Nodemailer all setup with the credentials for when the 'sendEmail()'
-// function is called.
 const transporter = nodemailer.createTransport(credentials)
 
-// exporting an 'async' function here allows 'await' to be used
-// as the return value of this function.
-module.exports = async (to, content) => {
-
-  // The from and to addresses for the email that is about to be sent.
-  const contacts = {
-    from: process.env.MAIL_USER,
-    to
-  }
-
-  // Combining the content and contacts into a single object that can
-  // be passed to Nodemailer.
-  const email = Object.assign({}, content, contacts)
-
-  // This file is imported into the controller as 'sendEmail'. Because
-  // 'transporter.sendMail()' below returns a promise we can write code like this
-  // in the contoller when we are using the sendEmail() function.
-  //
-  //  sendEmail()
-  //   .then(() => doSomethingElse())
-  //
-  // If you are running into errors getting Nodemailer working, wrap the following
-  // line in a try/catch. Most likely is not loading the credentials properly in
-  // the .env file or failing to allow unsafe apps in your gmail settings.
-  await transporter.sendMail(email)
+module.exports = async (contentDetail) => {
+  return new Promise((resolve, reject) => {
+    ejs.renderFile(contentDetail.filePath, contentDetail, async function (err, modifiedContent) {
+      if (err) {
+        reject({ status: 0, error: err, "message": "Error occurred while Email template execute" });
+      }
+      else {
+        const emailContant = {
+          from: process.env.MAIL_USER,
+          to: contentDetail.to,
+          subject: contentDetail.subject,
+          html: modifiedContent
+        }
+        transporter.sendMail(emailContant).
+          then(emailResp => {
+            resolve({ status: 1, data: emailResp });
+          }).catch(error => {
+            reject({ status: 0, error: error });
+          })
+      }
+    });
+  });
 }

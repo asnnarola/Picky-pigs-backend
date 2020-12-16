@@ -5,7 +5,7 @@ const async = require("async");
 const jwt = require('jsonwebtoken');
 const common_helper = {};
 const makeDir = require('make-dir');
-
+const { v4: uuidv4 } = require('uuid');
 
 /**
  * sign will get encode your plain Object into cipherText
@@ -178,10 +178,10 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
             try {
 
               filename =
-                 new Date().getTime() + "." + file.name.split(".").pop();
+                 new Date().getTime() + uuidv4() + "." + file.name.split(".").pop();
 
             } catch (error) {
-              filename = new Date().getTime() + "." + file.name.split(".").pop();
+              filename = new Date().getTime() + uuidv4() + "." + file.name.split(".").pop();
             }
             location = dir + "/" + filename
 
@@ -211,9 +211,9 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
 
 common_helper.changeObject = function (data, callback) {
 
-  columnFilter = {};
-  columnSort = {};
-  filter = [];
+  let columnFilter = {};
+  let columnSort = {};
+  let filter = [];
 
   async.forEach(data.columnFilter, function (val, next) {
     var key = val.id;
@@ -221,7 +221,7 @@ common_helper.changeObject = function (data, callback) {
     if (val.isDigitFlag) {
       value = parseInt(val.value);
     } else if (!val.isEqualFlag) {
-      re = new RegExp(val.value, "i");
+      let re = new RegExp(val.value, "i");
       value = {
         $regex: re
       };

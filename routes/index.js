@@ -13,12 +13,19 @@ const ingredient = require("./restaurant_admin/ingredient");
 const menus = require("./restaurant_admin/menus");
 const masterGroup = require("./restaurant_admin/masterGroup");
 const supplier = require("./restaurant_admin/supplier");
-const adminAuth = require("./restaurant_admin/auth");
+const restaurant_adminAuth = require("./restaurant_admin/auth");
 const category = require("./restaurant_admin/category");
 const subcategory = require("./restaurant_admin/subcategory");
 const dish = require("./restaurant_admin/dish");
 const fileupload = require("./restaurant_admin/fileupload");
-const homaPage = require("./tablet/homaPage");
+const settings = require("./restaurant_admin/settings");
+const homePage = require("./tablet/homePage");
+const tabletDish = require("./tablet/dish");
+const tabletOrder = require("./tablet/order");
+const super_adminAuth = require("./super_admin/auth");
+const super_adminManage_restaurant = require("./super_admin/manage_restaurant");
+const super_adminManage_user = require("./super_admin/manage_user");
+
 
 //Define routes here f
 router.use("/", home);
@@ -26,7 +33,7 @@ router.use("/list", list);
 router.use("/auth", auth);
 //for admin panel
 // router.use("/admin/allergen", verify ,allergen);
-router.use("/restaurant_admin/auth", adminAuth);
+router.use("/restaurant_admin/auth", restaurant_adminAuth);
 router.use("/restaurant_admin/group", masterGroup);
 router.use("/restaurant_admin/supplier", supplier);
 router.use("/restaurant_admin/allergen" ,allergen);
@@ -38,9 +45,18 @@ router.use("/restaurant_admin/category", verify.jwtValidation, verify.authorizat
 router.use("/restaurant_admin/subcategory", verify.jwtValidation, verify.authorization, subcategory);
 router.use("/restaurant_admin/dish", verify.jwtValidation, verify.authorization, dish);
 router.use("/restaurant_admin/fileupload", verify.jwtValidation, verify.authorization, fileupload);
+router.use("/restaurant_admin/settings", verify.jwtValidation, verify.authorization, settings);
+
+
+/** Super admin */
+router.use("/super_admin/auth", super_adminAuth);
+router.use("/super_admin/manage_restaurant", verify.jwtValidation, verify.authorization, super_adminManage_restaurant);
+router.use("/super_admin/manage_user", verify.jwtValidation, verify.authorization, super_adminManage_user);
 
 
 
-router.use("/tablet/homePage", homaPage);
+router.use("/tablet/homePage", homePage);
+router.use("/tablet/dish", tabletDish);
+router.use("/tablet/order", tabletOrder);
 
 module.exports = router;

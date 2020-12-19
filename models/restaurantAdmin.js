@@ -8,6 +8,10 @@ let restaurant_adminSchema = new Schema({
     password: { type: String },
     isDeleted: { type: Number, default: 0 },
     forgotPasswordToken: { type: String },
+    name: { type: String },
+    restaurantProfilePhoto: { type: String },
+    restaurantCoverPhoto: { type: String },
+    about: { type: String },
     info: {
         login: { type: String },
         phoneNumber: { type: String },
@@ -16,20 +20,21 @@ let restaurant_adminSchema = new Schema({
         email: { type: String },
     },
     security: {
-        twoFactorAuthenticationPhoneNumber: { type: Boolean },
-        twoFactorAuthenticationEmail: { type: Boolean }
+        twoFactorAuthenticationPhoneNumber: { type: Boolean, default: false },
+        twoFactorAuthenticationEmail: { type: Boolean, default: false }
     },
     address: {
         street: { type: String },
         locality: { type: String },
         pincode: { type: Number },
         zipcode: { type: Number },
-        addLocationMap: { type: Boolean },
-        shareLocationOption: { type: Boolean },
-        getDirectionOption: { type: Boolean },
+        addLocationMap: { type: Boolean, default: false },
+        shareLocationOption: { type: Boolean, default: false },
+        getDirectionOption: { type: Boolean, default: false },
         map: {
             latitude: { type: String },
-            longitude: { type: String }
+            longitude: { type: String },
+            coordinates: []  //first latitude, second longitude
         }
     },
     openingTimings: {
@@ -41,7 +46,9 @@ let restaurant_adminSchema = new Schema({
                 timeList: [
                     {
                         startTime: { type: String },
-                        endTime: { type: String }
+                        startTimeUnit: { type: String },
+                        endTime: { type: String },
+                        endTimeUnit: { type: String }
                     }
                 ]
             }
@@ -70,7 +77,7 @@ let restaurant_adminSchema = new Schema({
         instagramUrl: { type: String },
     },
     restaurantFeatures: {
-        averageCostOfTwoPerson: { type: String },
+        averageCostOfTwoPerson: { type: Number },
         inclusiveTaxesAndCharges: { type: Boolean },
         cashAccept: { type: Boolean },
         cardAccept: { type: Boolean },
@@ -78,6 +85,20 @@ let restaurant_adminSchema = new Schema({
         restaurantFeaturesOptions: [],
         appliesOfRestaurant: { type: String }  //what was the use case?
     },
+    galleryImages: {
+        restaurantAmbience: [{ url: { type: String } }],
+        food: [{ url: { type: String } }],
+        videos: [{ url: { type: String } }],
+        images: [{ url: { type: String } }]
+    },
+    subscriptionLevel: { type: String },
+
+    contactName: { type: String },
+    company: { type: String },
+    phoneNumber: { type: String },
+    package: { type: String },
+    isAgreeToTerms: { type: Boolean },
+    isDeleted: { type: Number, default: 0 }
 
 },
     {

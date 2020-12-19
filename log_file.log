@@ -2275,3 +2275,1565 @@
     __v: 0
   }
 }
+[2020-12-17T10:51:46.363] [ERROR] development - User is not found with this email  =  { email: 'xxx@ddddd.com', password: 'cccc' }
+[2020-12-17T10:51:48.443] [ERROR] development - User is not found with this email  =  { email: 'xxx@ddddd.com', password: 'cccc' }
+[2020-12-17T17:15:08.641] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-17T07:16:23.202Z,
+    __v: 0,
+    about: 'about information',
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    galleryImages: { images: [Array] },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-17T17:15:28.019] [ERROR] development - User is not found with this email  =  { email: 'demo@gmail.com', password: 'demo1234567' }
+[2020-12-17T17:15:42.759] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-17T07:16:23.202Z,
+    __v: 0,
+    about: 'about information',
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    galleryImages: { images: [Array] },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-17T17:15:45.508] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-17T07:16:23.202Z,
+    __v: 0,
+    about: 'about information',
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    galleryImages: { images: [Array] },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-17T17:16:04.151] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd85aeb6302ec214089673d,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-15T06:42:51.236Z,
+    updatedAt: 2020-12-17T07:16:23.202Z,
+    __v: 0,
+    about: 'about information',
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    galleryImages: { images: [Array] },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-17T17:16:06.179] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fb647ab971a332370b53318,
+    isDeleted: 0,
+    email: 'demo123456@gmail.com',
+    password: '$2b$10$vWDOHxUlLr6bSv7n0XH/AOyd78gJz7F2sRPGpDD4ZquiJyQ2p8E9y',
+    createdAt: 2020-11-19T10:23:39.315Z,
+    updatedAt: 2020-11-19T11:06:11.099Z,
+    __v: 0
+  }
+}
+[2020-12-17T17:17:20.958] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-17T17:24:54.817] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-17T17:26:29.974] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T09:39:30.076] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T10:02:23.444] [ERROR] development - User is not found with this email  =  { email: 'vpt@narola.email', password: 'aaaaaa' }
+[2020-12-18T10:04:22.430] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T10:51:19.408] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc3bb035094707148ffc10,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$/kUhZROGov9KhmJFP1.TlesYWHyYBW3WoQRRZWaow0NN.O26g..Aq',
+    createdAt: 2020-12-18T05:18:40.357Z,
+    updatedAt: 2020-12-18T05:18:40.357Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:20:02.863] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc3bb035094707148ffc10,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$JtW4vnymrYSKp1iEAsUrOunPgBBAdsF3TAB96M2wekOcKbjLGyrIK',
+    createdAt: 2020-12-18T05:18:40.357Z,
+    updatedAt: 2020-12-18T05:30:10.993Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:21:23.633] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc3bb035094707148ffc10,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$JtW4vnymrYSKp1iEAsUrOunPgBBAdsF3TAB96M2wekOcKbjLGyrIK',
+    createdAt: 2020-12-18T05:18:40.357Z,
+    updatedAt: 2020-12-18T05:30:10.993Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:33:12.555] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc3bb035094707148ffc10,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$JtW4vnymrYSKp1iEAsUrOunPgBBAdsF3TAB96M2wekOcKbjLGyrIK',
+    createdAt: 2020-12-18T05:18:40.357Z,
+    updatedAt: 2020-12-18T05:30:10.993Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:35:37.661] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:36:16.440] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:36:44.896] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:36:50.259] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:37:02.037] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$4zNgczG4MAJhkBt4s8yHVOAywcG23J2iwaPJca.imRJe7RnU2cBhm',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-17T11:46:51.000Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:38:06.906] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$ZnEjrYXoL5cerR/mGubVPObm9Weqs5lcg4WmG3TPnfqMpO6.IAbpa',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T06:08:04.790Z,
+    __v: 0
+  }
+}
+[2020-12-18T11:38:17.135] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$yaboW0c7kl09SFDp/AohQuLkTBGrO59HVbti1b05Q4L4Gh1137H0e',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T06:08:15.474Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:19:32.672] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: 'testing123@',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T07:35:02.940Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:20:43.776] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: 'testing123@',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T07:35:02.940Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:24:26.028] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$OMCs12sXUpYZwZ2m.8N1M.pYLcmEJVUpmO3k4frAsA0W8XZJLBKhC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:52:58.646Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:24:30.127] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$OMCs12sXUpYZwZ2m.8N1M.pYLcmEJVUpmO3k4frAsA0W8XZJLBKhC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:52:58.646Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:24:33.622] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$OMCs12sXUpYZwZ2m.8N1M.pYLcmEJVUpmO3k4frAsA0W8XZJLBKhC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:52:58.646Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:24:47.401] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$OMCs12sXUpYZwZ2m.8N1M.pYLcmEJVUpmO3k4frAsA0W8XZJLBKhC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:52:58.646Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:25:28.378] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$9aNlqP0H2Bv7mFMpb0Zqhe33bIOtFZ3rj/3RetCpXLz0Tj/MXWurC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:55:20.166Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:25:47.890] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$9aNlqP0H2Bv7mFMpb0Zqhe33bIOtFZ3rj/3RetCpXLz0Tj/MXWurC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:55:20.166Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:28:17.882] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$XoJp0xo69qMmUKQpLISvbuG3b9Gjd5cq8YIPvqjSouswntH3iGx5.',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:55:53.337Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:28:22.461] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$XoJp0xo69qMmUKQpLISvbuG3b9Gjd5cq8YIPvqjSouswntH3iGx5.',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:55:53.337Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:28:24.648] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$XoJp0xo69qMmUKQpLISvbuG3b9Gjd5cq8YIPvqjSouswntH3iGx5.',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:55:53.337Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:28:32.287] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$bo7HsUam/xvIH1h65f9zpeH1Erzsr/s34TJ2Y51kFJOOckpz80Ciq',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:58:29.768Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:28:34.740] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$bo7HsUam/xvIH1h65f9zpeH1Erzsr/s34TJ2Y51kFJOOckpz80Ciq',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:58:29.768Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:46:58.242] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$bo7HsUam/xvIH1h65f9zpeH1Erzsr/s34TJ2Y51kFJOOckpz80Ciq',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T08:58:29.768Z,
+    __v: 0
+  }
+}
+[2020-12-18T14:48:30.070] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$bWnNWx0htz/zF2X7TB3vae.TYmX2fxsZHJ5TWeQ1rdCxg.QOulHMq',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-18T09:18:25.369Z,
+    __v: 0
+  }
+}
+[2020-12-18T15:57:31.177] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$iJN6NYvvJ01mPRVZ31v6xO2gbqfBxwMw0YgjUWs.ko7bRukcQlrR6',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T09:16:41.466Z,
+    __v: 0
+  }
+}
+[2020-12-18T15:58:00.855] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$iJN6NYvvJ01mPRVZ31v6xO2gbqfBxwMw0YgjUWs.ko7bRukcQlrR6',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T09:16:41.466Z,
+    __v: 0
+  }
+}
+[2020-12-18T15:58:12.798] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$iJN6NYvvJ01mPRVZ31v6xO2gbqfBxwMw0YgjUWs.ko7bRukcQlrR6',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T09:16:41.466Z,
+    __v: 0
+  }
+}
+[2020-12-18T15:59:24.349] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$iJN6NYvvJ01mPRVZ31v6xO2gbqfBxwMw0YgjUWs.ko7bRukcQlrR6',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T09:16:41.466Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:00:02.848] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$iJN6NYvvJ01mPRVZ31v6xO2gbqfBxwMw0YgjUWs.ko7bRukcQlrR6',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T09:16:41.466Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:00:53.880] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:01:11.325] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:02:02.495] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:05:17.224] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:06:31.910] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:19:22.732] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T16:20:34.858] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:23:13.796] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:24:30.705] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:25:15.422] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc988335b9292fc82ffd08,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh13@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$B83HizzN9vNbZgkUJfXDtuaObn55hngc/Z2gHP9wziUg4Fib1AwQu',
+    createdAt: 2020-12-18T11:54:43.667Z,
+    updatedAt: 2020-12-18T11:54:43.667Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:25:28.474] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc988335b9292fc82ffd08,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'rakesh',
+    email: 'rakesh13@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$B83HizzN9vNbZgkUJfXDtuaObn55hngc/Z2gHP9wziUg4Fib1AwQu',
+    createdAt: 2020-12-18T11:54:43.667Z,
+    updatedAt: 2020-12-18T11:54:43.667Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:29:05.903] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:29:28.906] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T17:32:25.618] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:00:53.220] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:00:56.029] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:08:31.908] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:08:46.560] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:09:56.676] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}
+[2020-12-18T18:10:23.487] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { time: [] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0
+  }
+}

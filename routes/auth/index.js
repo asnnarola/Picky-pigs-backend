@@ -14,35 +14,40 @@ const validation_response = require('../../validation/validation_response');
 
 //signup
 router.post('/signup', auth.signup, validation_response, async (req, res, next) => {
-    var data = await common_helper.findOne(user, { "email": req.body.email })
-    if (data.status === 1 && data.data) {
-        res.status(config.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
-    } else {
-        var obj = {
-            fullName: req.body.fullName,
-            email: req.body.email,
-            phone: req.body.phone,
-            password: req.body.password
-        };
-        var register_resp = await common_helper.insert(user, obj);
-        //token generate with user data then send it
-        var token = jwt.sign({ id: register_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-        const emailContent = {
-            to: req.body.email,
-            subject: 'Reset password for Picky pigs',
-            token: `${config.CLIENT_ORIGIN}/reset_password/${token}`,
-            filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
-        }
-        const emailResp = await sendMail(emailContent);
+    try {
+        const data = await common_helper.findOne(user, { "email": req.body.email })
+        if (data.status === 1 && data.data) {
+            res.status(config.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
+        } else {
+            const obj = {
+                fullName: req.body.fullName,
+                email: req.body.email,
+                phone: req.body.phone,
+                password: req.body.password
+            };
+            const register_resp = await common_helper.insert(user, obj);
+            //token generate with user data then send it
+            const token = jwt.sign({ id: register_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+            const emailContent = {
+                to: req.body.email,
+                subject: 'Reset password for Picky pigs',
+                token: `${config.CLIENT_ORIGIN}/reset_password/${token}`,
+                filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
+            }
+            
+            const emailResp = await sendMail(emailContent);
 
-        register_resp.data = {
-            email: register_resp.data.email,
-            fullName: register_resp.data.fullName,
-            phone: register_resp.data.phone,
-            accountType: register_resp.data.accountType,
-            isVerified: register_resp.data.isVerified,
+            register_resp.data = {
+                email: register_resp.data.email,
+                fullName: register_resp.data.fullName,
+                phone: register_resp.data.phone,
+                accountType: register_resp.data.accountType,
+                isVerified: register_resp.data.isVerified,
+            }
+            res.status(config.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id" });
         }
-        res.status(config.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id" });
+    } catch (err) {
+        res.status(config.BAD_REQUEST).json({ status: 0, err: err });
     }
 });
 
@@ -78,7 +83,9 @@ router.post('/verification', async (req, res, next) => {
 router.post('/login', auth.login, validation_response, async (req, res, next) => {
     var user_data = await common_helper.findOne(user, { "email": req.body.email, "accountType": "email" })
     if (user_data.status === 1 && user_data.data) {
-        if (req.body.password === user_data.data.password) {
+
+        const comparePassword = await (bcrypt.compare(req.body.password, user_data.data.password))
+        if (comparePassword === true) {
             if (user_data.data.isVerified) {
                 let token_data = {
                     id: user_data.data._id, email: user_data.data.email,
@@ -94,6 +101,7 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
                 LOGGER.error("Error occured while checking login/verification = ", user_data);
                 return res.status(config.UNAUTHORIZED).json({ message: "Email is not verified.", error: true });
             }
+            
         } else {
             LOGGER.error("invalid password request = ", user_data);
             return res.status(config.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })

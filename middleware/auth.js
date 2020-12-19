@@ -23,7 +23,12 @@ exports.jwtValidation = function (req, res, next) {
 
 exports.authorization = function (req, res, next) {
     if (req.decoded) {
-        if (req.decoded.role == "restaurant_admin" && req.baseUrl.match('/restaurant_admin')) {
+        if (req.decoded.role == "super_admin" && req.baseUrl.match('/super_admin')) {
+            console.log("as a super admin")
+            req.loginUser = req.decoded;
+            next();
+        }
+        else if (req.decoded.role == "restaurant_admin" && req.baseUrl.match('/restaurant_admin')) {
             console.log("as a restaurant admin")
             req.loginUser = req.decoded;
             next();

@@ -24,6 +24,25 @@ let usersSchema = new Schema({
   email: { type: String },
   phone: { type: Number },
   password: { type: String },
+  profileImage: { type: String },
+  dob: { type: Date },
+  address: { type: String },
+  gender: { type: String },
+  myPreferences: {
+    allergenInformation: [{
+      type: Schema.Types.ObjectId,
+      ref: 'allergen'
+    }],
+    dietaryPreferences: [{
+      type: Schema.Types.ObjectId,
+      ref: 'dietary'
+    }],
+    lifestyleChoice: [{
+      type: Schema.Types.ObjectId,
+      ref: 'lifestyle'
+    }],
+    restaurantFeatures: []
+  },
   isVerified: { type: Boolean, default: false },
   accountType: { type: String, enum: ["google", "facebook", "email"], default: "email" },
   googleId: { type: String, default: null },

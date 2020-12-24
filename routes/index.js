@@ -3,7 +3,7 @@ const router = express.Router();
 
 //define methods for routes
 const home = require("./home");
-const list = require("./filteringList/list");
+const list = require("./general/list");
 const auth = require("./auth");
 const verify = require("../middleware/auth");
 const allergen = require("./restaurant_admin/allergen");
@@ -25,23 +25,28 @@ const tabletOrder = require("./tablet/order");
 const super_adminAuth = require("./super_admin/auth");
 const super_adminManage_restaurant = require("./super_admin/manage_restaurant");
 const super_adminManage_user = require("./super_admin/manage_user");
+const kdsOrder = require("./kds/order");
+const front_endHomepage = require("./front_end/homepage");
+const front_endRestaurant = require("./front_end/restaurant");
+const front_endProfile = require("./front_end/profile");
 
 
 //Define routes here f
 router.use("/", home);
 router.use("/list", list);
 router.use("/auth", auth);
+
 //for admin panel
 // router.use("/admin/allergen", verify ,allergen);
 router.use("/restaurant_admin/auth", restaurant_adminAuth);
 router.use("/restaurant_admin/group", masterGroup);
 router.use("/restaurant_admin/supplier", supplier);
-router.use("/restaurant_admin/allergen" ,allergen);
+router.use("/restaurant_admin/allergen", allergen);
 router.use("/restaurant_admin/dietary", dietary);
 router.use("/restaurant_admin/lifestyle", lifestyle);
 router.use("/restaurant_admin/ingredient", ingredient);
 router.use("/restaurant_admin/menus", verify.jwtValidation, verify.authorization, menus);
-router.use("/restaurant_admin/category", verify.jwtValidation, verify.authorization,category);
+router.use("/restaurant_admin/category", verify.jwtValidation, verify.authorization, category);
 router.use("/restaurant_admin/subcategory", verify.jwtValidation, verify.authorization, subcategory);
 router.use("/restaurant_admin/dish", verify.jwtValidation, verify.authorization, dish);
 router.use("/restaurant_admin/fileupload", verify.jwtValidation, verify.authorization, fileupload);
@@ -54,9 +59,20 @@ router.use("/super_admin/manage_restaurant", verify.jwtValidation, verify.author
 router.use("/super_admin/manage_user", verify.jwtValidation, verify.authorization, super_adminManage_user);
 
 
-
+/** Tablet Portal */
 router.use("/tablet/homePage", homePage);
 router.use("/tablet/dish", tabletDish);
 router.use("/tablet/order", tabletOrder);
+
+
+/** KDS Portal */
+router.use("/kds/order", kdsOrder);
+
+
+/** Front-end Portal */
+router.use("/frontend/homePage", front_endHomepage);
+router.use("/frontend/restaurant", front_endRestaurant);
+router.use("/frontend/profile", verify.jwtValidation, verify.authorization, front_endProfile);
+
 
 module.exports = router;

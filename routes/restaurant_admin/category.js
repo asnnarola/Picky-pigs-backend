@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const ObjectId = require('mongodb').ObjectID;
 const common_helper = require('../../helpers/common');
 const config = require('../../config');
 const LOGGER = config.LOGGER;
@@ -11,7 +12,7 @@ const validation = require('../../validation/admin/validation');
 //add category
 router.post('/', validation.category, validation_response, async (req, res, next) => {
 
-    var data = await common_helper.insert(Category, { name: req.body.name, menuId: req.body.menuId });
+    var data = await common_helper.insert(Category, { name: req.body.name, menuId: req.body.menuId, restaurantAdminId: req.loginUser.id });
 
     if (data.status === 1 && data.data) {
         res.status(config.OK_STATUS).json(data);
@@ -32,12 +33,28 @@ router.get('/:id', async (req, res, next) => {
         res.status(config.BAD_REQUEST).json({ ...data, message: "No data found" });
     }
 });
+
+router.post('/menu_categories', async (req, res, next) => {
+    var data = await common_helper.find(Category, { "menuId": {$in: req.body.menuId} })
+    if (data.status === 0) {
+        res.status(config.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
+    }
+
+    if (data.status === 1 && data.data) {
+        res.status(config.OK_STATUS).json(data);
+    } else if (data.data === null) {
+        res.status(config.BAD_REQUEST).json({ ...data, message: "No data found" });
+    }
+});
+
+
 router.post('/list', async (req, res, next) => {
     try {
         let aggregate = [
             {
                 $match: {
-                    "isDeleted": 0
+                    "isDeleted": 0,
+                    // restaurantAdminId: new ObjectId(req.loginUser.id)
                 }
             },
             {
@@ -93,6 +110,7 @@ router.post('/list', async (req, res, next) => {
 
     }
 });
+
 router.put('/:id', async (req, res, next) => {
     var data = await common_helper.update(Category, { "_id": req.params.id }, req.body)
     if (data.status === 0) {
@@ -105,6 +123,7 @@ router.put('/:id', async (req, res, next) => {
         res.status(config.BAD_REQUEST).json({ ...data, message: "No data found" });
     }
 });
+
 router.delete('/:id', async (req, res, next) => {
     var data = await common_helper.softDelete(Category, { "_id": req.params.id })
 

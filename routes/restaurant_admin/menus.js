@@ -73,18 +73,18 @@ router.delete('/:id', async (req, res, next) => {
     }
 });
 // listing api with filter/search/sort
-router.post("/filter", async (req, res) => {
+// router.post("/filter", async (req, res) => {
 
-    var filter_obj = await common_helper.changeObject(req.body)
+//     var filter_obj = await common_helper.changeObject(req.body)
 
-    let filtered_data = await menus_helper.get_filtered_records(filter_obj);
+//     let filtered_data = await menus_helper.get_filtered_records(filter_obj);
 
-    if (filtered_data.status === 0) {
-        return res.status(config.BAD_REQUEST).json(filtered_data);
-    } else {
-        return res.status(config.OK_STATUS).json(filtered_data);
-    }
-});
+//     if (filtered_data.status === 0) {
+//         return res.status(config.BAD_REQUEST).json(filtered_data);
+//     } else {
+//         return res.status(config.OK_STATUS).json(filtered_data);
+//     }
+// });
 
 router.post("/list", async (req, res) => {
     try {

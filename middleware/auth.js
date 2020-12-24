@@ -33,7 +33,7 @@ exports.authorization = function (req, res, next) {
             req.loginUser = req.decoded;
             next();
         }
-        else if (req.decoded.role == "user" && req.baseUrl.match('/user')) {
+        else if (req.decoded.role == "user" && req.baseUrl.match('/frontend')) {
             console.log("as a user")
             req.loginUser = req.decoded;
             next();

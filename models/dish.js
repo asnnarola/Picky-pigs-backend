@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
 let dishSchema = new Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String, required: true },
     makes: { type: Number },
     price: { type: Number },
     grossProfit: { type: Number },

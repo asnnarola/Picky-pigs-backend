@@ -91,7 +91,8 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
                     id: user_data.data._id, email: user_data.data.email,
                     fullName: user_data.data.fullName,
                     accountType: user_data.data.accountType,
-                    isVerified: user_data.data.isVerified
+                    isVerified: user_data.data.isVerified,
+                    role: "user"
                 }
                 var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 

@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 const Menu = require("../../models/menus");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
+const Restaurant_adminModel = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config');
 const LOGGER = config.LOGGER;
@@ -115,9 +116,10 @@ const ingredient_management = require('../../validation/admin/ingredient_managem
 //     }
 // });
 
+
+/**Get category and  subcategory base on the menu*/
 router.post('/list', async (req, res, next) => {
     try {
-        console.log("---", req.body.allergens)
         if (req.body.allergens) {
 
             req.body.allergens = req.body.allergens.map(element => {
@@ -151,38 +153,30 @@ router.post('/list', async (req, res, next) => {
                     foreignField: "subcategoryId",
                     as: "subcategoriesDetail.dishesDetail"
                 }
-            },
-            // {
-            //     $unwind: "$subcategoriesDetail.dishesDetail"
-            // },
-            {
-                $match: {
-                    "subcategoriesDetail.dishesDetail.name": { $eq: "Dish 1" }
-                }
-            },
-            {
-                $group: {
-                    _id: "$_id",
-                    categoryName: { $first: "$name" },
-                    subcategories: { $push: "$subcategoriesDetail" },
-                    // dishesDetail: { $push: "$dishesDetail" }
-                }
-            },
-            // {
-            //     $group: {
-            //         _id: "$_id",
-            //         categoryName: { $push: "$name" },
-            //         subcategoriesDetail: {$push: { $mergeObjects: [ "$subcategories", "$dishesDetail" ] }}
-            //     }
-            // }
+            }
         ];
-
+        if (req.body.search && req.body.search != "") {
+            const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
+            aggregate.push({
+                $match: {
+                    "subcategoriesDetail.dishesDetail.name": RE
+                }
+            });
+        }
+        aggregate.push({
+            $group: {
+                _id: "$_id",
+                categoryName: { $first: "$name" },
+                subcategories: { $push: "$subcategoriesDetail" }
+            }
+        });
         await Category.aggregate(aggregate)
             .then(categoryDetails => {
-                res.status(config.OK_STATUS).json(categoryDetails);
+                res.status(config.OK_STATUS).json({ categoryDetails, message: "get category, subcategory and dishes list successfully" });
             }).catch(error => {
                 console.log(error)
             });
+
     }
     catch (err) {
         console.log("err", err)
@@ -191,6 +185,7 @@ router.post('/list', async (req, res, next) => {
     }
 });
 
+/**Find dish base on the subcategry id */
 router.get('/subcategory_product/:id', async (req, res, next) => {
     try {
 
@@ -246,81 +241,65 @@ router.get('/subcategory_product/:id', async (req, res, next) => {
 });
 
 
-
-
-
-
-
-router.post('/dishfilter', async (req, res, next) => {
+/**Find category of subcategory list */
+router.post('/category_subcategory_list', async (req, res, next) => {
     try {
-        req.body.allergens = req.body.allergens.map(element => {
-            if (element) {
-                element = new ObjectId(element)
-            }
-            return element
-        })
-        req.body.dietaryPreferences = req.body.dietaryPreferences.map(element => {
-            if (element) {
-                element = new ObjectId(element)
-            }
-            return element
-        })
         let aggregate = [
             {
                 $match: {
-                    isDeleted: 0
+                    menuId: new ObjectId(req.body.menuId)
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "_id",
+                    foreignField: "categoryId",
+                    as: "subcategoriesDetail"
+                }
+            },
+
         ];
-        if (req.body.search && req.body.search != "") {
-            const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
 
-            aggregate.push({
-                "$match":
-                    { "name": RE }
-            });
-
-        }
-        if (req.body.menuId && req.body.menuId !== "") {
-            aggregate.push({
-                $match: {
-                    "menuId": new ObjectId(req.body.menuId)
-                }
-            })
-        }
-        if (req.body.allergens && req.body.allergens != "") {
-
-            aggregate.push({
-                "$match":
-                    { "allergenId": { $in: req.body.allergens } }
-            });
-
-        }
-        if (req.body.dietaryPreferences && req.body.dietaryPreferences != "") {
-
-            aggregate.push({
-                "$match":
-                    { "dietaryId": { $in: req.body.dietaryPreferences } }
-            });
-
-        }
-        aggregate.push({
-            $group: {
-                _id: "$categoryId",
-                dishes: { $push: "$$ROOT" }
-            }
-        })
-        await Dish.aggregate(aggregate)
-            .then(dishDetails => {
-                res.status(config.OK_STATUS).json(dishDetails);
+        await Category.aggregate(aggregate)
+            .then(categoryDetails => {
+                res.status(config.OK_STATUS).json({ categoryDetails, message: "category and subcategoris get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(config.BAD_REQUEST).json({ message: "Error into categories listing", error: err });
 
     }
 });
+
+
+
+/**find nearest details */
+router.get('/nearest_location', async (req, res, next) => {
+    try {
+        Restaurant_adminModel.aggregate([{
+            $geoNear: {
+                near: { type: "Point", coordinates: [23.221155, 72.643893] },
+                maxDistance: 300000,
+                distanceField: "dist.calculated",
+                spherical: true,
+                distanceMultiplier: 1/1000
+            }
+        }])
+            .then(list => {
+                res.status(config.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
+            }).catch(err => {
+                console.log("err", err)
+                res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+            })
+    }
+    catch (err) {
+        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+    }
+});
+
+
 module.exports = router;

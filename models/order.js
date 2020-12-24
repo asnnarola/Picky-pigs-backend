@@ -8,7 +8,8 @@ let orderSchema = new Schema({
     orderTaken: { type: String },
     comment: { type: String },
     fullName: { type: String },
-    itemTotal: { type: Number },
+    agreeToContent: { type: Boolean },
+    itemTotalPrice: { type: Number },
     tableNo: { type: Number },
 
     restaurantAdminId: {
@@ -34,6 +35,7 @@ let orderSchema = new Schema({
                 recipeCost: { type: Number },
                 isRemove: { type: Boolean }
             }],
+            dishPrice: { type: Number },
             orderQuantity: { type: Number },
             tableNo: { type: Number },
             covers: { type: Number }

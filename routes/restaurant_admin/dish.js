@@ -10,11 +10,15 @@ const validation_response = require('../../validation/validation_response');
 const validation = require('../../validation/admin/validation');
 
 router.post('/', validation.dish, validation_response, async (req, res, next) => {
-    req.body.adminId = req.loginUser.id;
+    req.body.restaurantAdminId = req.loginUser.id;
+    var duplicate_insert_resp = {};
+    if(req.body.createNewVersion){
+        duplicate_insert_resp = await common_helper.insert(Dish, req.body);
+    }
     const insert_resp = await common_helper.insert(Dish, req.body);
 
     if (insert_resp.status === 1 && insert_resp.data) {
-        res.status(config.OK_STATUS).json(insert_resp);
+        res.status(config.OK_STATUS).json({insert_resp,duplicate_insert_resp});
     } else {
         res.status(config.BAD_REQUEST).json(insert_resp);
     }
@@ -96,6 +100,11 @@ router.post('/list', async (req, res, next) => {
     try {
 
         const aggregate = [
+            // {
+            //     $match:{
+            //         restaurantAdminId: new ObjectId(req.loginUser.id)
+            //     }
+            // },
             {
                 $lookup: {
                     from: "menus",

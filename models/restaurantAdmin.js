@@ -34,8 +34,13 @@ let restaurant_adminSchema = new Schema({
         map: {
             latitude: { type: String },
             longitude: { type: String },
-            coordinates: []  //first latitude, second longitude
+            coordinates: [],  //first latitude, second longitude
+            type: { type: String }
         }
+    },
+    location: {
+        type: { type: String },
+        coordinates: []
     },
     openingTimings: {
         isTime24Hours: { type: Boolean },

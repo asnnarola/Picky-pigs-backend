@@ -12,7 +12,7 @@ const validation = require('../../validation/admin/validation');
 //add subcategory
 router.post('/', validation.subcategory, validation_response, async (req, res, next) => {
 
-    const data = await common_helper.insert(Subcategory, { name: req.body.name, categoryId: req.body.categoryId, adminId: req.loginUser.id, menuId: req.body.menuId });
+    const data = await common_helper.insert(Subcategory, { name: req.body.name, categoryId: req.body.categoryId, restaurantAdminId: req.loginUser.id, menuId: req.body.menuId });
 
     if (data.status === 1 && data.data) {
         res.status(config.OK_STATUS).json(data);
@@ -24,7 +24,7 @@ router.post('/', validation.subcategory, validation_response, async (req, res, n
 
 /**Single category to all subcategory finds */
 router.get('/categoryOfSubcategory/:id', async (req, res, next) => {
-    const data = await common_helper.find(Subcategory, { "categoryId": req.params.id });
+    const data = await common_helper.find(Subcategory, { "categoryId": req.params.id, restaurantAdminId: new ObjectId(req.loginUser.id) });
 
     if (data.status === 1 && data.data) {
         res.status(config.OK_STATUS).json(data);
@@ -61,7 +61,8 @@ router.post("/list", async (req, res) => {
         let aggregate = [
             {
                 $match: {
-                    "isDeleted": 0
+                    "isDeleted": 0,
+                    // restaurantAdminId: new ObjectId(req.loginUser.id)
                 }
             },
             {

@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
+
 const Menu = require("../../models/menus");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
@@ -275,22 +276,122 @@ router.post('/category_subcategory_list', async (req, res, next) => {
     }
 });
 
+/**Find favourite dishes base on the favourite field of the dish */
+router.get('/favourite_dishes', async (req, res, next) => {
+    try {
 
+        let aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+                    favorite: true
+                }
+            }
+        ];
+
+        await Dish.aggregate(aggregate)
+            .then(favouritedishDetails => {
+                res.status(config.OK_STATUS).json({ favouritedishDetails, message: "get favourite dishes listing successfully." });
+            }).catch(error => {
+                console.log(error)
+                res.status(config.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: error });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: err });
+
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Converts degrees to radians.
+ * 
+ * @param degrees Number of degrees.
+ */
+function degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
+}
+
+/**
+ * Returns the distance between 2 points of coordinates in Google Maps
+ * 
+ * @see https://stackoverflow.com/a/1502821/4241030
+ * @param lat1 Latitude of the point A
+ * @param lng1 Longitude of the point A
+ * @param lat2 Latitude of the point B
+ * @param lng2 Longitude of the point B
+ */
+function getDistanceBetweenPoints(lat1, lng1, lat2, lng2) {
+    // The radius of the planet earth in meters
+    let R = 6378137;
+    let dLat = degreesToRadians(lat2 - lat1);
+    let dLong = degreesToRadians(lng2 - lng1);
+    let a = Math.sin(dLat / 2)
+        *
+        Math.sin(dLat / 2)
+        +
+        Math.cos(degreesToRadians(lat1))
+        *
+        Math.cos(degreesToRadians(lat1))
+        *
+        Math.sin(dLong / 2)
+        *
+        Math.sin(dLong / 2);
+
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let distance = R * c;
+
+    return distance;
+}
 
 /**find nearest details */
 router.get('/nearest_location', async (req, res, next) => {
     try {
-        Restaurant_adminModel.aggregate([{
-            $geoNear: {
-                near: { type: "Point", coordinates: [23.221155, 72.643893] },
-                maxDistance: 300000,
-                distanceField: "dist.calculated",
-                spherical: true,
-                distanceMultiplier: 1/1000
-            }
-        }])
-            .then(list => {
-                res.status(config.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
+        // Restaurant_adminModel.aggregate([{
+        //     $geoNear: {
+        //         near: { type: "Point", coordinates: [23.022868, 72.583692] },
+        //         maxDistance: 300000,
+        //         distanceField: "dist.calculated",
+        //         spherical: true,
+        //         distanceMultiplier: 1 / 1000
+        //     }
+        // }])
+        // .then(async list => {
+        //     res.status(config.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
+        // }).catch(err => {
+        //     console.log("err", err)
+        //     res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        // })
+
+        Restaurant_adminModel.find({})
+            .then(async list => {
+                let tempArray = [];
+                for (let singleList of list) {
+                    let distance_resp = await getDistanceBetweenPoints(23.022868, 72.583692, singleList.location.coordinates[0], singleList.location.coordinates[1])
+                    console.log("-----find distance response - ", distance_resp * 0.001, " km");
+                    let temp = Object.assign({}, singleList);
+                    let tempAdminInfo = temp._doc;
+                    tempAdminInfo.distance = distance_resp;
+                    tempArray.push(tempAdminInfo)
+                }
+                tempArray.sort(function (a, b) { return a.distance - b.distance });
+                tempArray.map(element => {
+                    console.log(element.distance)
+                })
+                res.status(config.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
             }).catch(err => {
                 console.log("err", err)
                 res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });

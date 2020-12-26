@@ -51,9 +51,9 @@ let restaurant_adminSchema = new Schema({
                 timeList: [
                     {
                         startTime: { type: String },
-                        startTimeUnit: { type: String },
+                        // startTimeUnit: { type: String },
                         endTime: { type: String },
-                        endTimeUnit: { type: String }
+                        // endTimeUnit: { type: String }
                     }
                 ]
             }
@@ -94,7 +94,7 @@ let restaurant_adminSchema = new Schema({
         restaurantAmbience: [{ url: { type: String } }],
         food: [{ url: { type: String } }],
         videos: [{ url: { type: String } }],
-        images: [{ url: { type: String } }]
+        images: [{ url: { type: String }, type: { type: String, default: "image" } }]
     },
     subscriptionLevel: { type: String },
 
@@ -103,7 +103,6 @@ let restaurant_adminSchema = new Schema({
     phoneNumber: { type: String },
     package: { type: String },
     isAgreeToTerms: { type: Boolean },
-    isDeleted: { type: Number, default: 0 }
 
 },
     {

@@ -76,7 +76,6 @@ router.post('/list', async (req, res, next) => {
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
 
     const update_resp = await common_helper.update(User, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
-    console.log("update_resp : ", update_resp)
     if (update_resp.status === 0) {
         res.status(config.BAD_REQUEST).json({ status: 0, message: "Error occured while update password" });
     } else {

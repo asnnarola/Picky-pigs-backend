@@ -4750,3 +4750,612 @@
     loc: { type: 'Point', coordinates: [Array] }
   }
 }
+[2020-12-24T09:33:26.486] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:35:29.000] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:36:00.355] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:36:14.033] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:36:31.431] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:38:20.968] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:48:41.331] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:50:23.178] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:51:23.576] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T09:53:23.523] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: { cuisineType: [], restaurantFeaturesOptions: [Array] },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T14:45:44.029] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T15:13:23.443] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 420,
+      cuisineType: [],
+      restaurantFeaturesOptions: [Array]
+    },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    loc: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-24T17:09:33.928] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'my first name',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$Zz4E/4MlKozSiXFK77LMRuxxHsLNMwFlrcjz9CGa1w84wg7Qm9ROC',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-22T06:01:48.693Z,
+    __v: 0,
+    address: 'gujarat, india',
+    dob: 2020-12-22T00:00:00.000Z,
+    gender: 'male',
+    profileImage: 'http://image.jpg',
+    myPreferences: {
+      allergenInformation: [Array],
+      dietaryPreferences: [Array],
+      lifestyleChoice: [Array],
+      restaurantFeatures: [Array]
+    }
+  }
+}
+[2020-12-24T17:10:05.383] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:10:08.803] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:10:12.097] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:10:19.159] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:10:22.959] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:10:28.138] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fd9da26e5c5b01f203a6efb,
+    isVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'drl',
+    email: 'drl@narola.email',
+    phone: 1234567891,
+    password: 'Drl@narola1',
+    createdAt: 2020-12-16T09:57:58.983Z,
+    updatedAt: 2020-12-16T09:57:58.983Z,
+    __v: 0
+  }
+}
+[2020-12-24T17:11:02.518] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'my first name',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$nRYRM0QHrVVhnyiD6DoayeLBX0.NuM/Y..eet98WHVvVnI3imEuSq',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-24T11:40:43.344Z,
+    __v: 0,
+    address: 'gujarat, india',
+    dob: 2020-12-22T00:00:00.000Z,
+    gender: 'male',
+    profileImage: 'http://image.jpg',
+    myPreferences: {
+      allergenInformation: [Array],
+      dietaryPreferences: [Array],
+      lifestyleChoice: [Array],
+      restaurantFeatures: [Array]
+    }
+  }
+}
+[2020-12-24T17:12:21.080] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc5ba6b5de6b42c80ecaec,
+    isVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    fullName: 'my first name',
+    email: 'rakesh3@narola.email',
+    phone: 1234567891,
+    password: '$2b$10$Qv41muTmOUaWMD3XKwBcjuPnzFZjMOecqWjqRbWNG.8jhjxYGVKdS',
+    createdAt: 2020-12-18T07:35:02.940Z,
+    updatedAt: 2020-12-24T11:42:12.316Z,
+    __v: 0,
+    address: 'gujarat, india',
+    dob: 2020-12-22T00:00:00.000Z,
+    gender: 'male',
+    profileImage: 'http://image.jpg',
+    myPreferences: {
+      allergenInformation: [Array],
+      dietaryPreferences: [Array],
+      lifestyleChoice: [Array],
+      restaurantFeatures: [Array]
+    }
+  }
+}
+[2020-12-25T10:00:10.008] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 420,
+      cuisineType: [],
+      restaurantFeaturesOptions: [Array]
+    },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    location: { type: 'Point', coordinates: [Array] }
+  }
+}
+[2020-12-26T10:30:36.810] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: false,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      map: [Object],
+      type: 'Point',
+      addLocationMap: false,
+      shareLocationOption: false,
+      getDirectionOption: false
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 420,
+      cuisineType: [],
+      restaurantFeaturesOptions: [Array]
+    },
+    galleryImages: { restaurantAmbience: [], food: [], videos: [], images: [] },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$dDwrGGy1W4NOssn5WmXxAeQhCmcWCpedT1dR6tnzaQTmqkbroKtlG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-18T10:30:50.531Z,
+    __v: 0,
+    name: 'New delhi',
+    location: { type: 'Point', coordinates: [Array] }
+  }
+}

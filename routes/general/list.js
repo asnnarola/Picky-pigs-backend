@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 const allergen = require("../../models/allergen");
 const dietary = require("../../models/dietary");
 const lifestyle = require("../../models/lifestyle");
+const Menu = require("../../models/menus");
 const Dish = require("../../models/dish");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
@@ -118,9 +119,16 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
+function average(array) {
+    if (array.length === 1) {
+        return array[0].rate;
+    } else {
+        return array.reduce((acc, next) => acc.rate + next.rate) / array.length;
+    }
+}
 
-/*Get single single restaurant all review**/
-router.get('/restaurant/:id', async (req, res, next) => {
+/*Get single restaurant all review**/
+router.get('/restaurant_review/:id', async (req, res, next) => {
     try {
         let aggregate = [
             {
@@ -141,8 +149,11 @@ router.get('/restaurant/:id', async (req, res, next) => {
             }
         ];
         await Review.aggregate(aggregate)
-            .then(reviewDetails => {
-                res.status(config.OK_STATUS).json({reviewDetails,message: "get restaurant review listing successfully."});
+            .then(async reviewDetails => {
+                if (reviewDetails.length > 0) {
+                    var avgRating = await average(reviewDetails);
+                }
+                res.status(config.OK_STATUS).json({ avgRating, reviewDetails, message: "get restaurant review listing successfully." });
             }).catch(error => {
                 console.log(error)
                 res.status(config.BAD_REQUEST).json({ message: "Error into restaurant review listing", error: error });
@@ -154,4 +165,30 @@ router.get('/restaurant/:id', async (req, res, next) => {
 
     }
 });
+
+/*Get single restaurant all menus**/
+router.get('/restaurant_menus/:id', async (req, res, next) => {
+    try {
+        let aggregate = [
+            {
+                $match: {
+                    restaurantAdminId: new ObjectId(req.params.id)
+                }
+            }
+        ];
+        await Menu.aggregate(aggregate)
+            .then(menuList => {
+                res.status(config.OK_STATUS).json({ menuList, message: "get restaurant menu listing successfully." });
+            }).catch(error => {
+                console.log(error)
+                res.status(config.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: error });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: err });
+
+    }
+});
+
 module.exports = router;

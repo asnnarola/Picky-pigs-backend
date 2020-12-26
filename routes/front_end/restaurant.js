@@ -5,6 +5,7 @@ const moment = require('moment');
 const Menu = require("../../models/menus");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
+const Order = require("../../models/order");
 const Cart = require("../../models/cart");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
@@ -41,8 +42,24 @@ router.get('/info/:id', async (req, res, next) => {
 
 
 /**Find base on menu category to subcategory to dishes details */
+/**Dishes filter and sort from frontend side */
 router.post('/category_subcategory_dishes', async (req, res, next) => {
     try {
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
         let aggregate = [
             {
                 $match: {
@@ -77,6 +94,27 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 }
             });
         }
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            aggregate.push({
+                "$match":
+                    { "subcategoriesDetail.dishesDetail.allergenId": { $in: req.body.allergen } }
+            });
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            aggregate.push({
+                "$match":
+                    { "subcategoriesDetail.dishesDetail.dietaryId": { $in: req.body.dietary } }
+            });
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            aggregate.push({
+                "$match":
+                    { "subcategoriesDetail.dishesDetail.lifestyleId": { $in: req.body.lifestyle } }
+            });
+        }
+
+
+
         aggregate.push({
             $group: {
                 _id: "$_id",
@@ -84,9 +122,24 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 subcategories: { $push: "$subcategoriesDetail" }
             }
         });
+
+        const totalCount = await Category.aggregate(aggregate)
+        if (req.body.start) {
+
+            aggregate.push({
+                "$skip": req.body.start
+            });
+
+        }
+        if (req.body.length) {
+            aggregate.push({
+                "$limit": req.body.length
+            });
+        }
+
         await Category.aggregate(aggregate)
             .then(categoryDetails => {
-                res.status(config.OK_STATUS).json({ categoryDetails, message: "get category, subcategory and dishes list successfully" });
+                res.status(config.OK_STATUS).json({ categoryDetails, totalCount: totalCount.length, message: "get category, subcategory and dishes list successfully" });
             }).catch(error => {
                 console.log(error)
             });
@@ -120,6 +173,49 @@ router.get('/dish_info/:id', async (req, res, next) => {
     catch (err) {
         console.log("err", err)
         res.status(config.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
+
+    }
+});
+
+/**Top pick dishes list into restaurant menu page */
+router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
+    try {
+        let aggregate = [
+            {
+                $match: {
+                    restaurantAdminId: new ObjectId(req.body.restaurantAdminId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "orders",
+                    localField: "_id",
+                    foreignField: "dishes.dishId",
+                    as: "ordersDetail"
+                }
+            },
+            {
+                $project: {
+                    dishDetail: "$$ROOT",
+                    orderDetail: { $size: "$ordersDetail" }
+                }
+            },
+            {
+                $sort:{
+                    orderDetail: -1
+                }
+            }
+        ];
+        await Dish.aggregate(aggregate)
+            .then(dishList => {
+                res.status(config.OK_STATUS).json({ dishList, message: "Dish list get successfully" });
+            }).catch(error => {
+                res.status(config.BAD_REQUEST).json({ message: "Error while Dish list get", error: error });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error while Dish list get", error: err });
 
     }
 });

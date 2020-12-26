@@ -49,7 +49,7 @@ router.use("/restaurant_admin/menus", verify.jwtValidation, verify.authorization
 router.use("/restaurant_admin/category", verify.jwtValidation, verify.authorization, category);
 router.use("/restaurant_admin/subcategory", verify.jwtValidation, verify.authorization, subcategory);
 router.use("/restaurant_admin/dish", verify.jwtValidation, verify.authorization, dish);
-router.use("/restaurant_admin/fileupload", verify.jwtValidation, verify.authorization, fileupload);
+router.use("/restaurant_admin/fileupload", fileupload);
 router.use("/restaurant_admin/settings", verify.jwtValidation, verify.authorization, settings);
 
 

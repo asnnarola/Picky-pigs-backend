@@ -14,6 +14,115 @@ const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
 const ingredient_management = require('../../validation/admin/ingredient_management');
 
+/**Home page restaurant based on subscription and then time of day */
+router.post('/homepage_restaurant', async (req, res, next) => {
+    try {
+
+        console.log("---", moment().format("hh:mm a"))
+        let aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+                }
+            },
+            {
+                $unwind: "$openingTimings.time"
+            },
+            {
+                $match: {
+                    "openingTimings.time.day": moment().format("dddd"),
+
+                    /**Start time validation */
+                    'openingTimings.time.timeList.startTime': { $lt: moment().format("hh:mm") },
+                    'openingTimings.time.timeList.startTimeUnit': moment().format("a"),
+
+                    /**End time validation */
+                    'openingTimings.time.timeList.endTime': { $gt: moment().format("hh:mm") },
+                    'openingTimings.time.timeList.endTimeUnit': moment().format("a")
+                }
+            }
+        ];
+        const totalCount = await RestaurantAdmin.aggregate(aggregate)
+        if (req.body.start) {
+            aggregate.push({
+                "$skip": req.body.start
+            });
+        }
+        if (req.body.length) {
+            aggregate.push({
+                "$limit": req.body.length
+            });
+        }
+
+        await RestaurantAdmin.aggregate(aggregate)
+            .then(restaurantList => {
+                res.status(config.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+            }).catch(error => {
+                console.log(error)
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+
+    }
+});
+
+/**Home page restaurant based on subscription and then time of day */
+router.post('/homepage_dishes', async (req, res, next) => {
+    try {
+        let aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+                    menuId: new ObjectId(req.body.menuId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menusDetail"
+                }
+            },
+            {
+                $match: {
+                    "menusDetail.availability.day": moment().format("dddd"),
+
+                    /**Start time validation */
+                    'menusDetail.timeFrom': { $lt: moment().format("HH:mm") },
+
+                    // /**End time validation */
+                    'menusDetail.timeTo': { $gt: moment().format("HH:mm") },
+                }
+            }
+        ];
+        const totalCount = await Dish.aggregate(aggregate)
+        if (req.body.start) {
+            aggregate.push({
+                "$skip": req.body.start
+            });
+        }
+        if (req.body.length) {
+            aggregate.push({
+                "$limit": req.body.length
+            });
+        }
+
+        await Dish.aggregate(aggregate)
+            .then(dishesList => {
+                res.status(config.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
+            }).catch(error => {
+                res.status(config.BAD_REQUEST).json({ message: "Error while get dishes list", error: err });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+
+    }
+});
 
 /**page no 3 */
 router.post('/restaurantlist', async (req, res, next) => {
@@ -121,6 +230,14 @@ router.post('/restaurantlist', async (req, res, next) => {
             },
             {
                 $unwind: "$restaurant_adminDetail"
+            },
+            {
+                $lookup: {
+                    from: "reviews",
+                    localField: "restaurant_adminDetail._id",
+                    foreignField: "restaurantAdminId",
+                    as: "restaurant_adminDetail.reviewDetail"
+                }
             }
         ];
         if (req.body.search && req.body.search != "") {
@@ -165,11 +282,25 @@ router.post('/restaurantlist', async (req, res, next) => {
                     { "lifestyleId": { $in: req.body.lifestyle } }
             });
         }
+
+        aggregate.push({
+            $group: {
+                _id: "$restaurant_adminDetail._id",
+                restaurantDetail: { $first: "$restaurant_adminDetail" }
+            }
+        });
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                restaurantDetail: "$restaurantDetail",
+                restaurantRate: { $avg: "$restaurantDetail.reviewDetail.rate" }
+            }
+        });
         if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
 
             aggregate.push({
                 "$sort":
-                    { "restaurant_adminDetail.restaurantFeatures.averageCostOfTwoPerson": 1 }
+                    { "restaurantDetail.restaurantFeatures.averageCostOfTwoPerson": 1 }
             });
 
         }
@@ -177,17 +308,19 @@ router.post('/restaurantlist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "restaurant_adminDetail.restaurantFeatures.averageCostOfTwoPerson": -1 }
+                    { "restaurantDetail.restaurantFeatures.averageCostOfTwoPerson": -1 }
             });
 
         }
-        aggregate.push({
-            $group: {
-                _id: "$restaurant_adminDetail._id",
-                restaurantDetail: { $first: "$restaurant_adminDetail" }
-            }
-        });
-        const totalCount = await RestaurantAdmin.aggregate(aggregate)
+        if (req.body.sort && req.body.sort.popularity && req.body.sort.popularity == "h2l") {
+
+            aggregate.push({
+                "$sort":
+                    { "restaurantRate": -1 }
+            });
+
+        }
+        const totalCount = await Dish.aggregate(aggregate)
         if (req.body.start) {
 
             aggregate.push({

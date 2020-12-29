@@ -7,7 +7,7 @@ const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const Restaurant_adminModel = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -305,35 +305,10 @@ router.get('/favourite_dishes', async (req, res, next) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-/**
- * Converts degrees to radians.
- * 
- * @param degrees Number of degrees.
- */
 function degreesToRadians(degrees) {
     return degrees * Math.PI / 180;
 }
 
-/**
- * Returns the distance between 2 points of coordinates in Google Maps
- * 
- * @see https://stackoverflow.com/a/1502821/4241030
- * @param lat1 Latitude of the point A
- * @param lng1 Longitude of the point A
- * @param lat2 Latitude of the point B
- * @param lng2 Longitude of the point B
- */
 function getDistanceBetweenPoints(lat1, lng1, lat2, lng2) {
     // The radius of the planet earth in meters
     let R = 6378137;
@@ -381,7 +356,6 @@ router.get('/nearest_location', async (req, res, next) => {
                 let tempArray = [];
                 for (let singleList of list) {
                     let distance_resp = await getDistanceBetweenPoints(23.022868, 72.583692, singleList.location.coordinates[0], singleList.location.coordinates[1])
-                    console.log("-----find distance response - ", distance_resp * 0.001, " km");
                     let temp = Object.assign({}, singleList);
                     let tempAdminInfo = temp._doc;
                     tempAdminInfo.distance = distance_resp;

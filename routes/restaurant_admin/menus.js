@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
+const ObjectId = require('mongodb').ObjectID;
 const common_helper = require('../../helpers/common');
 const menus_helper = require('../../helpers/menu');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
 const Menus = require('../../models/menus');
+const Category = require('../../models/category');
 const validation = require('../../validation/admin/validation');
 const { aggregate } = require('../../models/menus');
 
@@ -149,5 +151,69 @@ router.post("/list", async (req, res) => {
     }
 });
 
+/**single menu to Find category to subcategory to dishes details */
+router.post('/category_subcategory_dishes', async (req, res, next) => {
+    try {
+        let aggregate = [
+            {
+                $match: {
+                    menuId: new ObjectId(req.body.menuId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "_id",
+                    foreignField: "categoryId",
+                    as: "subcategoriesDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoriesDetail"
+            },
+            {
+                $lookup: {
+                    from: "dishes",
+                    localField: "subcategoriesDetail._id",
+                    foreignField: "subcategoryId",
+                    as: "subcategoriesDetail.dishesDetail"
+                }
+            }
+        ];
+        aggregate.push({
+            $group: {
+                _id: "$_id",
+                categoryName: { $first: "$name" },
+                subcategories: { $push: "$subcategoriesDetail" }
+            }
+        });
+
+        const totalCount = await Category.aggregate(aggregate)
+        if (req.body.start) {
+
+            aggregate.push({
+                "$skip": req.body.start
+            });
+
+        }
+        if (req.body.length) {
+            aggregate.push({
+                "$limit": req.body.length
+            });
+        }
+
+        await Category.aggregate(aggregate)
+            .then(categoryDetails => {
+                res.status(config.OK_STATUS).json({ categoryDetails, totalCount: totalCount.length, message: "get category, subcategory and dishes list successfully" });
+            }).catch(error => {
+                res.status(config.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: error });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(config.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: err });
+
+    }
+});
 
 module.exports = router;

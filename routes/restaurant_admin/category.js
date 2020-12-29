@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const Category = require('../../models/category');
@@ -54,7 +54,7 @@ router.post('/list', async (req, res, next) => {
             {
                 $match: {
                     "isDeleted": 0,
-                    // restaurantAdminId: new ObjectId(req.loginUser.id)
+                    restaurantAdminId: new ObjectId(req.loginUser.id)
                 }
             },
             {
@@ -126,6 +126,7 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
     var data = await common_helper.softDelete(Category, { "_id": req.params.id })
+    // var data = await common_helper.delete(Category, { "_id": req.params.id })
 
     if (data.status === 0) {
         res.status(config.BAD_REQUEST).json({ ...data, message: "Invalid request !" });

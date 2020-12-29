@@ -8,17 +8,18 @@ const Dish = require("../../models/dish");
 const Cart = require("../../models/cart");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
 const ingredient_management = require('../../validation/admin/ingredient_management');
+var sendMail = require("../../mails/sendMail");
+
 
 /**Home page restaurant based on subscription and then time of day */
 router.post('/homepage_restaurant', async (req, res, next) => {
     try {
 
-        console.log("---", moment().format("hh:mm a"))
         let aggregate = [
             {
                 $match: {
@@ -62,7 +63,6 @@ router.post('/homepage_restaurant', async (req, res, next) => {
             });
     }
     catch (err) {
-        console.log("err", err)
         res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
@@ -118,8 +118,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
             });
     }
     catch (err) {
-        console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(config.BAD_REQUEST).json({ message: "Error while get Dishes list", error: err });
 
     }
 });
@@ -127,77 +126,6 @@ router.post('/homepage_dishes', async (req, res, next) => {
 /**page no 3 */
 router.post('/restaurantlist', async (req, res, next) => {
     try {
-        // let aggregate = [
-        //     {
-        //         $match: {
-        //             isDeleted: 0,
-        //         }
-        //     },
-        //     {
-        //         $sort: {
-        //             _id: 1
-        //         }
-        //     }
-        // ];
-        // if (req.body.search && req.body.search != "") {
-        //     const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
-
-        //     aggregate.push({
-        //         "$match":
-        //             { "name": RE }
-        //     });
-
-        // }
-        // /**If need to filter today day with restaurant open day */
-        // if (req.body.openingTimings && req.body.openingTimings.length > 0) {
-        //     aggregate.push({
-        //         "$match":
-        //             { "openingTimings.time.day": moment().format("dddd") }
-        //     });
-        // }
-        // if (req.body.features && req.body.features.length > 0) {
-
-        //     aggregate.push({
-        //         "$match":
-        //             { "restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
-        //     });
-
-        // }
-        // if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
-
-        //     aggregate.push({
-        //         "$sort":
-        //             { "restaurantFeatures.averageCostOfTwoPerson": 1 }
-        //     });
-
-        // }
-        // if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
-
-        //     aggregate.push({
-        //         "$sort":
-        //             { "restaurantFeatures.averageCostOfTwoPerson": -1 }
-        //     });
-
-        // }
-        // const totalCount = await RestaurantAdmin.aggregate(aggregate)
-        // if (req.body.start) {
-
-        //     aggregate.push({
-        //         "$skip": req.body.start
-        //     });
-
-        // }
-        // if (req.body.length) {
-        //     aggregate.push({
-        //         "$limit": req.body.length
-        //     });
-        // }
-        // await RestaurantAdmin.aggregate(aggregate)
-        //     .then(restaurantList => {
-        //         res.status(config.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
-        //     }).catch(error => {
-        //         console.log(error)
-        //     });
 
         if (req.body.allergen && req.body.allergen.length > 0) {
             req.body.allergen = req.body.allergen.map((element) => {
@@ -245,7 +173,12 @@ router.post('/restaurantlist', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.name": RE }
+                {
+                    $or: [
+                        { "restaurant_adminDetail.name": RE },
+                        { "restaurantFeatures.cuisineType": RE }
+                    ]
+                }
             });
 
         }
@@ -386,13 +319,17 @@ router.post('/disheslist', async (req, res, next) => {
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
-
             aggregate.push({
                 "$match":
-                    { "name": RE }
+                {
+                    $or: [
+                        { "name": RE },
+                        { "itemSection.item.name": RE }
+                    ]
+                }
             });
-
         }
+
         if (req.body.features && req.body.features.length > 0) {
 
             aggregate.push({
@@ -461,11 +398,32 @@ router.post('/disheslist', async (req, res, next) => {
             });
     }
     catch (err) {
-        console.log("err", err)
         res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
 
+router.post('/join_us', async (req, res, next) => {
+    try {
+        const obj = {
+            name: req.body.name,
+            message: req.body.message,
+            email: req.body.email,
+            phoneNumber: req.body.phoneNumber
+        }
+        const emailContent = {
+            to: "drl@narola.email",
+            subject: 'Join us of Picky pigs',
+            obj: obj,
+            filePath: "./views/frontend/join_us.ejs"
+        }
 
+        const emailResp = await sendMail(emailContent);
+        res.status(config.OK_STATUS).json({ message: "join us successfully", data: emailResp });
+    }
+    catch (err) {
+        res.status(config.BAD_REQUEST).json({ message: "Error while join us", error: err });
+
+    }
+})
 module.exports = router;

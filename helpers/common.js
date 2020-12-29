@@ -1,5 +1,5 @@
-const constant = require("../constants");
-const config = require("../config");
+const constant = require("../config/constants");
+const config = require("../config/config");
 const fs = require("fs");
 const async = require("async");
 const jwt = require('jsonwebtoken');

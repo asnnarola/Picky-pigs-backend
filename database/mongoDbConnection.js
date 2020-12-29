@@ -1,7 +1,7 @@
 //Import the mongoose module
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-var config = require("../config");
+var config = require("../config/config");
 
 //Set up default mongoose connection
 var mongoDB = config.DATABASE;

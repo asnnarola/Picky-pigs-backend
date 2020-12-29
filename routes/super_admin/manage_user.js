@@ -7,7 +7,7 @@ const { Parser } = require('json2csv');
 
 const User = require("../../models/users");
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const manage_module = require('../../validation/admin/manage_module');
 const validation_response = require('../../validation/validation_response');

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 
 
 router.post('/upload_image', async function (req, res, next) {

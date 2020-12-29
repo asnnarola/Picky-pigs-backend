@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const Subcategory = require('../../models/subcategory');
@@ -62,7 +62,7 @@ router.post("/list", async (req, res) => {
             {
                 $match: {
                     "isDeleted": 0,
-                    // restaurantAdminId: new ObjectId(req.loginUser.id)
+                    restaurantAdminId: new ObjectId(req.loginUser.id)
                 }
             },
             {
@@ -120,6 +120,7 @@ router.post("/list", async (req, res) => {
 
 router.delete('/:id', async (req, res, next) => {
     const data = await common_helper.softDelete(Subcategory, { "_id": req.params.id })
+    // const data = await common_helper.delete(Subcategory, { "_id": req.params.id })
 
 
     if (data.status === 1 && data.data) {

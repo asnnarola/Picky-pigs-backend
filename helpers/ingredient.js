@@ -1,10 +1,5 @@
-const constant = require("../constants");
 const ingredient = require("../models/ingredient");
-const config = require("../config");
-const fs = require("fs");
-const async = require("async");
-const jwt = require('jsonwebtoken');
-const { log } = require("debug");
+
 const ingredient_helper = {};
 
 ingredient_helper.get_filtered_records = async (filter_object) => {

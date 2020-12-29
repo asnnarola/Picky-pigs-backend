@@ -4,7 +4,7 @@ const router = express.Router();
 //define methods for routes
 const home = require("./home");
 const list = require("./general/list");
-const auth = require("./auth");
+const front_endAuth = require("./front_end/auth");
 const verify = require("../middleware/auth");
 const allergen = require("./restaurant_admin/allergen");
 const dietary = require("./restaurant_admin/dietary");
@@ -29,12 +29,13 @@ const kdsOrder = require("./kds/order");
 const front_endHomepage = require("./front_end/homepage");
 const front_endRestaurant = require("./front_end/restaurant");
 const front_endProfile = require("./front_end/profile");
+const restaurant_adminDashboard = require("./restaurant_admin/dashboard");
 
 
 //Define routes here f
 router.use("/", home);
 router.use("/list", list);
-router.use("/auth", auth);
+router.use("/auth", front_endAuth);
 
 //for admin panel
 // router.use("/admin/allergen", verify ,allergen);
@@ -51,6 +52,7 @@ router.use("/restaurant_admin/subcategory", verify.jwtValidation, verify.authori
 router.use("/restaurant_admin/dish", verify.jwtValidation, verify.authorization, dish);
 router.use("/restaurant_admin/fileupload", fileupload);
 router.use("/restaurant_admin/settings", verify.jwtValidation, verify.authorization, settings);
+router.use("/restaurant_admin/dashboard", verify.jwtValidation, verify.authorization, restaurant_adminDashboard);
 
 
 /** Super admin */

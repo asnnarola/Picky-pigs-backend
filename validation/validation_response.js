@@ -1,4 +1,4 @@
-const config = require("../config");
+const config = require("../config/config");
 const { validationResult } = require('express-validator');
 
 module.exports = function (req, res, next) {

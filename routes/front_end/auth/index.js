@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 var jwt = require("jsonwebtoken")
 var bcrypt = require("bcrypt")
-var user = require("../../models/users");
-var sendMail = require("../../mails/sendMail");
-var template = require("../../mails/template");
-const common_helper = require('../../helpers/common');
-const config = require('../../config');
+var user = require("../../../models/users");
+var sendMail = require("../../../mails/sendMail");
+var template = require("../../../mails/template");
+const common_helper = require('../../../helpers/common');
+const config = require('../../../config/config');
 const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
-const validation_response = require('../../validation/validation_response');
+const auth = require('../../../validation/auth');
+const validation_response = require('../../../validation/validation_response');
 
 
 //signup
@@ -126,7 +126,8 @@ router.post('/google', async (req, res, next) => {
         };
         var user_resp = await common_helper.update(user, { "googleId": user_data.data.googleId }, obj)
         let token_data = {
-            id: user_resp.data.googleId,
+            id: user_resp.data._id,
+            sociaId: user_resp.data.googleId,
             email: user_resp.data.email,
             fullName: user_resp.data.fullName,
             accountType: user_resp.data.accountType,
@@ -145,7 +146,8 @@ router.post('/google', async (req, res, next) => {
         };
         var user_resp = await common_helper.insert(user, obj);
         let token_data = {
-            id: user_resp.data.googleId,
+            id: user_resp.data._id,
+            sociaId: user_resp.data.googleId,
             email: user_resp.data.email,
             fullName: user_resp.data.fullName,
             accountType: user_resp.data.accountType,
@@ -168,7 +170,8 @@ router.post('/facebook', async (req, res, next) => {
         };
         var user_resp = await common_helper.update(user, { "facebookId": user_data.data.facebookId }, obj)
         let token_data = {
-            id: user_resp.data.facebookId,
+            id: user_resp.data._id,
+            sociaId: user_resp.data.facebookId,
             email: user_resp.data.email,
             fullName: user_resp.data.fullName,
             accountType: user_resp.data.accountType,
@@ -188,7 +191,8 @@ router.post('/facebook', async (req, res, next) => {
         var user_resp = await common_helper.insert(user, obj);
         //token generate with user data then send it
         let token_data = {
-            id: user_resp.data.facebookId,
+            id: user_resp.data._id,
+            sociaId: user_resp.data.facebookId,
             email: user_resp.data.email,
             fullName: user_resp.data.fullName,
             accountType: user_resp.data.accountType,

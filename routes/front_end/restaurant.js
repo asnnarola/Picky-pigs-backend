@@ -9,7 +9,7 @@ const Order = require("../../models/order");
 const Cart = require("../../models/cart");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -84,6 +84,9 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                     foreignField: "subcategoryId",
                     as: "subcategoriesDetail.dishesDetail"
                 }
+            },
+            {
+                $unwind:"$subcategoriesDetail.dishesDetail"
             }
         ];
         if (req.body.search && req.body.search != "") {
@@ -123,6 +126,7 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             }
         });
 
+        
         const totalCount = await Category.aggregate(aggregate)
         if (req.body.start) {
 
@@ -201,7 +205,7 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
                 }
             },
             {
-                $sort:{
+                $sort: {
                     orderDetail: -1
                 }
             }

@@ -8,7 +8,7 @@ const Menu = require("../../models/menus");
 const Dish = require("../../models/dish");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
-const config = require('../../config');
+const config = require('../../config/config');
 const LOGGER = config.LOGGER;
 
 

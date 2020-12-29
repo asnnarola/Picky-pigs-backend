@@ -8,114 +8,11 @@ const Dish = require("../../models/dish");
 const Restaurant_adminModel = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
 const ingredient_management = require('../../validation/admin/ingredient_management');
-
-// router.post('/list', async (req, res, next) => {
-//     try {
-//         console.log("---", req.body.allergens)
-//         if(req.body.allergens){
-
-//             req.body.allergens = req.body.allergens.map(element => {
-//                 if (element) {
-//                     element = new ObjectId(element)
-//                 }
-//                 return element
-//             })
-//         }
-//         let aggregate = [
-//             {
-//                 $match: {
-//                     _id: new ObjectId(req.body.menuId)
-//                 }
-//             },
-//             {
-//                 $lookup: {
-//                     from: "categories",
-//                     localField: "_id",
-//                     foreignField: "menuId",
-//                     as: "categoriesDetail"
-//                 }
-//             },
-//             {
-//                 $unwind: "$categoriesDetail"
-//             },
-//             {
-//                 $lookup: {
-//                     from: "subcategories",
-//                     localField: "categoriesDetail._id",
-//                     foreignField: "categoryId",
-//                     as: "categoriesDetail.subcategoriesDetail"
-//                 }
-//             },
-//             {
-//                 $unwind: "$categoriesDetail.subcategoriesDetail"
-//             },
-//             // {
-//             //     $lookup: {
-//             //         from: "dishes",
-//             //         localField: "categoriesDetail.subcategoriesDetail._id",
-//             //         foreignField: "subcategoryId",
-//             //         as: "categoriesDetail.subcategoriesDetail.dishesDetail"
-//             //     }
-//             // },
-//             {
-//                 $group: {
-//                     _id: "$categoriesDetail._id",
-//                     categoryName: { $first: "$categoriesDetail.name" },
-//                     "subcategorisDetail": { "$push": "$categoriesDetail.subcategoriesDetail" }
-//                 }
-//             },
-//         ];
-
-//         // if (req.body.allergens && req.body.allergens != "") {
-
-//         //     aggregate.push({
-//         //         "$match":
-//         //             { "subcategorisDetail.dishesDetail.allergenId": { $in: req.body.allergens } }
-//         //     });
-
-//         // }
-
-//         if (req.body.search && req.body.search != "") {
-//             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
-
-//             aggregate.push({
-//                 "$match":
-//                     { "name": RE }
-//             });
-
-//         }
-
-//         const totalCount = await Menu.aggregate(aggregate)
-//         if (req.body.start) {
-
-//             aggregate.push({
-//                 "$skip": req.body.start
-//             });
-
-//         }
-
-//         if (req.body.length) {
-//             aggregate.push({
-//                 "$limit": req.body.length
-//             });
-//         }
-//         await Menu.aggregate(aggregate)
-//             .then(dishDetails => {
-//                 res.status(config.OK_STATUS).json({ dishDetails, totalCount: totalCount.length });
-//             }).catch(error => {
-//                 console.log(error)
-//             });
-//     }
-//     catch (err) {
-//         console.log("err", err)
-//         res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
-
-//     }
-// });
 
 
 /**Get category and  subcategory base on the menu*/
@@ -173,7 +70,7 @@ router.post('/list', async (req, res, next) => {
         });
         await Category.aggregate(aggregate)
             .then(categoryDetails => {
-                res.status(config.OK_STATUS).json({ categoryDetails, message: "get category, subcategory and dishes list successfully" });
+                res.status(constants.OK_STATUS).json({ categoryDetails, message: "get category, subcategory and dishes list successfully" });
             }).catch(error => {
                 console.log(error)
             });
@@ -181,7 +78,7 @@ router.post('/list', async (req, res, next) => {
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into categories listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into categories listing", error: err });
 
     }
 });
@@ -229,14 +126,14 @@ router.get('/subcategory_product/:id', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json(dishDetails);
+                res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
 
     }
 });
@@ -248,6 +145,7 @@ router.post('/category_subcategory_list', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
+                    isDeleted: 0,
                     menuId: new ObjectId(req.body.menuId)
                 }
             },
@@ -264,14 +162,14 @@ router.post('/category_subcategory_list', async (req, res, next) => {
 
         await Category.aggregate(aggregate)
             .then(categoryDetails => {
-                res.status(config.OK_STATUS).json({ categoryDetails, message: "category and subcategoris get successfully." });
+                res.status(constants.OK_STATUS).json({ categoryDetails, message: "category and subcategoris get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into categories listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into categories listing", error: err });
 
     }
 });
@@ -291,15 +189,15 @@ router.get('/favourite_dishes', async (req, res, next) => {
 
         await Dish.aggregate(aggregate)
             .then(favouritedishDetails => {
-                res.status(config.OK_STATUS).json({ favouritedishDetails, message: "get favourite dishes listing successfully." });
+                res.status(constants.OK_STATUS).json({ favouritedishDetails, message: "get favourite dishes listing successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(config.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into favourite dishes listing", error: err });
 
     }
 });
@@ -345,10 +243,10 @@ router.get('/nearest_location', async (req, res, next) => {
         //     }
         // }])
         // .then(async list => {
-        //     res.status(config.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
+        //     res.status(constants.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
         // }).catch(err => {
         //     console.log("err", err)
-        //     res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        //     res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
         // })
 
         Restaurant_adminModel.find({})
@@ -365,14 +263,16 @@ router.get('/nearest_location', async (req, res, next) => {
                 tempArray.map(element => {
                     console.log(element.distance)
                 })
-                res.status(config.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
+                res.status(constants.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
             }).catch(err => {
                 console.log("err", err)
-                res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
             })
+       
+
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
     }
 });
 

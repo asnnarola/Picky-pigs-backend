@@ -10,6 +10,7 @@ const Cart = require("../../models/cart");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -22,20 +23,32 @@ router.get('/info/:id', async (req, res, next) => {
                 $match: {
                     _id: new ObjectId(req.params.id)
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_galleries",
+                    localField: "_id",
+                    foreignField: "restaurantAdminId",
+                    as: "restaurant_galleries"
+                }
+            },
+            {
+                $unwind: "$restaurant_galleries"
+            },
         ];
 
 
         await RestaurantAdmin.aggregate(aggregate)
             .then(restaurantDetail => {
-                res.status(config.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
+                res.status(constants.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
@@ -86,7 +99,7 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 }
             },
             {
-                $unwind:"$subcategoriesDetail.dishesDetail"
+                $unwind: "$subcategoriesDetail.dishesDetail"
             }
         ];
         if (req.body.search && req.body.search != "") {
@@ -126,7 +139,7 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             }
         });
 
-        
+
         const totalCount = await Category.aggregate(aggregate)
         if (req.body.start) {
 
@@ -143,14 +156,15 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
 
         await Category.aggregate(aggregate)
             .then(categoryDetails => {
-                res.status(config.OK_STATUS).json({ categoryDetails, totalCount: totalCount.length, message: "get category, subcategory and dishes list successfully" });
+                res.status(constants.OK_STATUS).json({ categoryDetails, totalCount: totalCount.length, message: "get category, subcategory and dishes list successfully" });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: err });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: err });
 
     }
 });
@@ -167,16 +181,16 @@ router.get('/dish_info/:id', async (req, res, next) => {
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json({ dishDetails, message: "Dish details get successfully" });
+                res.status(constants.OK_STATUS).json({ dishDetails, message: "Dish details get successfully" });
             }).catch(error => {
                 console.log(error)
-                res.status(config.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
 
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
 
     }
 });
@@ -212,14 +226,14 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
         ];
         await Dish.aggregate(aggregate)
             .then(dishList => {
-                res.status(config.OK_STATUS).json({ dishList, message: "Dish list get successfully" });
+                res.status(constants.OK_STATUS).json({ dishList, message: "Dish list get successfully" });
             }).catch(error => {
-                res.status(config.BAD_REQUEST).json({ message: "Error while Dish list get", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while Dish list get", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while Dish list get", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Dish list get", error: err });
 
     }
 });

@@ -7,6 +7,7 @@ var sendMail = require("../../../mails/sendMail");
 var template = require("../../../mails/template");
 const common_helper = require('../../../helpers/common');
 const config = require('../../../config/config');
+const constants = require('../../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../../validation/auth');
 const validation_response = require('../../../validation/validation_response');
@@ -17,7 +18,7 @@ router.post('/signup', auth.signup, validation_response, async (req, res, next) 
     try {
         const data = await common_helper.findOne(user, { "email": req.body.email })
         if (data.status === 1 && data.data) {
-            res.status(config.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
+            res.status(constants.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
         } else {
             const obj = {
                 fullName: req.body.fullName,
@@ -44,10 +45,10 @@ router.post('/signup', auth.signup, validation_response, async (req, res, next) 
                 accountType: register_resp.data.accountType,
                 isVerified: register_resp.data.isVerified,
             }
-            res.status(config.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id" });
+            res.status(constants.OK_STATUS).json({ ...register_resp, message: "You are registered successfully and verification link is send to your email id" });
         }
     } catch (err) {
-        res.status(config.BAD_REQUEST).json({ status: 0, err: err });
+        res.status(constants.BAD_REQUEST).json({ status: 0, err: err });
     }
 });
 
@@ -64,7 +65,7 @@ router.post('/verification', async (req, res, next) => {
                 accountType: data.data.fullName,
                 isVerified: data.data.isVerified,
             }
-            return res.status(config.OK_STATUS).json({ ...data, status: 1, message: "Email is already verified !" })
+            return res.status(constants.OK_STATUS).json({ ...data, status: 1, message: "Email is already verified !" })
         } else {
             var user_data = await common_helper.update(user, { "_id": decodeToken.id }, { isVerified: true })
             user_data.data = {
@@ -72,10 +73,10 @@ router.post('/verification', async (req, res, next) => {
                 accountType: user_data.data.fullName,
                 isVerified: user_data.data.isVerified,
             }
-            return res.status(config.OK_STATUS).json({ ...user_data.data, message: "Email has been verified !", error: false })
+            return res.status(constants.OK_STATUS).json({ ...user_data.data, message: "Email has been verified !", error: false })
         }
     } else {
-        return res.status(config.OK_STATUS).json({ status: 1, message: "Email is not found !", error: true });
+        return res.status(constants.OK_STATUS).json({ status: 1, message: "Email is not found !", error: true });
     }
 })
 
@@ -97,19 +98,19 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
                 var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
                 LOGGER.trace("Login successfully = ", user_data);
-                return res.status(config.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
+                return res.status(constants.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
             } else {
                 LOGGER.error("Error occured while checking login/verification = ", user_data);
-                return res.status(config.UNAUTHORIZED).json({ message: "Email is not verified.", error: true });
+                return res.status(constants.UNAUTHORIZED).json({ message: "Email is not verified.", error: true });
             }
             
         } else {
             LOGGER.error("invalid password request = ", user_data);
-            return res.status(config.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })
+            return res.status(constants.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })
         }
     } else {
         LOGGER.error("User is not found with this email  = ", req.body);
-        return res.status(config.BAD_REQUEST).json({ message: "Email is not found.", error: true });
+        return res.status(constants.BAD_REQUEST).json({ message: "Email is not found.", error: true });
     }
 });
 
@@ -135,7 +136,7 @@ router.post('/google', async (req, res, next) => {
         }
         var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-        return res.status(config.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+        return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
     } else {
         //insert
         var obj = {
@@ -155,7 +156,7 @@ router.post('/google', async (req, res, next) => {
         }
         var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-        return res.status(config.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+        return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
     }
 });
 
@@ -179,7 +180,7 @@ router.post('/facebook', async (req, res, next) => {
         }
         var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-        return res.status(config.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+        return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
     } else {
         //insert
         var obj = {
@@ -200,7 +201,7 @@ router.post('/facebook', async (req, res, next) => {
         }
         var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-        return res.status(config.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+        return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
     }
 });
 module.exports = router;

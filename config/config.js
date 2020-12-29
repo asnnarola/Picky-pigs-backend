@@ -26,16 +26,7 @@ module.exports = Object.freeze({
   CLIENT_ORIGIN: process.env.NODE_ENV === 'production'
     ? process.env.CLIENT_ORIGIN
     : 'http://localhost:3000',
-
-  OK_STATUS: 200,
-  BAD_REQUEST: 400,
-  UNAUTHORIZED: 401,
-  NOT_FOUND: 404,
-  MEDIA_ERROR_STATUS: 415,
-  VALIDATION_FAILURE_STATUS: 417,
-  DATABASE_ERROR_STATUS: 422,
-  INTERNAL_SERVER_ERROR: 500,
-
+    
   SECRET_KEY: "shukrana_mushkurana",
   TOKEN_EXPIRED_TIME: "7d"
 

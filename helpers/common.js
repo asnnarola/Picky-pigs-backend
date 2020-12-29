@@ -148,6 +148,38 @@ common_helper.findOne = async (model, condition = {}) => {
   }
 };
 
+/*
+ * update data with upsert
+ * 
+ * @param   collection      String      collection of model that need to be update
+ * @param   id              String      _id of data  that need to update
+ * @param   object          JSON        object consist of all property that need to update
+ * 
+ * @return  status  0 - If any error occur in update data, with error
+ *          status  1 - If update data, with appropriate message
+ *          status  2 - If no data update, with appropriate message
+ * 
+ */
+common_helper.updatewithupsert = async (collection, id, data) => {
+  try {
+      var data2 = await collection.findOneAndUpdate(id, data, { new: true, upsert: true })
+      if (data2) {
+          return {
+              status: 1,
+              message: "Record updated successfully.",
+              data: data2
+          };
+      } else {
+          return { status: 2, message: "No data updated" };
+      }
+  } catch (err) {
+      return {
+          status: 0,
+          message: "Error occurred while updating data",
+          error: err
+      };
+  }
+}
 
 /**
  * find records in collection

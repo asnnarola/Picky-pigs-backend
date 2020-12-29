@@ -9,41 +9,34 @@ const Dish = require("../../models/dish");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 
 
 router.get('/allergen', async (req, res, next) => {
     var data = await common_helper.find(allergen);
     if (data.status === 1 && data.data) {
-        res.status(config.OK_STATUS).json(data);
+        res.status(constants.OK_STATUS).json(data);
     } else {
-        res.status(config.BAD_REQUEST).json(data);
+        res.status(constants.BAD_REQUEST).json(data);
     }
 });
 router.get('/dietary', async (req, res, next) => {
     var data = await common_helper.find(dietary);
     if (data.status === 1 && data.data) {
-        res.status(config.OK_STATUS).json(data);
+        res.status(constants.OK_STATUS).json(data);
     } else {
-        res.status(config.BAD_REQUEST).json(data);
+        res.status(constants.BAD_REQUEST).json(data);
     }
 });
 router.get('/lifeStyle', async (req, res, next) => {
     var data = await common_helper.find(lifestyle);
     if (data.status === 1 && data.data) {
-        res.status(config.OK_STATUS).json(data);
+        res.status(constants.OK_STATUS).json(data);
     } else {
-        res.status(config.BAD_REQUEST).json(data);
+        res.status(constants.BAD_REQUEST).json(data);
     }
 });
-// router.get('/', async (req, res, next) => {
-//     var data = await common_helper.find(allergen);
-//     if (data.status === 1 && data.data) {
-//         res.status(config.OK_STATUS).json(data);
-//     } else {
-//         res.status(config.BAD_REQUEST).json(data);
-//     }
-// });
 
 
 /*Get single dish info**/
@@ -107,14 +100,14 @@ router.get('/:id', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json(dishDetails);
+                res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
 
     }
 });
@@ -153,15 +146,15 @@ router.get('/restaurant_review/:id', async (req, res, next) => {
                 if (reviewDetails.length > 0) {
                     var avgRating = await average(reviewDetails);
                 }
-                res.status(config.OK_STATUS).json({ avgRating, reviewDetails, message: "get restaurant review listing successfully." });
+                res.status(constants.OK_STATUS).json({ avgRating, reviewDetails, message: "get restaurant review listing successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(config.BAD_REQUEST).json({ message: "Error into restaurant review listing", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant review listing", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into restaurant review listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant review listing", error: err });
 
     }
 });
@@ -172,21 +165,22 @@ router.get('/restaurant_menus/:id', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
+                    isDeleted: 0,
                     restaurantAdminId: new ObjectId(req.params.id)
                 }
             }
         ];
         await Menu.aggregate(aggregate)
             .then(menuList => {
-                res.status(config.OK_STATUS).json({ menuList, message: "get restaurant menu listing successfully." });
+                res.status(constants.OK_STATUS).json({ menuList, message: "get restaurant menu listing successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(config.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: err });
 
     }
 });

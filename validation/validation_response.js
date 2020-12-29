@@ -1,10 +1,11 @@
 const config = require("../config/config");
+const constants = require("../config/constants");
 const { validationResult } = require('express-validator');
 
 module.exports = function (req, res, next) {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.status(config.VALIDATION_FAILURE_STATUS).json({
+        res.status(constants.VALIDATION_FAILURE_STATUS).json({
             status: 0,
             message: "Validation error",
             error: convertErrorObjectToArray(errors.mapped())

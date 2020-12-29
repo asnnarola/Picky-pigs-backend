@@ -6,6 +6,10 @@ let favouriteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'restaurant_admins'
     }],
+    dishesId: [{
+        type: Schema.Types.ObjectId,
+        ref: 'dish'
+    }],
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'users'

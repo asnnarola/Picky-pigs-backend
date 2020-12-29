@@ -5,6 +5,7 @@ var bcrypt = require("bcrypt")
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const manage_module = require('../../validation/admin/manage_module');
 const validation_response = require('../../validation/validation_response');
@@ -22,9 +23,9 @@ router.post('/create', manage_module.create_restaurant, validation_response, asy
     const insert_resp = await common_helper.insert(RestaurantAdmin, req.body);
 
     if (insert_resp.status === 1 && insert_resp.data) {
-        res.status(config.OK_STATUS).json(insert_resp);
+        res.status(constants.OK_STATUS).json(insert_resp);
     } else {
-        res.status(config.BAD_REQUEST).json(insert_resp);
+        res.status(constants.BAD_REQUEST).json(insert_resp);
     }
 })
 
@@ -68,13 +69,13 @@ router.post('/list', async (req, res, next) => {
 
         await RestaurantAdmin.aggregate(aggregate)
             .then(restaurantAdminList => {
-                res.status(config.OK_STATUS).json({ restaurantAdminList, totalRecord: totalRecord.length, "message": "Restaurant listing get successfully" });
+                res.status(constants.OK_STATUS).json({ restaurantAdminList, totalRecord: totalRecord.length, "message": "Restaurant listing get successfully" });
             }).catch(error => {
-                res.status(config.BAD_REQUEST).json({ message: "Error into restaurant listing", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant listing", error: error });
             });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error into restaurant listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant listing", error: err });
     }
 })
 
@@ -85,7 +86,7 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
     if (update_resp.status === 0) {
         res.json({ status: 0, message: "Error occured while update password" });
     } else {
-        res.status(config.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+        res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
     }
 })
 
@@ -95,7 +96,7 @@ router.delete('/:id', async (req, res, next) => {
     if (update_resp.status === 0) {
         res.json({ status: 0, message: "Error occured while update password" });
     } else {
-        res.status(config.OK_STATUS).json({ status: 1, message: "Restaurant deleted successfully", update_resp });
+        res.status(constants.OK_STATUS).json({ status: 1, message: "Restaurant deleted successfully", update_resp });
     }
 })
 

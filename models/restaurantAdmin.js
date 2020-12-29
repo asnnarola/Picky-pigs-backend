@@ -90,12 +90,6 @@ let restaurant_adminSchema = new Schema({
         restaurantFeaturesOptions: [],
         appliesOfRestaurant: { type: String }  //what was the use case?
     },
-    galleryImages: {
-        restaurantAmbience: [{ url: { type: String } }],
-        food: [{ url: { type: String } }],
-        videos: [{ url: { type: String } }],
-        images: [{ url: { type: String }, type: { type: String, default: "image" } }]
-    },
     subscriptionLevel: { type: String },
 
     contactName: { type: String },

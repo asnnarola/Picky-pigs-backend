@@ -8,6 +8,7 @@ const Favourite = require("../../models/favourite");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -28,15 +29,15 @@ router.get('/:id', async (req, res, next) => {
 
         await User.aggregate(aggregate)
             .then(userDetail => {
-                res.status(config.OK_STATUS).json({ userDetail, message: "User details get successfully." });
+                res.status(constants.OK_STATUS).json({ userDetail, message: "User details get successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(config.BAD_REQUEST).json({ message: "Error while get User details", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get User details", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get User details", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get User details", error: err });
 
     }
 });
@@ -51,12 +52,12 @@ router.put('/', async (req, res, next) => {
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Details Update successfully." });
         } else {
-            res.status(config.OK_STATUS).json({ status: 1, message: "Details Update successfully.", update_resp });
+            res.status(constants.OK_STATUS).json({ status: 1, message: "Details Update successfully.", update_resp });
         }
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
 
     }
 });
@@ -65,23 +66,26 @@ router.post('/add_favourite', async (req, res, next) => {
     try {
         const favouriteDetail = await Favourite.findOne({ userId: req.loginUser.id });
         if (favouriteDetail) {
-            const obj = {
-                $push: { restaurantAdminId: req.body.restaurantAdminId }
+            if (req.body.restaurantAdminId) {
+                var obj = { $push: { restaurantAdminId: req.body.restaurantAdminId } };
             }
-            const update_resp = await common_helper.update(Favourite, { userId: req.loginUser.id }, obj)
+            if (req.body.dishesId) {
+                var obj = { $push: { dishesId: req.body.dishesId } };
+            }
+            var update_resp = await common_helper.update(Favourite, { userId: req.loginUser.id }, obj)
             if (update_resp.status === 0) {
-                res.json({ status: 0, message: "Error occured while Details Update successfully." });
+                res.json({ status: 0, message: "Error occured while add to favourite successfully." });
             } else {
-                res.status(config.OK_STATUS).json({ status: 1, message: "Details Update successfully.", update_resp });
+                res.status(constants.OK_STATUS).json({ status: 1, message: "Add to favourite successfully.", update_resp });
             }
         } else {
             req.body.userId = req.loginUser.id;
             const insert_resp = await common_helper.insert(Favourite, req.body);
 
             if (insert_resp.status === 1 && insert_resp.data) {
-                res.status(config.OK_STATUS).json(insert_resp);
+                res.status(constants.OK_STATUS).json(insert_resp);
             } else {
-                res.status(config.BAD_REQUEST).json(insert_resp);
+                res.status(constants.BAD_REQUEST).json(insert_resp);
             }
 
         }
@@ -90,7 +94,7 @@ router.post('/add_favourite', async (req, res, next) => {
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
 
     }
 });
@@ -98,21 +102,21 @@ router.post('/add_favourite', async (req, res, next) => {
 
 router.post('/remove_favourite', async (req, res, next) => {
     try {
-        const obj = {
-            $pull: { restaurantAdminId: req.body.restaurantAdminId }
+        if (req.body.restaurantAdminId) {
+            var obj = { $pull: { restaurantAdminId: req.body.restaurantAdminId } };
+        }
+        if (req.body.dishesId) {
+            var obj = { $pull: { dishesId: req.body.dishesId } };
         }
         const update_resp = await common_helper.update(Favourite, { userId: req.loginUser.id }, obj)
         if (update_resp.status === 0) {
-            res.json({ status: 0, message: "Error occured while Details Update successfully." });
+            res.json({ status: 0, message: "Error occured while remove favourite successfully." });
         } else {
-            res.status(config.OK_STATUS).json({ status: 1, message: "Details Update successfully.", update_resp });
+            res.status(constants.OK_STATUS).json({ status: 1, message: "Remove favourite successfully.", update_resp });
         }
-
     }
     catch (err) {
-        console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
-
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Remove favourite successfully.", error: err });
     }
 });
 
@@ -138,39 +142,39 @@ router.post('/favourite_restaurant_list', async (req, res, next) => {
 
         await Favourite.aggregate(aggregate)
             .then(favouriteRestaurantDetail => {
-                res.status(config.OK_STATUS).json({ favouriteRestaurantDetail, message: "get favourite Restaurant list successfully" });
+                res.status(constants.OK_STATUS).json({ favouriteRestaurantDetail, message: "get favourite Restaurant list successfully" });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get favourite Restaurant list.", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get favourite Restaurant list.", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get favourite Restaurant list.", error: err });
     }
 });
 
 /**Add review */
 router.post('/add_review', async (req, res, next) => {
     try {
-        const reviewDetail = await Review.findOne({ userId: req.loginUser.id, restaurantAdminId: req.body.restaurantAdminId});
+        const reviewDetail = await Review.findOne({ userId: req.loginUser.id, restaurantAdminId: req.body.restaurantAdminId });
         if (reviewDetail) {
-            
-            res.status(config.BAD_REQUEST).json({ message: "You have already added review" });
+
+            res.status(constants.BAD_REQUEST).json({ message: "You have already added review" });
         } else {
             req.body.userId = req.loginUser.id;
             const insert_resp = await common_helper.insert(Review, req.body);
 
             if (insert_resp.status === 1 && insert_resp.data) {
-                res.status(config.OK_STATUS).json(insert_resp);
+                res.status(constants.OK_STATUS).json(insert_resp);
             } else {
-                res.status(config.BAD_REQUEST).json(insert_resp);
+                res.status(constants.BAD_REQUEST).json(insert_resp);
             }
 
         }
     }
     catch (err) {
-        console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while add review.", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while add review.", error: err });
     }
 });
 

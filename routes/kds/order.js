@@ -9,6 +9,7 @@ const Cart = require("../../models/cart");
 const Order = require("../../models/order");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -58,14 +59,14 @@ router.post('/list', async (req, res, next) => {
 
         await Order.aggregate(aggregate)
             .then(orderList => {
-                res.status(config.OK_STATUS).json({ orderList, totalCount: totalCount.length, totalCurrentOrders: totalCurrentOrders, message: "Order list get successfully." });
+                res.status(constants.OK_STATUS).json({ orderList, totalCount: totalCount.length, totalCurrentOrders: totalCurrentOrders, message: "Order list get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -115,14 +116,14 @@ router.post('/history_list', async (req, res, next) => {
 
         await Order.aggregate(aggregate)
             .then(orderList => {
-                res.status(config.OK_STATUS).json({ orderList, totalCount: totalCount.length, message: "Order history list get successfully." });
+                res.status(constants.OK_STATUS).json({ orderList, totalCount: totalCount.length, message: "Order history list get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -132,18 +133,18 @@ router.post('/complete_order', async (req, res, next) => {
         const update_order = await common_helper.update(Order, { "_id": req.body.orderId }, { status: "completed", orderCompletedTime: new Date() })
 
         if (update_order.status === 0) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
 
         if (update_order.status === 1 && update_order.data) {
-            res.status(config.OK_STATUS).json({ update_order, message: "Complete order successfully." });
+            res.status(constants.OK_STATUS).json({ update_order, message: "Complete order successfully." });
         } else if (update_order.data === null) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "No data found" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "No data found" });
         }
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -153,18 +154,18 @@ router.post('/cancel_order', async (req, res, next) => {
         const update_order = await common_helper.update(Order, { "_id": req.body.orderId }, { status: "cancel" })
 
         if (update_order.status === 0) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
 
         if (update_order.status === 1 && update_order.data) {
-            res.status(config.OK_STATUS).json({ update_order, message: "cancel order successfully." });
+            res.status(constants.OK_STATUS).json({ update_order, message: "cancel order successfully." });
         } else if (update_order.data === null) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "No data found" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "No data found" });
         }
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -177,17 +178,17 @@ router.post('/complete_order_dish', async (req, res, next) => {
         const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
 
         if (update_order.status === 0) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
 
         if (update_order.status === 1 && update_order.data) {
-            res.status(config.OK_STATUS).json({ update_order, message: "Complete order successfully." });
+            res.status(constants.OK_STATUS).json({ update_order, message: "Complete order successfully." });
         } else if (update_order.data === null) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "No data found" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "No data found" });
         }
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -200,17 +201,17 @@ router.post('/delete_order_dish', async (req, res, next) => {
         const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
 
         if (update_order.status === 0) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
 
         if (update_order.status === 1 && update_order.data) {
-            res.status(config.OK_STATUS).json({ update_order, message: "Complete order successfully." });
+            res.status(constants.OK_STATUS).json({ update_order, message: "Complete order successfully." });
         } else if (update_order.data === null) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "No data found" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "No data found" });
         }
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });
@@ -223,17 +224,17 @@ router.post('/unavailable_order_dish', async (req, res, next) => {
         const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
 
         if (update_order.status === 0) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
 
         if (update_order.status === 1 && update_order.data) {
-            res.status(config.OK_STATUS).json({ update_order, message: "Complete order successfully." });
+            res.status(constants.OK_STATUS).json({ update_order, message: "Complete order successfully." });
         } else if (update_order.data === null) {
-            res.status(config.BAD_REQUEST).json({ ...update_order, message: "No data found" });
+            res.status(constants.BAD_REQUEST).json({ ...update_order, message: "No data found" });
         }
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get order list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: err });
 
     }
 });

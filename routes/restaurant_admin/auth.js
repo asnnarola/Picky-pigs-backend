@@ -5,6 +5,7 @@ var bcrypt = require("bcrypt")
 var RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -30,14 +31,14 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
             }
             var token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
             LOGGER.trace("Login successfully = ", admin_data);
-            return res.status(config.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
+            return res.status(constants.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
         } else {
             LOGGER.error("invalid password request = ", admin_data);
-            return res.status(config.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })
+            return res.status(constants.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })
         }
     } else {
         LOGGER.error("User is not found with this email  = ", req.body);
-        return res.status(config.BAD_REQUEST).json({ message: "Email is not found.", error: true });
+        return res.status(constants.BAD_REQUEST).json({ message: "Email is not found.", error: true });
     }
 });
 
@@ -67,13 +68,13 @@ router.post('/forgot_password', adminAuth.forgotPassword, validation_response, a
         }
         await sendMail(emailContent)
             .then(emailResp => {
-                res.status(config.OK_STATUS).json({ token, message: "Reset link was sent to your email address" });
+                res.status(constants.OK_STATUS).json({ token, message: "Reset link was sent to your email address" });
             }).catch(error => {
-                return res.status(config.BAD_REQUEST).json({ message: "Error occurred while sent email.", error: error });
+                return res.status(constants.BAD_REQUEST).json({ message: "Error occurred while sent email.", error: error });
             });
 
     } else {
-        return res.status(config.OK_STATUS).json({ status: 1, message: "Email is not found !", error: true });
+        return res.status(constants.OK_STATUS).json({ status: 1, message: "Email is not found !", error: true });
     }
 })
 
@@ -114,7 +115,7 @@ router.post('/reset_password', adminAuth.resetPassword, validation_response, asy
             })
 
     } else {
-        res.status(config.BAD_REQUEST).json({ message: "Token not provided", error: true });
+        res.status(constants.BAD_REQUEST).json({ message: "Token not provided", error: true });
     }
 });
 
@@ -125,9 +126,9 @@ router.post('/create', async (req, res, next) => {
     const insert_resp = await common_helper.insert(RestaurantAdmin, req.body);
 
     if (insert_resp.status === 1 && insert_resp.data) {
-        res.status(config.OK_STATUS).json(insert_resp);
+        res.status(constants.OK_STATUS).json(insert_resp);
     } else {
-        res.status(config.BAD_REQUEST).json(insert_resp);
+        res.status(constants.BAD_REQUEST).json(insert_resp);
     }
 })
 module.exports = router;

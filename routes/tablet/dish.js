@@ -6,6 +6,7 @@ const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
@@ -72,14 +73,14 @@ router.get('/:id', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json(dishDetails);
+                res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
 
     }
 });

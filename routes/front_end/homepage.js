@@ -9,8 +9,9 @@ const Cart = require("../../models/cart");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
+const homepageValidation = require('../../validation/homepage');
 const validation_response = require('../../validation/validation_response');
 const ingredient_management = require('../../validation/admin/ingredient_management');
 var sendMail = require("../../mails/sendMail");
@@ -57,13 +58,13 @@ router.post('/homepage_restaurant', async (req, res, next) => {
 
         await RestaurantAdmin.aggregate(aggregate)
             .then(restaurantList => {
-                res.status(config.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+                res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
@@ -112,13 +113,13 @@ router.post('/homepage_dishes', async (req, res, next) => {
 
         await Dish.aggregate(aggregate)
             .then(dishesList => {
-                res.status(config.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
+                res.status(constants.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
             }).catch(error => {
-                res.status(config.BAD_REQUEST).json({ message: "Error while get dishes list", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get dishes list", error: err });
             });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Dishes list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Dishes list", error: err });
 
     }
 });
@@ -268,14 +269,14 @@ router.post('/restaurantlist', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(restaurantList => {
-                res.status(config.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+                res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
@@ -392,37 +393,38 @@ router.post('/disheslist', async (req, res, next) => {
 
         await Dish.aggregate(aggregate)
             .then(restaurantList => {
-                res.status(config.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+                res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
             });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
 
-router.post('/join_us', async (req, res, next) => {
+router.post('/join_us', homepageValidation.join_us, validation_response, async (req, res, next) => {
     try {
         const obj = {
             name: req.body.name,
             message: req.body.message,
             email: req.body.email,
-            phoneNumber: req.body.phoneNumber
+            phoneNumber: req.body.phoneNumber,
+            comapny: req.body.comapny
         }
         const emailContent = {
             to: "drl@narola.email",
-            subject: 'Join us of Picky pigs',
+            subject: 'Join us to Picky pigs',
             obj: obj,
             filePath: "./views/frontend/join_us.ejs"
         }
 
         const emailResp = await sendMail(emailContent);
-        res.status(config.OK_STATUS).json({ message: "join us successfully", data: emailResp });
+        res.status(constants.OK_STATUS).json({ message: "join us successfully", data: emailResp });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error while join us", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while join us", error: err });
 
     }
 })

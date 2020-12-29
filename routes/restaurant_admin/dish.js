@@ -3,6 +3,7 @@ const ObjectId = require('mongodb').ObjectID;
 var router = express.Router();
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const Dish = require('../../models/dish');
@@ -18,9 +19,9 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     const insert_resp = await common_helper.insert(Dish, req.body);
 
     if (insert_resp.status === 1 && insert_resp.data) {
-        res.status(config.OK_STATUS).json({ insert_resp, duplicate_insert_resp });
+        res.status(constants.OK_STATUS).json({ insert_resp, duplicate_insert_resp });
     } else {
-        res.status(config.BAD_REQUEST).json(insert_resp);
+        res.status(constants.BAD_REQUEST).json(insert_resp);
     }
 })
 
@@ -84,14 +85,14 @@ router.get('/:id', async (req, res) => {
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json(dishDetails);
+                res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
 
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "something want wrong", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "something want wrong", error: err });
 
     }
 })
@@ -195,29 +196,29 @@ router.post('/list', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
-                res.status(config.OK_STATUS).json({ dishDetails, totalDish: totalDish.length });
+                res.status(constants.OK_STATUS).json({ dishDetails, totalDish: totalDish.length });
             }).catch(error => {
 
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
 
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validation.dish, validation_response, async (req, res) => {
     try {
         const update_resp = await common_helper.update(Category, { "_id": req.params.id }, req.body);
         if (update_resp.status === 1) {
-            res.status(config.OK_STATUS).json(insert_resp);
+            res.status(constants.OK_STATUS).json(insert_resp);
         } else {
-            res.status(config.BAD_REQUEST).json(insert_resp);
+            res.status(constants.BAD_REQUEST).json(insert_resp);
         }
 
     } catch (error) {
-        res.status(config.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
 
     }
 })
@@ -226,13 +227,13 @@ router.delete('/:id', async (req, res, next) => {
     const data = await common_helper.softDelete(Dish, { "_id": req.params.id })
 
     if (data.status === 0) {
-        res.status(config.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
+        res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
     }
 
     if (data.status === 1 && data.data) {
-        res.status(config.OK_STATUS).json(data);
+        res.status(constants.OK_STATUS).json(data);
     } else if (data.data === null) {
-        res.status(config.BAD_REQUEST).json({ ...data, message: "No data found" });
+        res.status(constants.BAD_REQUEST).json({ ...data, message: "No data found" });
     }
 });
 

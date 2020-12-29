@@ -8,6 +8,7 @@ const { Parser } = require('json2csv');
 const User = require("../../models/users");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
+const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const manage_module = require('../../validation/admin/manage_module');
 const validation_response = require('../../validation/validation_response');
@@ -62,13 +63,13 @@ router.post('/list', async (req, res, next) => {
 
         await User.aggregate(aggregate)
             .then(userList => {
-                res.status(config.OK_STATUS).json({ userList, totalRecord: totalRecord.length, "message": "user listing get successfully" });
+                res.status(constants.OK_STATUS).json({ userList, totalRecord: totalRecord.length, "message": "user listing get successfully" });
             }).catch(error => {
-                res.status(config.BAD_REQUEST).json({ message: "Error into user listing", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error into user listing", error: error });
             });
     }
     catch (err) {
-        res.status(config.BAD_REQUEST).json({ message: "Error into user listing", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into user listing", error: err });
     }
 })
 
@@ -77,9 +78,9 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
     const update_resp = await common_helper.update(User, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
     if (update_resp.status === 0) {
-        res.status(config.BAD_REQUEST).json({ status: 0, message: "Error occured while update password" });
+        res.status(constants.BAD_REQUEST).json({ status: 0, message: "Error occured while update password" });
     } else {
-        res.status(config.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+        res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
     }
 })
 
@@ -107,17 +108,17 @@ router.post('/export_user', async (req, res) => {
                 if (err) throw err;
             });
 
-            // res.status(config.OK_STATUS).json({ status: 1, message: "User exported successfully" });
+            // res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });
             
             res.header('Content-Type', 'text/csv');
             res.attachment(name);
-            res.status(config.OK_STATUS).json({ status: 1, message: "User exported successfully" });
+            res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });
 
         } else {
-            res.status(config.BAD_REQUEST).json({ status: 0, message: "No user founds" });
+            res.status(constants.BAD_REQUEST).json({ status: 0, message: "No user founds" });
         }
     } catch (error) {
-        res.status(config.BAD_REQUEST).json({ status: 0, message: "Error occured while export user", error: error });
+        res.status(constants.BAD_REQUEST).json({ status: 0, message: "Error occured while export user", error: error });
 
     }
 })

@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 let menusSchema = new Schema(
     {
         name: { type: String },
-        day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday"] },
+        // day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday"] },
         timeFrom: { type: String },
         timeTo: { type: String },
         isAvailable: { type: Boolean, default: false },

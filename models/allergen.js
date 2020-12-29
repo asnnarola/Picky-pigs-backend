@@ -7,7 +7,7 @@ let allergenSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'restaurant_admins'
     },
-    image: { type: String, default: null },
+    image: { type: String, default: null }
 },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

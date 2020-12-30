@@ -14,7 +14,7 @@ let orderSchema = new Schema({
 
     restaurantAdminId: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurant_admin'
+        ref: 'all_users'
     },
     
     isDeleted: { type: Number, default: 0 },

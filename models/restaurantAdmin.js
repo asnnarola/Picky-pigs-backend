@@ -4,14 +4,15 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let restaurant_adminSchema = new Schema({
-    email: { type: String },
-    password: { type: String },
     isDeleted: { type: Number, default: 0 },
-    forgotPasswordToken: { type: String },
     name: { type: String },
     restaurantProfilePhoto: { type: String },
     restaurantCoverPhoto: { type: String },
     about: { type: String },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'all_users'
+    },
     info: {
         login: { type: String },
         phoneNumber: { type: String },
@@ -19,84 +20,16 @@ let restaurant_adminSchema = new Schema({
         location: { type: String },
         email: { type: String },
     },
-    security: {
-        twoFactorAuthenticationPhoneNumber: { type: Boolean, default: false },
-        twoFactorAuthenticationEmail: { type: Boolean, default: false }
-    },
-    address: {
-        street: { type: String },
-        locality: { type: String },
-        pincode: { type: Number },
-        zipcode: { type: Number },
-        addLocationMap: { type: Boolean, default: false },
-        shareLocationOption: { type: Boolean, default: false },
-        getDirectionOption: { type: Boolean, default: false },
-        map: {
-            latitude: { type: String },
-            longitude: { type: String },
-            coordinates: [],  //first latitude, second longitude
-            type: { type: String }
-        }
-    },
-    location: {
-        type: { type: String },
-        coordinates: []
-    },
-    openingTimings: {
-        isTime24Hours: { type: Boolean },
-        isMultiTime: { type: Boolean },
-        time: [
-            {
-                day: { type: String },
-                timeList: [
-                    {
-                        startTime: { type: String },
-                        // startTimeUnit: { type: String },
-                        endTime: { type: String },
-                        // endTimeUnit: { type: String }
-                    }
-                ]
-            }
-        ]
-    },
-    website: {
-        websiteUrl: { type: String },
-        isAddToProfilePage: { type: Boolean }
-    },
-    bookings: {
-        isAvailable: { type: Boolean },
-        isWebsite: { type: Boolean },
-        isEmail: { type: Boolean },
-        isCall: { type: Boolean },
-        websiteUrl: { type: String },
-        email: { type: String },
-        phoneNumber: { type: String },
-    },
-    socialMedia: {
-        isAvailable: { type: Boolean },
-        isFacebook: { type: Boolean },
-        isTwitter: { type: Boolean },
-        isInstagram: { type: Boolean },
-        facebookUrl: { type: String },
-        twitterUrl: { type: String },
-        instagramUrl: { type: String },
-    },
-    restaurantFeatures: {
-        averageCostOfTwoPerson: { type: Number },
-        inclusiveTaxesAndCharges: { type: Boolean },
-        cashAccept: { type: Boolean },
-        cardAccept: { type: Boolean },
-        cuisineType: [],
-        restaurantFeaturesOptions: [],
-        appliesOfRestaurant: { type: String }  //what was the use case?
-    },
     subscriptionLevel: { type: String },
-
     contactName: { type: String },
     company: { type: String },
     phoneNumber: { type: String },
     package: { type: String },
     isAgreeToTerms: { type: Boolean },
+    security: {
+        twoFactorAuthenticationPhoneNumber: { type: Boolean, default: false },
+        twoFactorAuthenticationEmail: { type: Boolean, default: false }
+    },
 
 },
     {

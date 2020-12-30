@@ -3,6 +3,7 @@ var router = express.Router();
 var jwt = require("jsonwebtoken")
 var bcrypt = require("bcrypt")
 const RestaurantAdmin = require("../../models/restaurantAdmin");
+const All_Users = require("../../models/all_users");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
@@ -17,12 +18,14 @@ const saltRounds = 10;
 
 router.post('/create', manage_module.create_restaurant, validation_response, async (req, res, next) => {
 
-    const insert_resp = await common_helper.insert(RestaurantAdmin, req.body);
+    const register_allUser_resp = await common_helper.insert(All_Users, req.body);
+    req.body.userId = register_allUser_resp.data._id;
+    const register_user_resp = await common_helper.insert(RestaurantAdmin, req.body);
 
-    if (insert_resp.status === 1 && insert_resp.data) {
-        res.status(constants.OK_STATUS).json(insert_resp);
+    if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
+        res.status(constants.OK_STATUS).json(register_allUser_resp);
     } else {
-        res.status(constants.BAD_REQUEST).json(insert_resp);
+        res.status(constants.BAD_REQUEST).json(register_allUser_resp);
     }
 })
 
@@ -35,7 +38,18 @@ router.post('/list', async (req, res, next) => {
                 $match: {
                     isDeleted: 0,
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_admins",
+                    localField: "_id",
+                    foreignField: "userId",
+                    as: "restaurant_admins"
+                }
+            },
+            {
+                $unwind: "$restaurant_admins"
+            },
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -43,12 +57,12 @@ router.post('/list', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "name": RE }
+                    { "restaurant_admins.name": RE }
             });
 
         }
 
-        const totalRecord = await RestaurantAdmin.aggregate(aggregate);
+        const totalRecord = await All_Users.aggregate(aggregate);
 
         if (req.body.start) {
 
@@ -64,7 +78,7 @@ router.post('/list', async (req, res, next) => {
             });
         }
 
-        await RestaurantAdmin.aggregate(aggregate)
+        await All_Users.aggregate(aggregate)
             .then(restaurantAdminList => {
                 res.status(constants.OK_STATUS).json({ restaurantAdminList, totalRecord: totalRecord.length, "message": "Restaurant listing get successfully" });
             }).catch(error => {
@@ -79,7 +93,7 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
 
-    const update_resp = await common_helper.update(RestaurantAdmin, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
+    const update_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
     if (update_resp.status === 0) {
         res.json({ status: 0, message: "Error occured while update password" });
     } else {
@@ -89,9 +103,10 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
 router.delete('/:id', async (req, res, next) => {
 
-    const update_resp = await common_helper.update(RestaurantAdmin, { "_id": req.params.id }, { isDeleted: 1 })
+    const update_resp = await common_helper.update(RestaurantAdmin, { "userId": req.params.id }, { isDeleted: 1 })
+    const update_all_users_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { isDeleted: 1 })
     if (update_resp.status === 0) {
-        res.json({ status: 0, message: "Error occured while update password" });
+        res.json({ status: 0, message: "Error occured while Restaurant deleted" });
     } else {
         res.status(constants.OK_STATUS).json({ status: 1, message: "Restaurant deleted successfully", update_resp });
     }

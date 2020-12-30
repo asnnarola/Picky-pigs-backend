@@ -12,14 +12,9 @@ const validation = require('../../validation/admin/validation');
 //add menu
 router.post('/', validation.menu, validation_response, async (req, res, next) => {
     try {
-        // let obj = {
-        //     name: req.body.name,
-        //     day: req.body.day,
-        //     time: req.body.time,
-        //     available:req.body.available,
-        // }
+        
         req.body.restaurantAdminId = req.loginUser.id;
-        var data = await common_helper.insert(Menus, req.body);
+        const data = await common_helper.insert(Menus, req.body);
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {

@@ -12,19 +12,64 @@ router.get('/info/:id', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
-                    _id: new ObjectId(req.params.id)
+                    userId: new ObjectId(req.params.id)
                 }
             },
             {
                 $lookup: {
                     from: "restaurant_galleries",
-                    localField: "_id",
-                    foreignField: "restaurantAdminId",
+                    localField: "userId",
+                    foreignField: "userId",
                     as: "restaurant_galleries"
                 }
             },
             {
                 $unwind: "$restaurant_galleries"
+            },
+            {
+                $lookup: {
+                    from: "restaurant_addresses",
+                    localField: "userId",
+                    foreignField: "userId",
+                    as: "address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$address",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_details",
+                    localField: "userId",
+                    foreignField: "userId",
+                    as: "restaurantDetails"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantDetails",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_freatures",
+                    localField: "userId",
+                    foreignField: "userId",
+                    as: "restaurantFeatures"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantFeatures",
+                    preserveNullAndEmptyArrays: true
+
+                }
             },
         ];
 

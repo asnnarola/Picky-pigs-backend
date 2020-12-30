@@ -4,9 +4,9 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
 let restaurant_gallerySchema = new Schema({
-    restaurantAdminId: {
+    userId: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurant_admins'
+        ref: 'users'
     },
     restaurantAmbience: [{ url: { type: String } }],
     food: [{ url: { type: String } }],

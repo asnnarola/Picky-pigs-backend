@@ -3,6 +3,7 @@ var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const User = require("../../models/users");
+const All_Users = require("../../models/all_users");
 const Favourite = require("../../models/favourite");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
@@ -19,11 +20,22 @@ router.get('/:id', async (req, res, next) => {
                 $match: {
                     _id: new ObjectId(req.loginUser.id)
                 }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "userId",
+                    as: "userDetail"
+                }
+            },
+            {
+                $unwind: "$userDetail"
             }
         ];
 
 
-        await User.aggregate(aggregate)
+        await All_Users.aggregate(aggregate)
             .then(userDetail => {
                 res.status(constants.OK_STATUS).json({ userDetail, message: "User details get successfully." });
             }).catch(error => {
@@ -43,8 +55,9 @@ router.put('/', async (req, res, next) => {
     try {
         if (req.body.password && req.body.password !== "") {
             req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
+            const update_resp = await common_helper.update(All_Users, { "_id": req.loginUser.id }, req.body)
         }
-        const update_resp = await common_helper.update(User, { "_id": req.loginUser.id }, req.body)
+        const update_resp = await common_helper.update(User, { "userId": req.loginUser.id }, req.body)
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Details Update successfully." });
         } else {
@@ -130,7 +143,7 @@ router.post('/favourite_restaurant_list', async (req, res, next) => {
                 $lookup: {
                     from: "restaurant_admins",
                     localField: "restaurantAdminId",
-                    foreignField: "_id",
+                    foreignField: "userId",
                     as: "restaurant_adminDetail"
                 }
             },
@@ -155,7 +168,6 @@ router.post('/add_review', async (req, res, next) => {
     try {
         const reviewDetail = await Review.findOne({ userId: req.loginUser.id, restaurantAdminId: req.body.restaurantAdminId });
         if (reviewDetail) {
-
             res.status(constants.BAD_REQUEST).json({ message: "You have already added review" });
         } else {
             req.body.userId = req.loginUser.id;

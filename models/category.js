@@ -6,7 +6,7 @@ let categorySchema = new Schema({
     name: { type: String, required: true, unique: true },
     restaurantAdminId: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurant_admins'
+        ref: 'all_users'
     },
     menuId: {
         type: Schema.Types.ObjectId,

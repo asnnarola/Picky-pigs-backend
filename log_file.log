@@ -6273,3 +6273,299 @@
     website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
   }
 }
+[2020-12-30T11:41:35.735] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$ndWTv50UK7tX8LaGcBsfzOhm3X.4nRfCchCuARhkU6JtQx/SmzgfG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-30T04:25:01.273Z,
+    __v: 0,
+    name: 'restaurant name',
+    location: { type: 'Point', coordinates: [Array] },
+    about: 'about information',
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    restaurantCoverPhoto: 'http://coverImage.jpeg',
+    restaurantProfilePhoto: 'http://profileImage.jpeg',
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-30T12:49:57.570] [ERROR] development - User is not found with this email  =  { email: 'demo1234567@gmail.com', password: 'demo1234567' }
+[2020-12-30T14:22:29.418] [ERROR] development - User is not found with this email  =  { email: 'demo1234567@gmail.com', password: 'demo1234567' }
+[2020-12-30T14:23:18.744] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec3ff02d4c6d3a4c2c8787,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$kNlN8R9peWiTQy3/su0YFuyTPq3RI9jyOyriqUWpykHMppI3O9J0O',
+    createdAt: 2020-12-30T08:53:04.187Z,
+    updatedAt: 2020-12-30T08:53:04.187Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:24:32.954] [ERROR] development - User is not found with this email  =  { email: 'demo1234567@gmail.com', password: 'demo1234567' }
+[2020-12-30T14:25:06.415] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:25:22.963] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:27:11.744] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:28:06.822] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:29:12.802] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec3ff02d4c6d3a4c2c8787,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$kNlN8R9peWiTQy3/su0YFuyTPq3RI9jyOyriqUWpykHMppI3O9J0O',
+    createdAt: 2020-12-30T08:53:04.187Z,
+    updatedAt: 2020-12-30T08:53:04.187Z,
+    role: 'super_admin',
+    __v: 0
+  }
+}
+[2020-12-30T14:29:49.924] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec3ff02d4c6d3a4c2c8787,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$kNlN8R9peWiTQy3/su0YFuyTPq3RI9jyOyriqUWpykHMppI3O9J0O',
+    createdAt: 2020-12-30T08:53:04.187Z,
+    updatedAt: 2020-12-30T08:53:04.187Z,
+    role: 'super_admin',
+    emailVerified: true,
+    __v: 0
+  }
+}
+[2020-12-30T14:35:41.291] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:35:53.577] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:38:13.641] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:38:42.319] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:39:00.908] [ERROR] development - User is not found with this email  =  { email: 'restaurant123@gmail.com', password: 'restaurant123' }
+[2020-12-30T14:42:59.153] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec3ff02d4c6d3a4c2c8787,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$kNlN8R9peWiTQy3/su0YFuyTPq3RI9jyOyriqUWpykHMppI3O9J0O',
+    createdAt: 2020-12-30T08:53:04.187Z,
+    updatedAt: 2020-12-30T08:53:04.187Z,
+    role: 'super_admin',
+    emailVerified: true,
+    __v: 0
+  }
+}
+[2020-12-30T14:43:41.248] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:45:10.625] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T14:46:39.464] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T17:04:45.227] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T17:04:50.715] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2020-12-30T17:04:53.537] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}

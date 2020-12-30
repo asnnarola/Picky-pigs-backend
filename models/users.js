@@ -4,14 +4,16 @@ let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 let usersSchema = new Schema(
     {
-        fullName: { type: String },
-        email: { type: String },
+        name: { type: String },
         phone: { type: Number },
-        password: { type: String },
         profileImage: { type: String },
         dob: { type: Date },
         address: { type: String },
         gender: { type: String },
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'all_users'
+        },
         myPreferences: {
             allergenInformation: [{
                 type: Schema.Types.ObjectId,
@@ -27,10 +29,6 @@ let usersSchema = new Schema(
             }],
             restaurantFeatures: [{ type: String }]
         },
-        isVerified: { type: Boolean, default: false },
-        accountType: { type: String, enum: ["google", "facebook", "email"], default: "email" },
-        googleId: { type: String, default: null },
-        facebookId: { type: String, default: null },
         isDeleted: { type: Number, default: 0 },
     },
     {

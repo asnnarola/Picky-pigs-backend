@@ -6,6 +6,7 @@ const fs = require('fs');
 const { Parser } = require('json2csv');
 
 const User = require("../../models/users");
+const All_Users = require("../../models/all_users");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
@@ -29,7 +30,18 @@ router.post('/list', async (req, res, next) => {
                 $match: {
                     isDeleted: 0,
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: "users",
+                    localField: "_id",
+                    foreignField: "userId",
+                    as: "userDetail"
+                }
+            },
+            {
+                $unwind: "$userDetail"
+            },
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -37,7 +49,7 @@ router.post('/list', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "fullName": RE }
+                    { "userDetail.name": RE }
             });
 
         }
@@ -58,7 +70,7 @@ router.post('/list', async (req, res, next) => {
             });
         }
 
-        await User.aggregate(aggregate)
+        await All_Users.aggregate(aggregate)
             .then(userList => {
                 res.status(constants.OK_STATUS).json({ userList, totalRecord: totalRecord.length, "message": "user listing get successfully" });
             }).catch(error => {
@@ -73,7 +85,7 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
 
-    const update_resp = await common_helper.update(User, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
+    const update_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
     if (update_resp.status === 0) {
         res.status(constants.BAD_REQUEST).json({ status: 0, message: "Error occured while update password" });
     } else {
@@ -83,7 +95,7 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
 router.post('/export_user', async (req, res) => {
     try {
-        const user_resp = await User.find({}).select("email");
+        const user_resp = await All_Users.find({ role: "user" }).select("email");
         if (user_resp) {
             let userArray = [];
             let count = 1;
@@ -106,7 +118,7 @@ router.post('/export_user', async (req, res) => {
             });
 
             // res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });
-            
+
             res.header('Content-Type', 'text/csv');
             res.attachment(name);
             res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });

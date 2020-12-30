@@ -8,12 +8,12 @@ const restaurant_admin_routes = require("./restaurant_admin/restaurant_admin_rou
 const tablet_routes = require("./tablet/tablet_routes");
 const kds_routes = require("./kds/kds_routes");
 const front_end_routes = require("./front_end/front_end_routes");
-const front_endAuth = require("./front_end/auth");
+const auth = require("./auth");
 
 
 //Define routes here f
 router.use("/list", list);
-router.use("/auth", front_endAuth);
+router.use("/auth", auth);
 
 //for admin panel
 router.use("/restaurant_admin", restaurant_admin_routes);

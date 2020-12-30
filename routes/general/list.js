@@ -181,7 +181,6 @@ router.get('/restaurant_menus/:id', async (req, res, next) => {
     catch (err) {
         console.log("err", err)
         res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant menu listing", error: err });
-
     }
 });
 

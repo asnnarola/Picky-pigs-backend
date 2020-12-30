@@ -42,7 +42,7 @@ let dishSchema = new Schema({
     createNewVersion: { type: Boolean, default: false },
     restaurantAdminId: {
         type: Schema.Types.ObjectId,
-        ref: 'restaurant_admins'
+        ref: 'all_users'
     },
     isDeleted: { type: Number, default: 0 },
     cookingMethod: {

@@ -15,7 +15,7 @@ let menusSchema = new Schema(
         }],
         restaurantAdminId: {
             type: Schema.Types.ObjectId,
-            ref: 'restaurant_admins'
+            ref: 'all_users'
         },
         styleOfmenu: { type: String },
         // totalItem: { type: Boolean, default: 0 },

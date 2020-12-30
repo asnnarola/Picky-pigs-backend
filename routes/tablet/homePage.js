@@ -5,6 +5,7 @@ const ObjectId = require('mongodb').ObjectID;
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const Restaurant_adminModel = require("../../models/restaurantAdmin");
+const Restaurant_addressModel = require("../../models/restaurant_address");
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 
@@ -243,20 +244,17 @@ router.get('/nearest_location', async (req, res, next) => {
         //     res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
         // })
 
-        Restaurant_adminModel.find({})
+        Restaurant_addressModel.find({})
             .then(async list => {
                 let tempArray = [];
                 for (let singleList of list) {
-                    let distance_resp = await getDistanceBetweenPoints(23.022868, 72.583692, singleList.location.coordinates[0], singleList.location.coordinates[1])
+                    let distance_resp = await getDistanceBetweenPoints(25.1972, 55.2792, singleList.map.coordinates[0], singleList.map.coordinates[1])
                     let temp = Object.assign({}, singleList);
                     let tempAdminInfo = temp._doc;
                     tempAdminInfo.distance = distance_resp;
                     tempArray.push(tempAdminInfo)
                 }
                 tempArray.sort(function (a, b) { return a.distance - b.distance });
-                tempArray.map(element => {
-                    console.log(element.distance)
-                })
                 res.status(constants.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
             }).catch(err => {
                 console.log("err", err)

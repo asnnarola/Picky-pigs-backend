@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 let favouriteSchema = new Schema({
     restaurantAdminId: [{
         type: Schema.Types.ObjectId,
-        ref: 'restaurant_admins'
+        ref: 'all_users'
     }],
     dishesId: [{
         type: Schema.Types.ObjectId,
@@ -12,7 +12,7 @@ let favouriteSchema = new Schema({
     }],
     userId: {
         type: Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'all_users'
     },
     isDeleted: { type: Number, default: 0 },
 },

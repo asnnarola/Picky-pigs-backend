@@ -23,19 +23,34 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                 }
             },
             {
-                $unwind: "$openingTimings.time"
+                $lookup: {
+                    from: "restaurant_details",
+                    localField: "userId",
+                    foreignField: "userId",
+                    as: "restaurantDetails"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantDetails",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $unwind: "$restaurantDetails.openingTimings.time"
             },
             {
                 $match: {
-                    "openingTimings.time.day": moment().format("dddd"),
+                    "restaurantDetails.openingTimings.time.day": moment().format("dddd"),
 
                     /**Start time validation */
-                    'openingTimings.time.timeList.startTime': { $lt: moment().format("hh:mm") },
-                    'openingTimings.time.timeList.startTimeUnit': moment().format("a"),
+                    'restaurantDetails.openingTimings.time.timeList.startTime': { $lt: moment().format("hh:mm") },
+                    'restaurantDetails.openingTimings.time.timeList.startTimeUnit': moment().format("a"),
 
                     /**End time validation */
-                    'openingTimings.time.timeList.endTime': { $gt: moment().format("hh:mm") },
-                    'openingTimings.time.timeList.endTimeUnit': moment().format("a")
+                    'restaurantDetails.openingTimings.time.timeList.endTime': { $gt: moment().format("hh:mm") },
+                    'restaurantDetails.openingTimings.time.timeList.endTimeUnit': moment().format("a")
                 }
             }
         ];
@@ -148,18 +163,51 @@ router.post('/restaurantlist', async (req, res, next) => {
                 $lookup: {
                     from: "restaurant_admins",
                     localField: "restaurantAdminId",
-                    foreignField: "_id",
+                    foreignField: "userId",
                     as: "restaurant_adminDetail"
                 }
             },
             {
-                $unwind: "$restaurant_adminDetail"
+                $unwind: {
+                    path: "$restaurant_adminDetail",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_freatures",
+                    localField: "restaurantAdminId",
+                    foreignField: "userId",
+                    as: "restaurant_adminDetail.restaurantFeatures"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurant_adminDetail.restaurantFeatures",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_details",
+                    localField: "restaurantAdminId",
+                    foreignField: "userId",
+                    as: "restaurant_adminDetail.restaurantDetails"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurant_adminDetail.restaurantDetails",
+                    preserveNullAndEmptyArrays: true
+                }
             },
             {
                 $lookup: {
                     from: "reviews",
-                    localField: "restaurant_adminDetail._id",
-                    foreignField: "restaurantAdminId",
+                    localField: "restaurantAdminId",
+                    foreignField: "userId",
                     as: "restaurant_adminDetail.reviewDetail"
                 }
             }
@@ -172,7 +220,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 {
                     $or: [
                         { "restaurant_adminDetail.name": RE },
-                        { "restaurantFeatures.cuisineType": RE }
+                        { "restaurant_adminDetail.restaurantFeatures.cuisineType": RE }
                     ]
                 }
             });
@@ -182,7 +230,7 @@ router.post('/restaurantlist', async (req, res, next) => {
         if (req.body.openingTimings && req.body.openingTimings.length > 0) {
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.openingTimings.time.day": moment().format("dddd") }
+                    { "restaurant_adminDetail.restaurantDetails.openingTimings.time.day": moment().format("dddd") }
             });
         }
         if (req.body.features && req.body.features.length > 0) {
@@ -304,13 +352,28 @@ router.post('/disheslist', async (req, res, next) => {
                 $lookup: {
                     from: "restaurant_admins",
                     localField: "restaurantAdminId",
-                    foreignField: "_id",
+                    foreignField: "userId",
                     as: "restaurant_adminDetail"
                 }
             },
             {
                 $unwind: "$restaurant_adminDetail"
-            }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_addresses",
+                    localField: "restaurantAdminId",
+                    foreignField: "userId",
+                    as: "restaurant_adminDetail.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurant_adminDetail.address",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -330,7 +393,7 @@ router.post('/disheslist', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
+                    { "restaurant_adminDetail.address.restaurantFeaturesOptions": { $in: req.body.features } }
             });
 
         }

@@ -16,31 +16,7 @@ let orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'restaurant_admin'
     },
-
-    dishes: [
-        {
-            name: { type: String },
-            status: { type: String, default: "pending" },   //pending, completed, delete, unavailable
-            dishId: {
-                type: Schema.Types.ObjectId,
-                ref: 'dish'
-            },
-            items: [{
-                name: { type: String },
-                qty: { type: Number },
-                unit: { type: String },
-                allergeies: { type: String },
-                name: { type: String },
-                stokUnit: { type: String },
-                recipeCost: { type: Number },
-                isRemove: { type: Boolean }
-            }],
-            dishPrice: { type: Number },
-            orderQuantity: { type: Number },
-            tableNo: { type: Number },
-            covers: { type: Number }
-        }
-    ],
+    
     isDeleted: { type: Number, default: 0 },
 },
     {

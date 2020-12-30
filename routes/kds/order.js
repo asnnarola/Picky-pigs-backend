@@ -5,7 +5,7 @@ const moment = require('moment');
 const Menu = require("../../models/menus");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
-const Cart = require("../../models/cart");
+const OrderDish = require("../../models/orderDish");
 const Order = require("../../models/order");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
@@ -24,6 +24,14 @@ router.post('/list', async (req, res, next) => {
                 $match: {
                     isDeleted: 0,
                     "status": "pending",
+                }
+            },
+            {
+                $lookup: {
+                    from: "order_dishes",
+                    localField: "_id",
+                    foreignField: "orderId",
+                    as: "order_dishesDetail"
                 }
             },
             {
@@ -80,6 +88,14 @@ router.post('/history_list', async (req, res, next) => {
             {
                 $match: {
                     isDeleted: 0,
+                }
+            },
+            {
+                $lookup: {
+                    from: "order_dishes",
+                    localField: "_id",
+                    foreignField: "orderId",
+                    as: "order_dishesDetail"
                 }
             },
             {
@@ -175,7 +191,8 @@ router.post('/complete_order_dish', async (req, res, next) => {
         const obj = {
             "dishes.$.status": "completed"
         }
-        const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        // const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        const update_order = await common_helper.update(OrderDish, { "_id": req.body.orderDishId }, { status: "completed" })
 
         if (update_order.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
@@ -198,7 +215,8 @@ router.post('/delete_order_dish', async (req, res, next) => {
         const obj = {
             "dishes.$.status": "delete"
         }
-        const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        // const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        const update_order = await common_helper.update(OrderDish, { "_id": req.body.orderDishId }, { status: "delete" })
 
         if (update_order.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
@@ -221,7 +239,8 @@ router.post('/unavailable_order_dish', async (req, res, next) => {
         const obj = {
             "dishes.$.status": "unavailable"
         }
-        const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        // const update_order = await common_helper.update(Order, { "_id": req.body.orderId, 'dishes._id': new ObjectId(req.body.dishItemId) }, { $set: obj })
+        const update_order = await common_helper.update(OrderDish, { "_id": req.body.orderDishId }, { status: "unavailable" })
 
         if (update_order.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });

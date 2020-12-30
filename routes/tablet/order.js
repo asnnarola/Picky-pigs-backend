@@ -6,6 +6,7 @@ const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const Cart = require("../../models/cart");
 const Order = require("../../models/order");
+const OrderDish = require("../../models/orderDish");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
@@ -67,6 +68,8 @@ router.post('/place_order', async (req, res, next) => {
     try {
         const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
         if (cart_resp) {
+
+            /** insert/remove order related field with cart object */
             let temp = Object.assign({}, cart_resp);
             let cartCloneDetail = temp._doc
             delete cartCloneDetail._id
@@ -74,6 +77,19 @@ router.post('/place_order', async (req, res, next) => {
             cartCloneDetail.comment = req.body.comment;
             cartCloneDetail.fullName = req.body.fullName;
             const data = await common_helper.insert(Order, cartCloneDetail);
+
+            /** insert/remove dishes array field was orderID and _id */
+            let modifiedOrderDishes = []
+            cartCloneDetail.dishes.filter(element => {
+                let tempElement = Object.assign({}, element);
+                let dishCloneDetail = tempElement._doc
+                dishCloneDetail.orderId = data.data._id
+                dishCloneDetail.restaurantAdminId = data.data.restaurantAdminId
+                delete dishCloneDetail._id;
+                modifiedOrderDishes.push(dishCloneDetail);
+            })
+            const insert_resp = await common_helper.insertMany(OrderDish, modifiedOrderDishes);
+
             if (data.status === 1 && data.data) {
                 /**After place the order clear the cart records */
                 // await Cart.remove({ tableNo: req.body.tableNo });
@@ -87,7 +103,7 @@ router.post('/place_order', async (req, res, next) => {
     }
     catch (err) {
         console.log("err", err)
-        res.status(constants.BAD_REQUEST).json({ message: "Error while dish add to cart", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while Place order", error: err });
 
     }
 });

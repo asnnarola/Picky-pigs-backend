@@ -7,6 +7,7 @@ const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const Dish = require('../../models/dish');
+const DishCaloriesAndMacros = require('../../models/dish_caloriesAndMacros');
 const validation_response = require('../../validation/validation_response');
 const validation = require('../../validation/admin/validation');
 
@@ -15,8 +16,12 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     var duplicate_insert_resp = {};
     if (req.body.createNewVersion) {
         duplicate_insert_resp = await common_helper.insert(Dish, req.body);
+        req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
+        await common_helper.insert(DishCaloriesAndMacros, duplicate_insert_resp.data.caloriesAndMacros);
     }
     const insert_resp = await common_helper.insert(Dish, req.body);
+    req.body.caloriesAndMacros.dishId = insert_resp.data._id;
+    const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
 
     if (insert_resp.status === 1 && insert_resp.data) {
         res.status(constants.OK_STATUS).json({ insert_resp, duplicate_insert_resp });
@@ -82,6 +87,17 @@ router.get('/:id', async (req, res) => {
                     as: "subcategoriesDetail"
                 }
             },
+            {
+                $lookup: {
+                    from: "dish_caloriesandmacros",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "caloriesandmacrosDetail"
+                }
+            },
+            {
+                $unwind: "$caloriesandmacrosDetail"
+            }
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {

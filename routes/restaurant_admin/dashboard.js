@@ -22,6 +22,14 @@ router.post('/order_list', async (req, res, next) => {
                 }
             },
             {
+                $lookup: {
+                    from: "order_dishes",
+                    localField: "_id",
+                    foreignField: "orderId",
+                    as: "order_dishesDetail"
+                }
+            },
+            {
                 $sort: {
                     orderTakenTime: -1
                 }

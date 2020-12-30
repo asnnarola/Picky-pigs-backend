@@ -178,6 +178,17 @@ router.get('/dish_info/:id', async (req, res, next) => {
                     _id: new ObjectId(req.params.id)
                 }
             },
+            {
+                $lookup: {
+                    from: "dish_caloriesandmacros",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "caloriesandmacrosDetail"
+                }
+            },
+            {
+                $unwind: "$caloriesandmacrosDetail"
+            }
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
@@ -206,21 +217,21 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "orders",
+                    from: "order_dishes",
                     localField: "_id",
-                    foreignField: "dishes.dishId",
-                    as: "ordersDetail"
+                    foreignField: "dishId",
+                    as: "ordersDishDetail"
                 }
             },
             {
                 $project: {
                     dishDetail: "$$ROOT",
-                    orderDetail: { $size: "$ordersDetail" }
+                    ordersDishDetail: { $size: "$ordersDishDetail" }
                 }
             },
             {
                 $sort: {
-                    orderDetail: -1
+                    ordersDishDetail: -1
                 }
             }
         ];

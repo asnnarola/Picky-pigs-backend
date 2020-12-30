@@ -60,55 +60,6 @@ let dishSchema = new Schema({
             recipeCost: { type: Number },
             customisable: { type: Boolean }
         }]
-    },
-    caloriesAndMacros: {
-        fat: {
-            totalFat: { type: Number },
-            totalFatUnit: { type: String }, // gm, etc
-            items: [{
-                name: { type: String },
-                weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
-                percentage: { type: Number }
-            }],
-        },
-        Cholesterol: {
-            name: { type: String },
-            weight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
-            percentage: { type: Number }
-        },
-        Sodium: {
-            name: { type: String },
-            weight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
-            percentage: { type: Number }
-        },
-        TotalCarbohydrate: {
-            name: { type: String },
-            totalWeight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
-            totalPercentage: { type: Number },
-            items: [{
-                name: { type: String },
-                weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
-                percentage: { type: Number }
-            }],
-        },
-        Protien: {
-            name: { type: String },
-            totalWeight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
-            totalPercentage: { type: Number },
-            items: [{
-                name: { type: String },
-                weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
-                percentage: { type: Number }
-            }],
-        },
-        total: { type: Number }
     }
 },
     {

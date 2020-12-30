@@ -61,6 +61,17 @@ router.get('/:id', async (req, res, next) => {
                     as: "lifestylesDetail"
                 }
             },
+            {
+                $lookup: {
+                    from: "dish_caloriesandmacros",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "caloriesandmacrosDetail"
+                }
+            },
+            {
+                $unwind: "$caloriesandmacrosDetail"
+            }
         ];
 
         if (req.body.allergens && req.body.allergens != "") {

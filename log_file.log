@@ -5988,3 +5988,288 @@
     }
   }
 }
+[2020-12-30T09:22:45.130] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-29T09:04:19.601Z,
+    __v: 0,
+    name: 'restaurant name',
+    location: { type: 'Point', coordinates: [Array] },
+    about: 'about information',
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    restaurantCoverPhoto: 'http://coverImage.jpeg',
+    restaurantProfilePhoto: 'http://profileImage.jpeg',
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-30T09:53:49.972] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-29T09:04:19.601Z,
+    __v: 0,
+    name: 'restaurant name',
+    location: { type: 'Point', coordinates: [Array] },
+    about: 'about information',
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    restaurantCoverPhoto: 'http://coverImage.jpeg',
+    restaurantProfilePhoto: 'http://profileImage.jpeg',
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-30T09:53:57.504] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: 'password000',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-29T09:04:19.601Z,
+    __v: 0,
+    name: 'restaurant name',
+    location: { type: 'Point', coordinates: [Array] },
+    about: 'about information',
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    restaurantCoverPhoto: 'http://coverImage.jpeg',
+    restaurantProfilePhoto: 'http://profileImage.jpeg',
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}
+[2020-12-30T09:54:50.570] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdc3bb035094707148ffc10,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$JtW4vnymrYSKp1iEAsUrOunPgBBAdsF3TAB96M2wekOcKbjLGyrIK',
+    createdAt: 2020-12-18T05:18:40.357Z,
+    updatedAt: 2020-12-18T05:30:10.993Z,
+    __v: 0
+  }
+}
+[2020-12-30T09:55:03.666] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fdb452a5986bc2ab8bcc70d,
+    security: {
+      twoFactorAuthenticationPhoneNumber: true,
+      twoFactorAuthenticationEmail: false
+    },
+    address: {
+      street: 'street name',
+      locality: 'locality 1',
+      pincode: 123456,
+      zipcode: 123456,
+      addLocationMap: true,
+      shareLocationOption: false,
+      getDirectionOption: false,
+      map: [Object]
+    },
+    openingTimings: { isTime24Hours: false, isMultiTime: true, time: [Array] },
+    restaurantFeatures: {
+      averageCostOfTwoPerson: 200,
+      inclusiveTaxesAndCharges: true,
+      cashAccept: false,
+      cardAccept: true,
+      cuisineType: [Array],
+      restaurantFeaturesOptions: [Array],
+      appliesOfRestaurant: 'applies restaurant'
+    },
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$ndWTv50UK7tX8LaGcBsfzOhm3X.4nRfCchCuARhkU6JtQx/SmzgfG',
+    createdAt: 2020-12-17T11:46:51.000Z,
+    updatedAt: 2020-12-30T04:25:01.273Z,
+    __v: 0,
+    name: 'restaurant name',
+    location: { type: 'Point', coordinates: [Array] },
+    about: 'about information',
+    bookings: {
+      isAvailable: true,
+      isWebsite: true,
+      isEmail: true,
+      isCall: true,
+      websiteUrl: 'http://pickypigs.com/booking',
+      email: 'pickypingsbooking@gmail.com',
+      phoneNumber: '1234568791'
+    },
+    info: {
+      login: 'admin',
+      phoneNumber: '7894561321',
+      mobileNumber: '13211284791',
+      location: 'Street, area , country',
+      email: 'xyz@gmail.com'
+    },
+    restaurantCoverPhoto: 'http://coverImage.jpeg',
+    restaurantProfilePhoto: 'http://profileImage.jpeg',
+    socialMedia: {
+      isAvailable: false,
+      isFacebook: false,
+      isTwitter: false,
+      isInstagram: false,
+      facebookUrl: 'https://facebook.com',
+      twitterUrl: 'https://twitter.com',
+      instagramUrl: 'https://instagram.com'
+    },
+    website: { websiteUrl: 'http://pickypigs.com', isAddToProfilePage: true }
+  }
+}

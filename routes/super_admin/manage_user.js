@@ -12,9 +12,6 @@ const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const manage_module = require('../../validation/admin/manage_module');
 const validation_response = require('../../validation/validation_response');
-const forgotPasswordMail = require('../../mails/forgotPasswordMail');
-const sendMail = require('../../mails/sendMail');
-const adminAuth = require('../../validation/admin/adminAuth');
 
 const saltRounds = 10;
 

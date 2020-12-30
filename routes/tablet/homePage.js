@@ -2,17 +2,11 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 
-const Menu = require("../../models/menus");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const Restaurant_adminModel = require("../../models/restaurantAdmin");
-const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
-const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
-const validation_response = require('../../validation/validation_response');
-const ingredient_management = require('../../validation/admin/ingredient_management');
 
 
 /**Get category and  subcategory base on the menu*/

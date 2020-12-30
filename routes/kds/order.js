@@ -2,18 +2,10 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
-const Menu = require("../../models/menus");
-const Category = require("../../models/category");
-const Dish = require("../../models/dish");
 const OrderDish = require("../../models/orderDish");
 const Order = require("../../models/order");
 const common_helper = require('../../helpers/common');
-const config = require('../../config/config');
 const constants = require('../../config/constants');
-const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
-const validation_response = require('../../validation/validation_response');
-const ingredient_management = require('../../validation/admin/ingredient_management');
 
 /**Current order list */
 router.post('/list', async (req, res, next) => {

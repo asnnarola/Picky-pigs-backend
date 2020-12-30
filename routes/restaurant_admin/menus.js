@@ -2,18 +2,12 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const common_helper = require('../../helpers/common');
-const menus_helper = require('../../helpers/menu');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
-const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
 const Menus = require('../../models/menus');
 const Category = require('../../models/category');
-const Subcategory = require('../../models/subcategory');
-const Dish = require('../../models/dish');
 const validation = require('../../validation/admin/validation');
-const { aggregate } = require('../../models/menus');
 
 //add menu
 router.post('/', validation.menu, validation_response, async (req, res, next) => {

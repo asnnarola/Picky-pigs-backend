@@ -4,8 +4,6 @@ var router = express.Router();
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
-const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
 const Dish = require('../../models/dish');
 const DishCaloriesAndMacros = require('../../models/dish_caloriesAndMacros');
 const validation_response = require('../../validation/validation_response');
@@ -17,6 +15,7 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     if (req.body.createNewVersion) {
         duplicate_insert_resp = await common_helper.insert(Dish, req.body);
         req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
+        req.body.caloriesAndMacros.restaurantAdminId = duplicate_insert_resp.data._id;
         await common_helper.insert(DishCaloriesAndMacros, duplicate_insert_resp.data.caloriesAndMacros);
     }
     const insert_resp = await common_helper.insert(Dish, req.body);

@@ -1,15 +1,11 @@
 var express = require('express');
 const ObjectId = require('mongodb').ObjectID;
 var router = express.Router();
-const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
 const Order = require('../../models/order');
 const Dish = require('../../models/dish');
-const validation_response = require('../../validation/validation_response');
-const validation = require('../../validation/admin/validation');
 
 
 router.post('/order_list', async (req, res, next) => {

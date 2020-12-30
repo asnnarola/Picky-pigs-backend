@@ -9,7 +9,6 @@ const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const validation_response = require('../../validation/validation_response');
-const forgotPasswordMail = require('../../mails/forgotPasswordMail');
 const sendMail = require('../../mails/sendMail');
 const adminAuth = require('../../validation/admin/adminAuth');
 

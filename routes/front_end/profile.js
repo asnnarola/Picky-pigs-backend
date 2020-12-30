@@ -2,16 +2,12 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
-const Menu = require("../../models/menus");
 const User = require("../../models/users");
 const Favourite = require("../../models/favourite");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
-const LOGGER = config.LOGGER;
-const auth = require('../../validation/auth');
-const validation_response = require('../../validation/validation_response');
 const bcrypt = require("bcrypt")
 const saltRounds = 10;
 

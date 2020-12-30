@@ -6,8 +6,6 @@ const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const supplier = require('../../models/supplier');
-const validation_response = require('../../validation/validation_response');
-const ingredient_management = require('../../validation/admin/ingredient_management');
 
 //add supplier
 router.post('/', async (req, res, next) => {

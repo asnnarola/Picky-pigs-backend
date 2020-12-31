@@ -71,6 +71,7 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: error });
             });
     }
     catch (err) {
@@ -125,7 +126,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
             .then(dishesList => {
                 res.status(constants.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
             }).catch(error => {
-                res.status(constants.BAD_REQUEST).json({ message: "Error while get dishes list", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get dishes list", error: error });
             });
     }
     catch (err) {
@@ -315,6 +316,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: error });
             });
     }
     catch (err) {
@@ -454,6 +456,7 @@ router.post('/disheslist', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: error });
             });
     }
     catch (err) {

@@ -85,7 +85,7 @@ router.post('/place_order', async (req, res, next) => {
 
             if (data.status === 1 && data.data) {
                 /**After place the order clear the cart records */
-                // await Cart.remove({ tableNo: req.body.tableNo });
+                await Cart.remove({ tableNo: req.body.tableNo });
                 res.status(constants.OK_STATUS).json({ data: data, message: "Place order successfully" });
             } else {
                 res.status(constants.BAD_REQUEST).json(data);

@@ -18,7 +18,6 @@ let menusSchema = new Schema(
             ref: 'all_users'
         },
         styleOfmenu: { type: String },
-        // totalItem: { type: Boolean, default: 0 },
         isDeleted: { type: Number, default: 0 },
     },
     {

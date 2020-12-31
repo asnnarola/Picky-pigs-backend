@@ -7,7 +7,7 @@ var config = require("../config/config");
 var mongoDB = config.DATABASE;
 
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
+// mongoose.set('debug', true);
 //Get the default connection
 var db = mongoose.connection;
 

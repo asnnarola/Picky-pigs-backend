@@ -8,6 +8,8 @@ const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
+const passwordValidator = require('password-validator');
+const passwordValidatorSchema = new passwordValidator();
 const manage_module = require('../../validation/admin/manage_module');
 const validation_response = require('../../validation/validation_response');
 
@@ -17,15 +19,24 @@ const saltRounds = 10;
 
 
 router.post('/create', manage_module.create_restaurant, validation_response, async (req, res, next) => {
+    try {
+        if (passwordValidatorSchema.validate(req.body.password) == true) {
+            const register_allUser_resp = await common_helper.insert(All_Users, req.body);
+            req.body.userId = register_allUser_resp.data._id;
+            const register_user_resp = await common_helper.insert(RestaurantAdmin, req.body);
 
-    const register_allUser_resp = await common_helper.insert(All_Users, req.body);
-    req.body.userId = register_allUser_resp.data._id;
-    const register_user_resp = await common_helper.insert(RestaurantAdmin, req.body);
-
-    if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
-        res.status(constants.OK_STATUS).json(register_allUser_resp);
-    } else {
-        res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+            if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
+                res.status(constants.OK_STATUS).json(register_allUser_resp);
+            } else {
+                res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+            }
+        }
+        else {
+            res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ status: 0, err: err });
     }
 })
 
@@ -92,12 +103,15 @@ router.post('/list', async (req, res, next) => {
 
 
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
-
-    const update_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
-    if (update_resp.status === 0) {
-        res.json({ status: 0, message: "Error occured while update password" });
-    } else {
-        res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+    try {
+        const update_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
+        if (update_resp.status === 0) {
+            res.json({ status: 0, message: "Error occured while update password" });
+        } else {
+            res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+        }
+    } catch (err) {
+        res.status(constants.BAD_REQUEST).json({ message: "Error into Password has been changed", error: err });
     }
 })
 

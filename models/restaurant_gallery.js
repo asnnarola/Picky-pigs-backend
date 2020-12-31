@@ -3,17 +3,18 @@ const bcrypt = require('bcrypt');
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let restaurant_gallerySchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
-    },
-    restaurantAmbience: [{ url: { type: String } }],
-    food: [{ url: { type: String } }],
-    videos: [{ url: { type: String } }],
-    images: [{ url: { type: String }, type: { type: String, default: "image" } }]
+let restaurant_gallerySchema = new Schema(
+    {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'users'
+        },
+        restaurantAmbience: [{ url: { type: String } }],
+        food: [{ url: { type: String } }],
+        videos: [{ url: { type: String } }],
+        images: [{ url: { type: String }, type: { type: String, default: "image" } }]
 
-},
+    },
     {
         timestamps: true
     });

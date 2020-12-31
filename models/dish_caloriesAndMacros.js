@@ -2,65 +2,66 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-let dish_caloriesAndMacrosSchema = new Schema({
+let dish_caloriesAndMacrosSchema = new Schema(
+    {
 
-    dishId: {
-        type: Schema.Types.ObjectId,
-        ref: 'dish'
-    },
-    restaurantAdminId: {
-        type: Schema.Types.ObjectId,
-        ref: 'all_users'
-    },
-    isDeleted: { type: Number, default: 0 },
-    fat: {
-        totalFat: { type: Number },
-        totalFatUnit: { type: String }, // gm, etc
-        items: [{
+        dishId: {
+            type: Schema.Types.ObjectId,
+            ref: 'dish'
+        },
+        restaurantAdminId: {
+            type: Schema.Types.ObjectId,
+            ref: 'all_users'
+        },
+        isDeleted: { type: Number, default: 0 },
+        fat: {
+            totalFat: { type: Number },
+            totalFatUnit: { type: String }, // gm, etc
+            items: [{
+                name: { type: String },
+                weight: { type: Number },
+                weightUnit: { type: String }, // gm, etc
+                percentage: { type: Number }
+            }],
+        },
+        Cholesterol: {
             name: { type: String },
             weight: { type: Number },
             weightUnit: { type: String }, // gm, etc
             percentage: { type: Number }
-        }],
-    },
-    Cholesterol: {
-        name: { type: String },
-        weight: { type: Number },
-        weightUnit: { type: String }, // gm, etc
-        percentage: { type: Number }
-    },
-    Sodium: {
-        name: { type: String },
-        weight: { type: Number },
-        weightUnit: { type: String }, // gm, etc
-        percentage: { type: Number }
-    },
-    TotalCarbohydrate: {
-        name: { type: String },
-        totalWeight: { type: Number },
-        weightUnit: { type: String }, // gm, etc
-        totalPercentage: { type: Number },
-        items: [{
+        },
+        Sodium: {
             name: { type: String },
             weight: { type: Number },
             weightUnit: { type: String }, // gm, etc
             percentage: { type: Number }
-        }],
-    },
-    Protien: {
-        name: { type: String },
-        totalWeight: { type: Number },
-        weightUnit: { type: String }, // gm, etc
-        totalPercentage: { type: Number },
-        items: [{
+        },
+        TotalCarbohydrate: {
             name: { type: String },
-            weight: { type: Number },
+            totalWeight: { type: Number },
             weightUnit: { type: String }, // gm, etc
-            percentage: { type: Number }
-        }],
+            totalPercentage: { type: Number },
+            items: [{
+                name: { type: String },
+                weight: { type: Number },
+                weightUnit: { type: String }, // gm, etc
+                percentage: { type: Number }
+            }],
+        },
+        Protien: {
+            name: { type: String },
+            totalWeight: { type: Number },
+            weightUnit: { type: String }, // gm, etc
+            totalPercentage: { type: Number },
+            items: [{
+                name: { type: String },
+                weight: { type: Number },
+                weightUnit: { type: String }, // gm, etc
+                percentage: { type: Number }
+            }],
+        },
+        total: { type: Number }
     },
-    total: { type: Number }
-},
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically
         //minimize: false   // will make sure all properties exist, even if null

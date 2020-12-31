@@ -13,13 +13,15 @@ const auth = require("./auth");
 
 //Define routes here f
 router.use("/list", list);
-router.use("/auth", auth);
 
-//for admin panel
-router.use("/restaurant_admin", restaurant_admin_routes);
+/** Authentication */
+router.use("/auth", auth);
 
 /** Super admin */
 router.use("/super_admin", super_admin_routes);
+
+/** Restaurant Admin */
+router.use("/restaurant_admin", restaurant_admin_routes);
 
 /** Tablet Portal */
 router.use("/tablet", tablet_routes);

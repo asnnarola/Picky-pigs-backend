@@ -3,12 +3,13 @@ const bcrypt = require('bcrypt');
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let super_adminSchema = new Schema({
-    email: { type: String },
-    password: { type: String },
-    isDeleted: { type: Number, default: 0 },
-    forgotPasswordToken: { type: String }
-},
+let super_adminSchema = new Schema(
+    {
+        email: { type: String },
+        password: { type: String },
+        isDeleted: { type: Number, default: 0 },
+        forgotPasswordToken: { type: String }
+    },
     {
         timestamps: true
     });

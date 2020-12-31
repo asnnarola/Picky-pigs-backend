@@ -1,23 +1,24 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let restaurant_addressSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'all_users'
+let restaurant_addressSchema = new Schema(
+    {
+        userId: {
+            type: Schema.Types.ObjectId,
+            ref: 'all_users'
+        },
+        street: { type: String },
+        locality: { type: String },
+        pincode: { type: Number },
+        zipcode: { type: Number },
+        addLocationMap: { type: Boolean, default: false },
+        shareLocationOption: { type: Boolean, default: false },
+        getDirectionOption: { type: Boolean, default: false },
+        map: {
+            coordinates: [],  //first latitude, second longitude
+            type: { type: String }
+        }
     },
-    street: { type: String },
-    locality: { type: String },
-    pincode: { type: Number },
-    zipcode: { type: Number },
-    addLocationMap: { type: Boolean, default: false },
-    shareLocationOption: { type: Boolean, default: false },
-    getDirectionOption: { type: Boolean, default: false },
-    map: {
-        coordinates: [],  //first latitude, second longitude
-        type: { type: String }
-    }
-},
     {
         timestamps: true
     });

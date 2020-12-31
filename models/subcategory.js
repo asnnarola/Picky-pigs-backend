@@ -2,22 +2,23 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
-let subcategorySchema = new Schema({
-    categoryId: {
-        type: Schema.Types.ObjectId,
-        ref: 'category'
+let subcategorySchema = new Schema(
+    {
+        categoryId: {
+            type: Schema.Types.ObjectId,
+            ref: 'category'
+        },
+        restaurantAdminId: {
+            type: Schema.Types.ObjectId,
+            ref: 'all_users'
+        },
+        menuId: {
+            type: Schema.Types.ObjectId,
+            ref: 'menus'
+        },
+        name: { type: String, required: true },
+        isDeleted: { type: Number, default: 0 },
     },
-    restaurantAdminId: {
-        type: Schema.Types.ObjectId,
-        ref: 'restaurant_admins'
-    },
-    menuId: {
-        type: Schema.Types.ObjectId,
-        ref: 'menus'
-    },
-    name: { type: String, required: true, unique: true },
-    isDeleted: { type: Number, default: 0 },
-},
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically
         //minimize: false   // will make sure all properties exist, even if null

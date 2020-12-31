@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer')
 const ejs = require('ejs')
-console.log('HI in sendMail');
 
 // The credentials for the email account you want to send mail from.
 const credentials = {

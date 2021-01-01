@@ -100,7 +100,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
             },
             {
                 $match: {
-                    "menusDetail.availability.day": moment().format("dddd"),
+                    "menusDetail.availability": moment().format("dddd"),
 
                     /**Start time validation */
                     'menusDetail.timeFrom': { $lt: moment().format("HH:mm") },

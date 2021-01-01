@@ -15,11 +15,12 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     if (req.body.createNewVersion) {
         duplicate_insert_resp = await common_helper.insert(Dish, req.body);
         req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
-        req.body.caloriesAndMacros.restaurantAdminId = duplicate_insert_resp.data._id;
-        await common_helper.insert(DishCaloriesAndMacros, duplicate_insert_resp.data.caloriesAndMacros);
+        req.body.caloriesAndMacros.restaurantAdminId = req.loginUser.id;
+        await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
     }
     const insert_resp = await common_helper.insert(Dish, req.body);
     req.body.caloriesAndMacros.dishId = insert_resp.data._id;
+    req.body.caloriesAndMacros.restaurantAdminId = req.loginUser.id;
     const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
 
     if (insert_resp.status === 1 && insert_resp.data) {

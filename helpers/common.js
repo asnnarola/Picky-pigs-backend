@@ -48,7 +48,7 @@ common_helper.insert = async (Model, newData) => {
     let data = await document.save();
     return { status: 1, message: "Data inserted", data };
   } catch (error) {
-    console.log('error => ',error);
+    console.log('error => ', error);
     return { status: 0, message: "No data inserted", error: error.message };
   }
 };
@@ -80,8 +80,8 @@ common_helper.update = async (model, condition, newData) => {
     let data = await model.findOneAndUpdate(condition, newData, { new: true }).lean();
     return { status: 1, message: "Data updated", data };
   } catch (error) {
-    console.log('error => ',error);
-    return { status: 0, message: "No data updated", error: error.message};
+    console.log('error => ', error);
+    return { status: 0, message: "No data updated", error: error.message };
   }
 };
 
@@ -96,7 +96,7 @@ common_helper.softDelete = async (model, condition) => {
     let data = await model.findOneAndUpdate(condition, { isDeleted: 1 }, { new: true });
     return { status: 1, message: "Data deleted", data };
   } catch (error) {
-    return { status: 0, message: "No data deleted", error: error.message};
+    return { status: 0, message: "No data deleted", error: error.message };
   }
 };
 
@@ -112,7 +112,7 @@ common_helper.delete = async (model, condition) => {
     let data = await model.findOneAndDelete(condition);
     return { status: 1, message: "Data deleted", data };
   } catch (error) {
-    return { status: 0, message: "No data deleted", error: error.message};
+    return { status: 0, message: "No data deleted", error: error.message };
   }
 };
 
@@ -144,7 +144,7 @@ common_helper.findOne = async (model, condition = {}) => {
     let data = await model.findOne(condition).lean();
     return { status: 1, message: "Data found", data };
   } catch (error) {
-    return { status: 0, message: "No data found", error: error.message};
+    return { status: 0, message: "No data found", error: error.message };
   }
 };
 
@@ -162,22 +162,22 @@ common_helper.findOne = async (model, condition = {}) => {
  */
 common_helper.updatewithupsert = async (collection, id, data) => {
   try {
-      var data2 = await collection.findOneAndUpdate(id, data, { new: true, upsert: true })
-      if (data2) {
-          return {
-              status: 1,
-              message: "Record updated successfully.",
-              data: data2
-          };
-      } else {
-          return { status: 2, message: "No data updated" };
-      }
-  } catch (err) {
+    var data2 = await collection.findOneAndUpdate(id, data, { new: true, upsert: true })
+    if (data2) {
       return {
-          status: 0,
-          message: "Error occurred while updating data",
-          error: err
+        status: 1,
+        message: "Record updated successfully.",
+        data: data2
       };
+    } else {
+      return { status: 2, message: "No data updated" };
+    }
+  } catch (err) {
+    return {
+      status: 0,
+      message: "Error occurred while updating data",
+      error: err
+    };
   }
 }
 
@@ -210,7 +210,7 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
             try {
 
               filename =
-                 new Date().getTime() + uuidv4() + "." + file.name.split(".").pop();
+                new Date().getTime() + uuidv4() + "." + file.name.split(".").pop();
 
             } catch (error) {
               filename = new Date().getTime() + uuidv4() + "." + file.name.split(".").pop();
@@ -235,7 +235,7 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
         reject({ status: 0, message: "No file(s) selected" });
       }
     } catch (error) {
-      reject({ status: 0, message: "No file(s) selected", error: error.message});
+      reject({ status: 0, message: "No file(s) selected", error: error.message });
     }
   });
   return promise;
@@ -282,6 +282,38 @@ common_helper.changeObject = function (data, callback) {
   };
 
   return data;
+};
+
+
+/** Pagination of the array */
+common_helper.pagination = async function (modified_arry, startPage, lengthPage) {
+  try {
+    // let modified_arry = modified_arry || [];
+    let per_page = lengthPage || 10;
+    let start = startPage || 0;
+    let paginationArray = [];
+    let loopCounter = (start + per_page);
+
+    for (let i = start; i < loopCounter; i++) {
+      let element = modified_arry[i] ? modified_arry[i] : null;
+
+      if (element) {
+        paginationArray.push(element);
+      }
+    }
+
+    return responseData = {
+      data: paginationArray,
+      recordsTotal: modified_arry.length,
+      // filteredrecords: paginationArray.length
+    };
+  } catch (error) {
+    return {
+      status: 0,
+      message: "Error occurred while pagination data",
+      error: error
+    };
+  }
 };
 
 module.exports = common_helper;

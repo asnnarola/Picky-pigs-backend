@@ -5,14 +5,13 @@ const bcrypt = require('bcrypt');
 let menusSchema = new Schema(
     {
         name: { type: String },
-        // day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday"] },
+        // day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
         timeFrom: { type: String },
         timeTo: { type: String },
         isAvailable: { type: Boolean, default: false },
-        availability: [{
-            day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", "Everyday"] },
-            isSelect: { type: Boolean, default: false }
-        }],
+        availability: [
+            { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
+        ],
         restaurantAdminId: {
             type: Schema.Types.ObjectId,
             ref: 'all_users'

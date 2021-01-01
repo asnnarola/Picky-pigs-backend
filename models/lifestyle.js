@@ -5,7 +5,11 @@ const bcrypt = require('bcrypt');
 let lifestyleSchema = new Schema(
     {
         name: { type: String, required: true },
-        restaurantAdminId: {
+        superAdminId: {
+            type: Schema.Types.ObjectId,
+            ref: 'all_users'
+        },
+        lastModifiedById: {
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },

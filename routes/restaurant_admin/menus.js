@@ -12,7 +12,7 @@ const validation = require('../../validation/admin/validation');
 //add menu
 router.post('/', validation.menu, validation_response, async (req, res, next) => {
     try {
-        
+
         req.body.restaurantAdminId = req.loginUser.id;
         const data = await common_helper.insert(Menus, req.body);
         if (data.status === 1 && data.data) {
@@ -65,7 +65,7 @@ router.delete('/:id', async (req, res, next) => {
     // } else {
     //     res.status(constants.BAD_REQUEST).json({ ...data, message: "not found any data so delete it" });
     // }
-    
+
     var data = await common_helper.softDelete(Menus, { "_id": req.params.id })
     if (data.status === 0) {
         res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
@@ -96,13 +96,11 @@ router.post("/list", async (req, res) => {
                 }
             }
         ]
-        if (req.body.delete) {
-            aggregate.push({
-                $match: {
-                    isDeleted: req.body.delete
-                }
-            })
-        }
+        aggregate.push({
+            $match: {
+                isDeleted: parseInt(req.body.delete) || 0
+            }
+        })
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };

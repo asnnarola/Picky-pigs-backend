@@ -34,8 +34,8 @@ let restaurant_detailsSchema = new Schema(
             isEmail: { type: Boolean },
             isCall: { type: Boolean },
             websiteUrl: { type: String },
-            email: { type: String },
-            phoneNumber: { type: String },
+            email: [{ type: String }],
+            phoneNumber: [{ type: String }],
         },
         socialMedia: {
             isAvailable: { type: Boolean },

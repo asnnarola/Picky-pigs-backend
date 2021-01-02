@@ -18,6 +18,10 @@ let menusSchema = new Schema(
         },
         styleOfmenu: { type: String },
         isDeleted: { type: Number, default: 0 },
+        parentMenu:{
+            type: Schema.Types.ObjectId,
+            ref: 'menus'
+        }
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

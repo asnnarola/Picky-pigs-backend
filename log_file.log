@@ -6659,3 +6659,57 @@
     __v: 0
   }
 }
+[2021-01-02T09:52:34.116] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2021-01-02T11:04:30.640] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}
+[2021-01-02T11:34:38.897] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5fec400e2d4c6d3a4c2c8788,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$W782H4to1/.I2lhX5Ji6jOuQK71cEWC/GwT/0ymK8/szBTKmT5J76',
+    role: 'restaurant_admin',
+    createdAt: 2020-12-30T08:53:34.114Z,
+    updatedAt: 2020-12-30T08:53:34.114Z,
+    __v: 0
+  }
+}

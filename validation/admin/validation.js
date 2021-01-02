@@ -20,6 +20,34 @@ module.exports = {
             .not().isEmpty().withMessage('Timefrom is required')
             .exists().withMessage('Timefrom is required'),
     ],
+    submenu: [
+        check('name')
+            .trim()
+            .not().isEmpty().withMessage('Name is required')
+            .exists().withMessage('Name is required')
+            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        check('styleOfmenu')
+            .trim()
+            .not().isEmpty().withMessage('styleOfmenu is required')
+            .exists().withMessage('styleOfmenu is required')
+            .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
+        check('availability')
+            .isArray().withMessage('availability is required')
+            .not().isEmpty().withMessage('availability is required')
+            .exists().withMessage('availability is required'),
+        check('timeTo')
+            .trim()
+            .not().isEmpty().withMessage('Timeto is required')
+            .exists().withMessage('Timeto is required'),
+        check('parentMenu')
+            .trim()
+            .not().isEmpty().withMessage('parentMenu is required')
+            .exists().withMessage('parentMenu is required'),
+        check('timeFrom')
+            .trim()
+            .not().isEmpty().withMessage('Timefrom is required')
+            .exists().withMessage('Timefrom is required'),
+    ],
     category: [
         check('name')
             .trim()
@@ -88,7 +116,7 @@ module.exports = {
             .trim()
             .not().isEmpty().withMessage('instructions is required')
             .exists().withMessage('instructions is required')
-        
+
 
     ],
 };

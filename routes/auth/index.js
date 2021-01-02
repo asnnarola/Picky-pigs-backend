@@ -295,7 +295,7 @@ router.post('/forgot_password', adminAuth.forgotPassword, validation_response, a
             }
             await sendMail(emailContent)
                 .then(emailResp => {
-                    res.status(constants.OK_STATUS).json({ token, message: "Reset link was sent to your email address" });
+                    res.status(constants.OK_STATUS).json({ message: "Reset link was sent to your email address" });
                 }).catch(error => {
                     return res.status(constants.BAD_REQUEST).json({ message: "Error occurred while sent email.", error: error });
                 });

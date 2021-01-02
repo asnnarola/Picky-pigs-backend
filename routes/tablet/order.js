@@ -11,7 +11,7 @@ const constants = require('../../config/constants');
 
 router.post('/cart/add_dish', async (req, res, next) => {
     try {
-        //find into the cart table base on the login user/table number
+        //find into the cart table base on the login user/table number with restaurant id
         const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
         if (cart_resp) {
             const update_order = await common_helper.update(Cart, { "_id": cart_resp._id }, { itemTotalPrice: req.body.itemTotalPrice, $push: { dishes: req.body.dishes } })
@@ -24,6 +24,25 @@ router.post('/cart/add_dish', async (req, res, next) => {
             } else {
                 res.status(constants.BAD_REQUEST).json(data);
             }
+        }
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error while dish add to cart", error: err });
+
+    }
+});
+
+/**Remove dish from cart */
+router.post('/cart/remove_dish', async (req, res, next) => {
+    try {
+        //find into the cart table base on the login user/table number with restaurant id
+        const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
+        if (cart_resp) {
+            const update_order = await common_helper.update(Cart, { "_id": cart_resp._id }, { itemTotalPrice: req.body.itemTotalPrice, $pull: { dishes: { _id: req.body.dishId } } })
+            res.status(constants.OK_STATUS).json(update_order);
+        } else {
+            res.status(constants.BAD_REQUEST).json({ message: "cart not found" });
         }
     }
     catch (err) {
@@ -59,6 +78,7 @@ router.post('/cart/change_quantity', async (req, res, next) => {
 
 router.post('/place_order', async (req, res, next) => {
     try {
+        //find into the cart table base on the login user/table number with restaurant id
         const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
         if (cart_resp) {
 
@@ -101,5 +121,29 @@ router.post('/place_order', async (req, res, next) => {
     }
 });
 
+router.post('/cart_detail', async (req, res, next) => {
+    try {
+        let aggregate = [
+            {
+                $match: {
+                    tableNo: req.body.tableNo,
+                    restaurantAdminId: ObjectId(req.body.restaurantAdminId)
+                }
+            }
+        ];
 
+        await Cart.aggregate(aggregate)
+            .then(cartDetail => {
+                res.status(constants.OK_STATUS).json({ cartDetail, message: "Cart details get successfully." });
+            }).catch(error => {
+                console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get cart details", error: error });
+            });
+    }
+    catch (err) {
+        console.log("err", err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get cart details", error: err });
+
+    }
+});
 module.exports = router;

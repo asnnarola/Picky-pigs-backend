@@ -22,7 +22,7 @@ module.exports = async (contentDetail) => {
       }
       else {
         const emailContant = {
-          from: process.env.MAIL_USER,
+          from: `"Picky Pigs"<${process.env.MAIL_USER}>`,
           to: contentDetail.to,
           subject: contentDetail.subject,
           html: modifiedContent

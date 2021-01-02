@@ -62,6 +62,7 @@ router.post('/list', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ orderList, totalCount: totalCount.length, totalCurrentOrders: totalCurrentOrders, message: "Order list get successfully." });
             }).catch(error => {
                 console.log(error)
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get order list", error: error });
             });
     }
     catch (err) {

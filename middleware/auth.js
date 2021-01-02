@@ -68,11 +68,11 @@ exports.accessManagement = function (accessId) {
             if (role == "restaurant_admin" && check_permission !== null && check_permission !== undefined) {
                 next();
             } else {
-                res.status(constants.BAD_REQUEST).json({ "message": "You don't have permission" });
+                return res.status(constants.BAD_REQUEST).json({ "message": "You don't have permission" });
             }
         } catch (error) {
             console.log("error ",error)
-            res.status(constants.BAD_REQUEST).json({ "message": "Something want wrong." });
+            return res.status(constants.BAD_REQUEST).json({ "message": "Something want wrong." });
         }
     }
 }

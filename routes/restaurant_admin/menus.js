@@ -101,6 +101,11 @@ router.post("/list", async (req, res) => {
                 isDeleted: parseInt(req.body.delete) || 0
             }
         })
+        aggregate.push({
+            $match: {
+                type: req.body.type || "menu"
+            }
+        })
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };

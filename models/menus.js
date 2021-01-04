@@ -16,9 +16,10 @@ let menusSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
+        type: { type: String },
         styleOfmenu: { type: String },
         isDeleted: { type: Number, default: 0 },
-        parentMenu:{
+        parentMenu: {
             type: Schema.Types.ObjectId,
             ref: 'menus'
         }

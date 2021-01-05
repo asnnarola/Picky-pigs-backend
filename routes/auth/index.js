@@ -325,7 +325,7 @@ router.post('/reset_password', adminAuth.resetPassword, validation_response, asy
 
                         if (data.data && data.status === 1) {
                             if (decoded.id) {
-                                if (passwordValidatorSchema.validate(req.body.password) == true) {
+                                if (passwordValidatorSchema.validate(req.body.newPassword) == true) {
                                     const update_resp = await common_helper.update(All_Users, { "_id": data.data._id }, { password: bcrypt.hashSync(req.body.newPassword, saltRounds), $unset: { forgotPasswordToken: "" } })
 
                                     if (update_resp.status === 0) {

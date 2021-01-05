@@ -6749,3 +6749,76 @@
     __v: 0
   }
 }
+[2021-01-05T10:59:09.185] [ERROR] development - User is not found with this email  =  { email: 'demo1234567@gmail.com', password: 'qqaqq' }
+[2021-01-05T10:59:46.076] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff3f8934031b91be8f14bb8,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$B4Ct18BYLxGLaCP5yH4RweYMVZFmDPGJtzwQITFNiZPjfMP5vN/yW',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-05T05:26:43.305Z,
+    updatedAt: 2021-01-05T05:26:43.305Z,
+    __v: 0
+  }
+}
+[2021-01-05T13:09:42.341] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff3f8934031b91be8f14bb8,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$PXLSMxOFlz9J.qrRkt/L7etPFpaRRdsc0MsJVUIaws1siX99AB8CW',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-05T05:26:43.305Z,
+    updatedAt: 2021-01-05T07:25:03.933Z,
+    __v: 0
+  }
+}
+[2021-01-05T13:09:53.540] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff3f8934031b91be8f14bb8,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$PXLSMxOFlz9J.qrRkt/L7etPFpaRRdsc0MsJVUIaws1siX99AB8CW',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-05T05:26:43.305Z,
+    updatedAt: 2021-01-05T07:25:03.933Z,
+    __v: 0
+  }
+}
+[2021-01-05T13:11:39.855] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff3f8934031b91be8f14bb8,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$eumKl6RtT8wL8cu1wKtyOuDceCz10klHipfUDD3v9sf5awPtAh4Su',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-05T05:26:43.305Z,
+    updatedAt: 2021-01-05T07:41:26.714Z,
+    __v: 0
+  }
+}

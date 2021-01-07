@@ -7,10 +7,15 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        // check('day')
-        //     .trim()
-        //     .not().isEmpty().withMessage('Day is required')
-        //     .exists().withMessage('Day is required'),
+        check('styleOfmenu')
+            .trim()
+            .not().isEmpty().withMessage('styleOfmenu is required')
+            .exists().withMessage('styleOfmenu is required')
+            .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
+        check('availability')
+            .isArray().withMessage('availability is required')
+            .not().isEmpty().withMessage('availability is required')
+            .exists().withMessage('availability is required'),
         check('timeTo')
             .trim()
             .not().isEmpty().withMessage('Timeto is required')
@@ -53,14 +58,26 @@ module.exports = {
             .trim()
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
-            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long')
+            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        check('menuId')
+            .trim()
+            .not().isEmpty().withMessage('menuId is required')
+            .exists().withMessage('menuId is required'),
     ],
     subcategory: [
         check('name')
             .trim()
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
-            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long')
+            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        check('categoryId')
+            .trim()
+            .not().isEmpty().withMessage('categoryId is required')
+            .exists().withMessage('categoryId is required'),
+        check('menuId')
+            .trim()
+            .not().isEmpty().withMessage('menuId is required')
+            .exists().withMessage('menuId is required'),
     ],
     dish: [
         check('name')

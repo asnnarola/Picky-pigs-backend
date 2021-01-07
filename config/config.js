@@ -26,7 +26,7 @@ module.exports = Object.freeze({
   CLIENT_ORIGIN: process.env.NODE_ENV === 'production'
     ? process.env.CLIENT_ORIGIN
     : 'http://localhost:3000',
-    
+  APIURL: process.env.APIURL || 'http://localhost:3000',
   SECRET_KEY: "shukrana_mushkurana",
   TOKEN_EXPIRED_TIME: "7d"
 

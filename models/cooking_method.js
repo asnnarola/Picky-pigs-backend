@@ -1,10 +1,9 @@
-
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
-let dietarySchema = new Schema(
+let cooking_methodSchema = new Schema(
     {
-        name: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
         superAdminId: {
             type: Schema.Types.ObjectId,
             ref: 'all_users'
@@ -14,15 +13,14 @@ let dietarySchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
-        isDeleted: { type: Number, default: 0 },
+        image: { type: String, default: null },
         status: { type: String, default: "active" }     /**active, inactive */
-
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically
         //minimize: false   // will make sure all properties exist, even if null
     });
 
-const DietaryModel = mongoose.model('dietary', dietarySchema);
+const Cooking_methodModel = mongoose.model('cooking_method', cooking_methodSchema);
 
-module.exports = DietaryModel;
+module.exports = Cooking_methodModel;

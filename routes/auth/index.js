@@ -52,8 +52,8 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                 const token = jwt.sign({ id: register_allUser_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
                 const emailContent = {
                     to: req.body.email,
-                    subject: 'Reset password for Picky pigs',
-                    token: `${config.CLIENT_ORIGIN}/reset_password/${token}`,
+                    subject: 'Email verification for Picky pigs',
+                    token: `${config.APIURL}/auth/verification/${token}`,
                     filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
                 }
 
@@ -79,9 +79,9 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
 });
 
 // verify email
-router.post('/verification', async (req, res, next) => {
+router.get('/verification/:id', async (req, res, next) => {
     try {
-        let token = req.body.token;
+        let token = req.params.id;
         let decodeToken = jwt.verify(token, config.SECRET_KEY)
         const data = await common_helper.findOne(All_Users, { "_id": config.OBJECT_ID(decodeToken.id) })
 
@@ -94,7 +94,7 @@ router.post('/verification', async (req, res, next) => {
                 }
                 return res.status(constants.OK_STATUS).json({ ...data, status: 1, message: "Email is already verified !" })
             } else {
-                const user_data = await common_helper.update(user, { "_id": decodeToken.id }, { emailVerified: true })
+                const user_data = await common_helper.update(All_Users, { "_id": decodeToken.id }, { emailVerified: true })
                 user_data.data = {
                     email: user_data.data.email,
                     accountType: user_data.data.accountType,
@@ -268,7 +268,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
 })
 
 
-router.post('/forgot_password', adminAuth.forgotPassword, validation_response, async (req, res, next) => {
+router.post('/forgot_password', auth.forgotPassword, validation_response, async (req, res, next) => {
     try {
         const data = await common_helper.findOne(All_Users, { "email": req.body.email })
         if (data.status === 0) {
@@ -309,7 +309,7 @@ router.post('/forgot_password', adminAuth.forgotPassword, validation_response, a
     }
 })
 
-router.post('/reset_password', adminAuth.resetPassword, validation_response, async (req, res, next) => {
+router.post('/reset_password', auth.resetPassword, validation_response, async (req, res, next) => {
     try {
         if (req.body.token) {
             jwt.verify(req.body.token, config.SECRET_KEY,

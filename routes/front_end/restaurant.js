@@ -224,6 +224,14 @@ router.get('/dish_info/:id', async (req, res, next) => {
             },
             {
                 $unwind: "$caloriesandmacrosDetail"
+            },
+            {
+                $lookup: {
+                    from: "cooking_method",
+                    localField: "cookingMethodId",
+                    foreignField: "_id",
+                    as: "cooking_methods"
+                }
             }
         ];
         await Dish.aggregate(aggregate)
@@ -231,7 +239,7 @@ router.get('/dish_info/:id', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ dishDetails, message: "Dish details get successfully" });
             }).catch(error => {
                 console.log(error)
-                res.status(constants.BAD_REQUEST).json({ message: "Error while Dish details get", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while Dish details get", error: error });
 
             });
     }

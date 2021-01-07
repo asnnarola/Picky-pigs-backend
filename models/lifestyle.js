@@ -9,11 +9,14 @@ let lifestyleSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
-        lastModifiedById: {
+        description: { type: String },
+        lastModifiedBy: {
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
         isDeleted: { type: Number, default: 0 },
+        status: { type: String, default: "active" }     /**active, inactive */
+
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

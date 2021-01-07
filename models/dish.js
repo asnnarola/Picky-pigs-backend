@@ -46,8 +46,9 @@ let dishSchema = new Schema(
             ref: 'all_users'
         },
         isDeleted: { type: Number, default: 0 },
-        cookingMethod: {
-
+        cookingMethodId: {
+            type: Schema.Types.ObjectId,
+            ref: 'cooking_method'
         },
         itemSection: {
             estimatedCost: { type: Number },

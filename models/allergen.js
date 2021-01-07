@@ -8,11 +8,13 @@ let allergenSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
-        lastModifiedById: {
+        description: { type: String },
+        lastModifiedBy: {
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
-        image: { type: String, default: null }
+        image: { type: String, default: null },
+        status: { type: String, default: "active" }     /**active, inactive */
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

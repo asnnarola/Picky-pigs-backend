@@ -11,7 +11,10 @@ let restaurant_freaturesSchema = new Schema(
         inclusiveTaxesAndCharges: { type: Boolean },
         cashAccept: { type: Boolean },
         cardAccept: { type: Boolean },
-        cuisineType: [],
+        cuisineType: [{
+            type: Schema.Types.ObjectId,
+            ref: 'cusine_type'
+        }],
         restaurantFeaturesOptions: [],
         appliesOfRestaurant: { type: String }  //what was the use case?
     },

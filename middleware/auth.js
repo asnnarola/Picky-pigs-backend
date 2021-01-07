@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 const constants = require('../config/constants');
 const All_Users = require('../models/all_users');
+const moment = require('moment');
 
 exports.jwtValidation = function (req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -56,10 +57,33 @@ exports.authorization = function (req, res, next) {
     }
 }
 
+exports.subscriptionAuthorization = function (req, res, next) {
+    try {
+        if (req.loginUser.subscriptionLevel == "freetrial" && (moment(req.loginUser.subscriptionDate).add(3,'month') > moment())) {
+            console.log("free trial plan")
+        }
+        else if (req.loginUser.subscriptionLevel == "standard" && (moment(req.loginUser.subscriptionDate).add(1,'month') > moment())) {
+            console.log("standard plan")
+        }
+        else if (req.loginUser.subscriptionLevel == "premium" && (moment(req.loginUser.subscriptionDate).add(1,'month') > moment())) {
+            console.log("premium plan")
+        } else {
+            console.log("Your subscription was expired")
+            return res.status(constants.BAD_REQUEST).json({
+                message: "Your subscription was expired"
+            });
+        }
+    } catch (error) {
+        console.log("error", error)
+        return res.status(constants.BAD_REQUEST).json({
+            message: "something want wrong"
+        });
+    }
+}
+
 exports.accessManagement = function (accessId) {
     return async (req, res, next) => {
         try {
-            console.log("accessId : ",accessId)
             const role = req.loginUser.role;
             let check_permission = await All_Users.findOne({
                 _id: new ObjectId(req.loginUser.id),
@@ -71,7 +95,7 @@ exports.accessManagement = function (accessId) {
                 return res.status(constants.BAD_REQUEST).json({ "message": "You don't have permission" });
             }
         } catch (error) {
-            console.log("error ",error)
+            console.log("error ", error)
             return res.status(constants.BAD_REQUEST).json({ "message": "Something want wrong." });
         }
     }

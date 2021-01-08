@@ -3,9 +3,9 @@ let Schema = mongoose.Schema;
 
 let restaurant_addressSchema = new Schema(
     {
-        userId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         street: { type: String },
         locality: { type: String },

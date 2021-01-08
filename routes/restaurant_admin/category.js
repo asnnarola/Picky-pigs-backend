@@ -5,13 +5,18 @@ const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const Category = require('../../models/category');
+const Restaurant = require('../../models/restaurant');
 const validation_response = require('../../validation/validation_response');
 const validation = require('../../validation/admin/validation');
 
 //add category
 router.post('/', validation.category, validation_response, async (req, res, next) => {
+    /**For multiple restaurant to set retaurant id */
+    const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+    req.body.restaurantId = find_response._id;
+    /**********/
 
-    var data = await common_helper.insert(Category, { name: req.body.name, menuId: req.body.menuId, restaurantAdminId: req.loginUser.id });
+    var data = await common_helper.insert(Category, { name: req.body.name, menuId: req.body.menuId, restaurantId: req.body.restaurantId });
 
     if (data.status === 1 && data.data) {
         res.status(constants.OK_STATUS).json(data);
@@ -49,11 +54,17 @@ router.post('/menu_categories', async (req, res, next) => {
 
 router.post('/list', async (req, res, next) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
+
+
         let aggregate = [
             {
                 $match: {
                     "isDeleted": 0,
-                    restaurantAdminId: new ObjectId(req.loginUser.id)
+                    restaurantId: new ObjectId(req.body.restaurantId)
                 }
             },
             {

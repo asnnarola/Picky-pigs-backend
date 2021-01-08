@@ -6,15 +6,12 @@ let cooking_methodSchema = new Schema(
         name: { type: String, required: true },
         superAdminId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'users'
         },
         description: { type: String },
-        lastModifiedBy: {
-            type: Schema.Types.ObjectId,
-            ref: 'all_users'
-        },
         image: { type: String, default: null },
-        status: { type: String, default: "active" }     /**active, inactive */
+        isDeleted: { type: Boolean, default: false },
+        isActive: { type: Boolean, default: true }     /**active, inactive */
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

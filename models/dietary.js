@@ -7,13 +7,10 @@ let dietarySchema = new Schema(
         name: { type: String, required: true, unique: true },
         superAdminId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'users'
         },
         description: { type: String },
-        lastModifiedBy: {
-            type: Schema.Types.ObjectId,
-            ref: 'all_users'
-        },
+        image: { type: String, default: null },
         isDeleted: { type: Number, default: 0 },
         status: { type: String, default: "active" }     /**active, inactive */
 

@@ -6840,3 +6840,147 @@
     __v: 0
   }
 }
+[2021-01-08T12:05:30.576] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$yS7.uaW1ItoIsdEDaaNU1uTuZzirD9GLsS8.J5MnAGuVgMLTEkqrO',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T06:34:24.067Z,
+    __v: 0
+  }
+}
+[2021-01-08T12:05:57.585] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$yS7.uaW1ItoIsdEDaaNU1uTuZzirD9GLsS8.J5MnAGuVgMLTEkqrO',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T06:34:24.067Z,
+    __v: 0
+  }
+}
+[2021-01-08T12:06:29.669] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$yS7.uaW1ItoIsdEDaaNU1uTuZzirD9GLsS8.J5MnAGuVgMLTEkqrO',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T06:34:24.067Z,
+    __v: 0
+  }
+}
+[2021-01-08T16:07:14.981] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fc6a4955ae32dc4504e1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$u/oaUR/RlgraHJ.hFb9irehN54avgpxx9LGBFJGTddNGxpB.2M8hC',
+    role: 'super_admin',
+    createdAt: 2021-01-08T06:32:10.411Z,
+    updatedAt: 2021-01-08T06:32:10.411Z,
+    __v: 0
+  }
+}
+[2021-01-08T16:12:21.642] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fc6a4955ae32dc4504e1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$u/oaUR/RlgraHJ.hFb9irehN54avgpxx9LGBFJGTddNGxpB.2M8hC',
+    role: 'super_admin',
+    createdAt: 2021-01-08T06:32:10.411Z,
+    updatedAt: 2021-01-08T06:32:10.411Z,
+    __v: 0
+  }
+}
+[2021-01-08T16:12:31.338] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$dGn4of5xcI.tYRrG2Lxh.e4EH7EnE5FLFxDrfkgp6ZGwlFihIFLoy',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T10:42:17.368Z,
+    __v: 0
+  }
+}
+[2021-01-08T16:13:53.268] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$MptKkXB.Ajtx0HwpNkVRCOrYB13mO7TNj6lIGuKO63A3bnvlrxk5K',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T10:42:46.236Z,
+    __v: 0
+  }
+}
+[2021-01-08T17:08:43.688] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff7fcf04955ae32dc4504e2,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$MptKkXB.Ajtx0HwpNkVRCOrYB13mO7TNj6lIGuKO63A3bnvlrxk5K',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-08T06:34:24.067Z,
+    updatedAt: 2021-01-08T10:42:46.236Z,
+    __v: 0
+  }
+}

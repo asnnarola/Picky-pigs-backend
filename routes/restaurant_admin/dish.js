@@ -10,17 +10,21 @@ const validation_response = require('../../validation/validation_response');
 const validation = require('../../validation/admin/validation');
 
 router.post('/', validation.dish, validation_response, async (req, res, next) => {
-    req.body.restaurantAdminId = req.loginUser.id;
+    /**For multiple restaurant to set retaurant id */
+    const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+    req.body.restaurantId = find_response._id;
+    /**********/
+
     var duplicate_insert_resp = {};
     if (req.body.createNewVersion) {
         duplicate_insert_resp = await common_helper.insert(Dish, req.body);
         req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
-        req.body.caloriesAndMacros.restaurantAdminId = req.loginUser.id;
+        req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
         await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
     }
     const insert_resp = await common_helper.insert(Dish, req.body);
     req.body.caloriesAndMacros.dishId = insert_resp.data._id;
-    req.body.caloriesAndMacros.restaurantAdminId = req.loginUser.id;
+    req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
     const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
 
     if (insert_resp.status === 1 && insert_resp.data) {
@@ -103,7 +107,7 @@ router.get('/:id', async (req, res) => {
             .then(dishDetails => {
                 res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
-
+                res.status(constants.BAD_REQUEST).json({ message: "get sigle dish detail", error: error });
             });
     }
     catch (err) {
@@ -115,12 +119,16 @@ router.get('/:id', async (req, res) => {
 
 router.post('/list', async (req, res, next) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
 
         const aggregate = [
             {
                 $match: {
                     isDeleted: 0,
-                    restaurantAdminId: new ObjectId(req.loginUser.id)
+                    restaurantId: new ObjectId(req.body.restaurantId)
                 }
             },
             {

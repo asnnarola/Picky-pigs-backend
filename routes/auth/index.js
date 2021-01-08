@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
-const user = require("../../models/users");
-const All_Users = require("../../models/all_users");
-const RestaurantAdmin = require("../../models/restaurantAdmin");
+const UserPreference = require("../../models/user_preference");
+const Users = require("../../models/users");
+const Restaurant = require("../../models/restaurant");
 const sendMail = require("../../mails/sendMail");
 const template = require("../../mails/template");
 const common_helper = require('../../helpers/common');
@@ -34,7 +34,7 @@ passwordValidatorSchema
 //signup
 router.post('/user_signup', auth.signup, validation_response, async (req, res, next) => {
     try {
-        const data = await common_helper.findOne(All_Users, { "email": req.body.email })
+        const data = await common_helper.findOne(Users, { "email": req.body.email })
         if (data.status === 1 && data.data) {
             res.status(constants.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
         } else {
@@ -46,9 +46,9 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                     password: req.body.password,
                     role: req.body.role
                 };
-                const register_allUser_resp = await common_helper.insert(All_Users, obj);
+                const register_allUser_resp = await common_helper.insert(Users, obj);
                 obj.userId = register_allUser_resp.data._id;
-                const register_user_resp = await common_helper.insert(user, obj);
+                const register_user_resp = await common_helper.insert(UserPreference, obj);
                 const token = jwt.sign({ id: register_allUser_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
                 const emailContent = {
                     to: req.body.email,
@@ -83,7 +83,7 @@ router.get('/verification/:id', async (req, res, next) => {
     try {
         let token = req.params.id;
         let decodeToken = jwt.verify(token, config.SECRET_KEY)
-        const data = await common_helper.findOne(All_Users, { "_id": config.OBJECT_ID(decodeToken.id) })
+        const data = await common_helper.findOne(Users, { "_id": config.OBJECT_ID(decodeToken.id) })
 
         if (data.status === 1 && data.data) {
             if (data.data.emailVerified) {
@@ -94,7 +94,7 @@ router.get('/verification/:id', async (req, res, next) => {
                 }
                 return res.status(constants.OK_STATUS).json({ ...data, status: 1, message: "Email is already verified !" })
             } else {
-                const user_data = await common_helper.update(All_Users, { "_id": decodeToken.id }, { emailVerified: true })
+                const user_data = await common_helper.update(Users, { "_id": decodeToken.id }, { emailVerified: true })
                 user_data.data = {
                     email: user_data.data.email,
                     accountType: user_data.data.accountType,
@@ -114,7 +114,7 @@ router.get('/verification/:id', async (req, res, next) => {
 //signin with email
 router.post('/login', auth.login, validation_response, async (req, res, next) => {
     try {
-        const user_data = await common_helper.findOne(All_Users, { "email": req.body.email })
+        const user_data = await common_helper.findOne(Users, { "email": req.body.email })
         if (user_data.status === 1 && user_data.data) {
 
             const comparePassword = await (bcrypt.compare(req.body.password, user_data.data.password))
@@ -152,7 +152,7 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
 
 //signin with google
 router.post('/google', async (req, res, next) => {
-    const user_data = await common_helper.findOne(All_Users, { "googleId": req.body.googleId })
+    const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId })
 
     if (user_data.status === 1 && user_data.data) {
         //update
@@ -161,8 +161,8 @@ router.post('/google', async (req, res, next) => {
             email: req.body.email,
             accountType: "google"
         };
-        const register_allUser_resp = await common_helper.update(All_Users, { "googleId": user_data.data.googleId }, obj)
-        const register_user_resp = await common_helper.update(user, { "_id": register_allUser_resp.data._id }, obj)
+        const register_allUser_resp = await common_helper.update(Users, { "googleId": user_data.data.googleId }, obj)
+        const register_user_resp = await common_helper.update(UserPreference, { "_id": register_allUser_resp.data._id }, obj)
         let token_data = {
             id: register_allUser_resp.data._id,
             sociaId: register_allUser_resp.data.googleId,
@@ -183,9 +183,9 @@ router.post('/google', async (req, res, next) => {
             accountType: "google",
             role: req.body.role
         };
-        const register_allUser_resp = await common_helper.insert(All_Users, obj);
+        const register_allUser_resp = await common_helper.insert(Users, obj);
         obj.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(user, obj);
+        const register_user_resp = await common_helper.insert(UserPreference, obj);
         let token_data = {
             id: register_allUser_resp.data._id,
             sociaId: register_allUser_resp.data.googleId,
@@ -201,7 +201,7 @@ router.post('/google', async (req, res, next) => {
 });
 
 router.post('/facebook', async (req, res, next) => {
-    var user_data = await common_helper.findOne(All_Users, { "facebookId": user_data.data.facebookId })
+    var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId })
     if (user_data.status === 1 && user_data.data) {
         //update
         const obj = {
@@ -209,8 +209,8 @@ router.post('/facebook', async (req, res, next) => {
             email: req.body.email,
             accountType: req.body.graphDomain
         };
-        const register_allUser_resp = await common_helper.update(All_Users, { "facebookId": user_data.data.facebookId }, obj)
-        const register_user_resp = await common_helper.update(user, { "_id": register_allUser_resp.data._id }, obj)
+        const register_allUser_resp = await common_helper.update(Users, { "facebookId": user_data.data.facebookId }, obj)
+        const register_user_resp = await common_helper.update(UserPreference, { "_id": register_allUser_resp.data._id }, obj)
         let token_data = {
             id: register_allUser_resp.data._id,
             sociaId: register_allUser_resp.data.facebookId,
@@ -231,9 +231,9 @@ router.post('/facebook', async (req, res, next) => {
             accountType: req.body.graphDomain
         };
 
-        const register_allUser_resp = await common_helper.insert(All_Users, obj);
+        const register_allUser_resp = await common_helper.insert(Users, obj);
         obj.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(user, obj);
+        const register_user_resp = await common_helper.insert(UserPreference, obj);
 
         //token generate with user data then send it
         let token_data = {
@@ -252,9 +252,9 @@ router.post('/facebook', async (req, res, next) => {
 
 router.post('/restaurant_signup', manage_module.create_restaurant, validation_response, async (req, res, next) => {
     try {
-        const register_allUser_resp = await common_helper.insert(All_Users, req.body);
+        const register_allUser_resp = await common_helper.insert(Users, req.body);
         req.body.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(RestaurantAdmin, req.body);
+        const register_user_resp = await common_helper.insert(Restaurant, req.body);
 
         if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
             res.status(constants.OK_STATUS).json(register_allUser_resp);
@@ -270,7 +270,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
 
 router.post('/forgot_password', auth.forgotPassword, validation_response, async (req, res, next) => {
     try {
-        const data = await common_helper.findOne(All_Users, { "email": req.body.email })
+        const data = await common_helper.findOne(Users, { "email": req.body.email })
         if (data.status === 0) {
             res.json({ status: 0, message: "Error while finding email" });
         }
@@ -285,7 +285,7 @@ router.post('/forgot_password', auth.forgotPassword, validation_response, async 
             // var token = common_helper.sign({ id: register_resp.data._id })
 
 
-            await common_helper.update(All_Users, { "_id": data.data._id }, { forgotPasswordToken: token })
+            await common_helper.update(Users, { "_id": data.data._id }, { forgotPasswordToken: token })
 
             const emailContent = {
                 to: req.body.email,
@@ -321,12 +321,12 @@ router.post('/reset_password', auth.resetPassword, validation_response, async (r
                             res.status(constants.BAD_REQUEST).json({ status: 0, message: "Invalid token sent" });
                         }
                     } else {
-                        const data = await common_helper.findOne(All_Users, { "_id": config.OBJECT_ID(decoded.id), forgotPasswordToken: req.body.token })
+                        const data = await common_helper.findOne(Users, { "_id": config.OBJECT_ID(decoded.id), forgotPasswordToken: req.body.token })
 
                         if (data.data && data.status === 1) {
                             if (decoded.id) {
                                 if (passwordValidatorSchema.validate(req.body.newPassword) == true) {
-                                    const update_resp = await common_helper.update(All_Users, { "_id": data.data._id }, { password: bcrypt.hashSync(req.body.newPassword, saltRounds), $unset: { forgotPasswordToken: "" } })
+                                    const update_resp = await common_helper.update(Users, { "_id": data.data._id }, { password: bcrypt.hashSync(req.body.newPassword, saltRounds), $unset: { forgotPasswordToken: "" } })
 
                                     if (update_resp.status === 0) {
                                         res.json({

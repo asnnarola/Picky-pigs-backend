@@ -5,6 +5,7 @@ const moment = require('moment');
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const RestaurantAdmin = require("../../models/restaurantAdmin");
+const Restaurant = require("../../models/restaurant");
 const constants = require('../../config/constants');
 
 router.get('/info/:id', async (req, res, next) => {
@@ -18,8 +19,8 @@ router.get('/info/:id', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_galleries",
-                    localField: "userId",
-                    foreignField: "userId",
+                    localField: "_id",
+                    foreignField: "restaurantId",
                     as: "restaurant_galleries"
                 }
             },
@@ -29,8 +30,8 @@ router.get('/info/:id', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_addresses",
-                    localField: "userId",
-                    foreignField: "userId",
+                    localField: "_id",
+                    foreignField: "restaurantId",
                     as: "address"
                 }
             },
@@ -44,8 +45,8 @@ router.get('/info/:id', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_details",
-                    localField: "userId",
-                    foreignField: "userId",
+                    localField: "_id",
+                    foreignField: "restaurantId",
                     as: "restaurantDetails"
                 }
             },
@@ -59,8 +60,8 @@ router.get('/info/:id', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_freatures",
-                    localField: "userId",
-                    foreignField: "userId",
+                    localField: "_id",
+                    foreignField: "restaurantId",
                     as: "restaurantFeatures"
                 }
             },
@@ -74,7 +75,7 @@ router.get('/info/:id', async (req, res, next) => {
         ];
 
 
-        await RestaurantAdmin.aggregate(aggregate)
+        await Restaurant.aggregate(aggregate)
             .then(restaurantDetail => {
                 res.status(constants.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
             }).catch(error => {
@@ -256,7 +257,7 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
-                    restaurantAdminId: new ObjectId(req.body.restaurantAdminId)
+                    restaurantId: new ObjectId(req.body.restaurantId)
                 }
             },
             {

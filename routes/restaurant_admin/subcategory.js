@@ -12,8 +12,13 @@ const validation = require('../../validation/admin/validation');
 
 //add subcategory
 router.post('/', validation.subcategory, validation_response, async (req, res, next) => {
+    /**For multiple restaurant to set retaurant id */
+    const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+    req.body.restaurantId = find_response._id;
+    /**********/
 
-    const data = await common_helper.insert(Subcategory, { name: req.body.name, categoryId: req.body.categoryId, restaurantAdminId: req.loginUser.id, menuId: req.body.menuId });
+
+    const data = await common_helper.insert(Subcategory, { name: req.body.name, categoryId: req.body.categoryId, restaurantId: req.body.restaurantId, menuId: req.body.menuId });
 
     if (data.status === 1 && data.data) {
         res.status(constants.OK_STATUS).json(data);
@@ -25,7 +30,7 @@ router.post('/', validation.subcategory, validation_response, async (req, res, n
 
 /**Single category to all subcategory finds */
 router.get('/categoryOfSubcategory/:id', async (req, res, next) => {
-    const data = await common_helper.find(Subcategory, { "categoryId": req.params.id, restaurantAdminId: new ObjectId(req.loginUser.id) });
+    const data = await common_helper.find(Subcategory, { "categoryId": req.params.id });
 
     if (data.status === 1 && data.data) {
         res.status(constants.OK_STATUS).json(data);
@@ -59,11 +64,17 @@ router.put('/:id', validation.subcategory, validation_response, async (req, res,
 
 router.post("/list", async (req, res) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
+
+        
         let aggregate = [
             {
                 $match: {
                     "isDeleted": 0,
-                    restaurantAdminId: new ObjectId(req.loginUser.id)
+                    restaurantId: new ObjectId(req.body.restaurantId)
                 }
             },
             {

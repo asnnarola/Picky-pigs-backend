@@ -7,15 +7,12 @@ let lifestyleSchema = new Schema(
         name: { type: String, required: true },
         superAdminId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'users'
         },
         description: { type: String },
-        lastModifiedBy: {
-            type: Schema.Types.ObjectId,
-            ref: 'all_users'
-        },
-        isDeleted: { type: Number, default: 0 },
-        status: { type: String, default: "active" }     /**active, inactive */
+        image: { type: String, default: null },
+        isDeleted: { type: Boolean, default: false },
+        isActive: { type: Boolean, default: true }     /**active, inactive */
 
     },
     {

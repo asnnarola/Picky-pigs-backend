@@ -41,9 +41,9 @@ let dishSchema = new Schema(
         instructions: { type: String },
         customisable: { type: Boolean, default: false },
         createNewVersion: { type: Boolean, default: false },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         isDeleted: { type: Number, default: 0 },
         cookingMethodId: {

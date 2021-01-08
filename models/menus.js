@@ -12,9 +12,9 @@ let menusSchema = new Schema(
         availability: [
             { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] }
         ],
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         type: { type: String },
         styleOfmenu: { type: String },

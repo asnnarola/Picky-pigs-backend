@@ -12,8 +12,12 @@ const validation = require('../../validation/admin/validation');
 //add menu
 router.post('/', validation.menu, validation_response, async (req, res, next) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
 
-        req.body.restaurantAdminId = req.loginUser.id;
+
         const data = await common_helper.insert(Menus, req.body);
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
@@ -81,7 +85,18 @@ router.delete('/:id', async (req, res, next) => {
 
 router.post("/list", async (req, res) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
+
+
         let aggregate = [
+            {
+                $match: {
+                    restaurantId: new ObjectId(req.body.restaurantId)
+                }
+            },
             {
                 $lookup: {
                     from: "dishes",

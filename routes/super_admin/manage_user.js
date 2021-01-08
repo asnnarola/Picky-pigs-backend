@@ -5,8 +5,7 @@ const bcrypt = require("bcrypt")
 const fs = require('fs');
 const { Parser } = require('json2csv');
 
-const User = require("../../models/users");
-const All_Users = require("../../models/all_users");
+const Users = require("../../models/users");
 const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
@@ -33,14 +32,14 @@ router.post('/list', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "users",
+                    from: "user_preferences",
                     localField: "_id",
                     foreignField: "userId",
-                    as: "userDetail"
+                    as: "user_preferenceDetail"
                 }
             },
             {
-                $unwind: "$userDetail"
+                $unwind: "$user_preferenceDetail"
             },
         ];
 
@@ -49,12 +48,12 @@ router.post('/list', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "userDetail.name": RE }
+                    { "user_preferenceDetail.name": RE }
             });
 
         }
 
-        const totalRecord = await User.aggregate(aggregate);
+        const totalRecord = await Users.aggregate(aggregate);
 
         if (req.body.start) {
 
@@ -70,7 +69,7 @@ router.post('/list', async (req, res, next) => {
             });
         }
 
-        await All_Users.aggregate(aggregate)
+        await Users.aggregate(aggregate)
             .then(userList => {
                 res.status(constants.OK_STATUS).json({ userList, totalRecord: totalRecord.length, "message": "user listing get successfully" });
             }).catch(error => {
@@ -85,7 +84,7 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
 
-    const update_resp = await common_helper.update(All_Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
+    const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
     if (update_resp.status === 0) {
         res.status(constants.BAD_REQUEST).json({ status: 0, message: "Error occured while update password" });
     } else {
@@ -95,7 +94,7 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
 router.post('/export_user', async (req, res) => {
     try {
-        const user_resp = await All_Users.find({ role: "user" }).select("email");
+        const user_resp = await Users.find({ role: "user" }).select("email");
         if (user_resp) {
             let userArray = [];
             let count = 1;

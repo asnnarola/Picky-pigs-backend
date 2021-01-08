@@ -1,7 +1,6 @@
 var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 const constants = require('../config/constants');
-const All_Users = require('../models/all_users');
 const moment = require('moment');
 
 exports.jwtValidation = function (req, res, next) {
@@ -82,21 +81,21 @@ exports.subscriptionAuthorization = function (req, res, next) {
 }
 
 exports.accessManagement = function (accessId) {
-    return async (req, res, next) => {
-        try {
-            const role = req.loginUser.role;
-            let check_permission = await All_Users.findOne({
-                _id: new ObjectId(req.loginUser.id),
-                permission: { $in: [accessId] }
-            })
-            if (role == "restaurant_admin" && check_permission !== null && check_permission !== undefined) {
-                next();
-            } else {
-                return res.status(constants.BAD_REQUEST).json({ "message": "You don't have permission" });
-            }
-        } catch (error) {
-            console.log("error ", error)
-            return res.status(constants.BAD_REQUEST).json({ "message": "Something want wrong." });
-        }
-    }
+    // return async (req, res, next) => {
+    //     try {
+    //         const role = req.loginUser.role;
+    //         let check_permission = await All_Users.findOne({
+    //             _id: new ObjectId(req.loginUser.id),
+    //             permission: { $in: [accessId] }
+    //         })
+    //         if (role == "restaurant_admin" && check_permission !== null && check_permission !== undefined) {
+    //             next();
+    //         } else {
+    //             return res.status(constants.BAD_REQUEST).json({ "message": "You don't have permission" });
+    //         }
+    //     } catch (error) {
+    //         console.log("error ", error)
+    //         return res.status(constants.BAD_REQUEST).json({ "message": "Something want wrong." });
+    //     }
+    // }
 }

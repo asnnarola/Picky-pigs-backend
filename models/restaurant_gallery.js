@@ -5,9 +5,9 @@ let Schema = mongoose.Schema;
 
 let restaurant_gallerySchema = new Schema(
     {
-        userId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'users'
+            ref: 'restaurant'
         },
         restaurantAmbience: [{ url: { type: String } }],
         food: [{ url: { type: String } }],

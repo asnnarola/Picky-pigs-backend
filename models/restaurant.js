@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let restaurant_adminSchema = new Schema(
+let restaurantSchema = new Schema(
     {
         isDeleted: { type: Number, default: 0 },
         name: { type: String },
@@ -38,7 +38,7 @@ let restaurant_adminSchema = new Schema(
     });
 
 
-restaurant_adminSchema.pre('save', function save(next) {
+restaurantSchema.pre('save', function save(next) {
     const user = this;
     if (!user.isModified('password')) { return next(); }
     bcrypt.genSalt(10, (errs, salt) => {
@@ -52,12 +52,12 @@ restaurant_adminSchema.pre('save', function save(next) {
 });
 
 // helper method to validate password
-restaurant_adminSchema.methods.comparePassword = function comparePassword(candidatePassword, next) {
+restaurantSchema.methods.comparePassword = function comparePassword(candidatePassword, next) {
     bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
         next(err, isMatch);
     });
 };
 
-const Restaurant_adminModel = mongoose.model('restaurant_admin', restaurant_adminSchema);
+const RestaurantModel = mongoose.model('restaurant', restaurantSchema);
 
-module.exports = Restaurant_adminModel;
+module.exports = RestaurantModel;

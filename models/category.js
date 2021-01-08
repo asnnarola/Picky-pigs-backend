@@ -5,9 +5,9 @@ const bcrypt = require('bcrypt');
 let categorySchema = new Schema(
     {
         name: { type: String, required: true },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         menuId: {
             type: Schema.Types.ObjectId,

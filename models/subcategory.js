@@ -8,9 +8,9 @@ let subcategorySchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'category'
         },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         menuId: {
             type: Schema.Types.ObjectId,

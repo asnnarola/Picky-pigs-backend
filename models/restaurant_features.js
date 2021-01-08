@@ -1,11 +1,11 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let restaurant_freaturesSchema = new Schema(
+let restaurant_featuresSchema = new Schema(
     {
-        userId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         averageCostOfTwoPerson: { type: Number },
         inclusiveTaxesAndCharges: { type: Boolean },
@@ -24,6 +24,6 @@ let restaurant_freaturesSchema = new Schema(
 
 
 
-const Restaurant_freaturesModel = mongoose.model('restaurant_freatures', restaurant_freaturesSchema);
+const Restaurant_featuresModel = mongoose.model('restaurant_features', restaurant_featuresSchema);
 
-module.exports = Restaurant_freaturesModel;
+module.exports = Restaurant_featuresModel;

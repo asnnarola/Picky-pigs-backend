@@ -3,9 +3,9 @@ let Schema = mongoose.Schema;
 
 let restaurant_detailsSchema = new Schema(
     {
-        userId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         openingTimings: {
             isTime24Hours: { type: Boolean },

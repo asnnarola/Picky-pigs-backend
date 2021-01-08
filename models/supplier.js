@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 let supplierSchema = new Schema({
-    name: { type: String, required: true, unique: true },
+    name: { type: String },
     isDeleted: { type: Number, default: 0 },
 },
     {

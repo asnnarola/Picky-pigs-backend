@@ -26,11 +26,29 @@ router.post('/list', async (req, res, next) => {
                     as: "order_dishesDetail"
                 }
             },
+            // {
+            //     $unwind: "$order_dishesDetail"
+            // },
+            // {
+            //     $lookup: {
+            //         from: "allergens",
+            //         localField: "order_dishesDetail.allergenId",
+            //         foreignField: "_id",
+            //         as: "order_dishesDetail.allergenDetail"
+            //     }
+            // },
             {
                 $sort: {
                     orderTakenTime: 1
                 }
-            }
+            },
+            // {
+            //     $group: {
+            //         _id: '$_id',
+            //         orderTakenTime: { $first: "$orderTakenTime" },
+            //         order: { $push: "$order_dishesDetail" }
+            //     }
+            // }
         ];
         const totalCount = await Order.aggregate(aggregate)
 

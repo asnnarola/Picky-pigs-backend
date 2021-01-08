@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 let cartSchema = new Schema(
     {
-        orderTaken: { type: String },
+        waiterName: { type: String },
         comment: { type: String },
         fullName: { type: String },
         itemTotalPrice: { type: Number },
@@ -12,30 +12,36 @@ let cartSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'all_users'
         },
-        dishes: [
-            {
-                name: { type: String },
-                dishId: {
-                    type: Schema.Types.ObjectId,
-                    ref: 'dish'
-                },
-                items: [{
-                    name: { type: String },
-                    qty: { type: Number },
-                    unit: { type: String },
-                    allergeies: { type: String },
-                    name: { type: String },
-                    stokUnit: { type: String },
-                    recipeCost: { type: Number },
-                    isRemove: { type: Boolean }
-                }],
-                dishPrice: { type: Number },
-                orderQuantity: { type: Number },
-                tableNo: { type: Number },
-                covers: { type: Number }
-            }
-        ],
+        // dishes: [
+        //     {
+        //         name: { type: String },
+        //         dishId: {
+        //             type: Schema.Types.ObjectId,
+        //             ref: 'dish'
+        //         },
+        //         allergenId: [{
+        //             type: Schema.Types.ObjectId,
+        //             ref: 'allergen'
+        //         }],
+        //         items: [{
+        //             name: { type: String },
+        //             qty: { type: Number },
+        //             unit: { type: String },
+        //             allergeies: { type: String },
+        //             name: { type: String },
+        //             stokUnit: { type: String },
+        //             recipeCost: { type: Number },
+        //             isRemove: { type: Boolean }
+        //         }],
+        //         dishPrice: { type: Number },
+        //         orderQuantity: { type: Number },
+        //         tableNo: { type: Number },
+        //         covers: { type: Number },
+        //         writtenNote: { type: String }
+        //     }
+        // ],
         isDeleted: { type: Number, default: 0 },
+        covers: { type: Number }    /**covers means numberOfPeople on table*/
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

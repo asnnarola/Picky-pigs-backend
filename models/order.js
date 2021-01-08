@@ -6,9 +6,9 @@ let orderSchema = new Schema(
         status: { type: String, default: "pending" },    //pending, completed, cancel
         orderTakenTime: { type: Date },
         orderCompletedTime: { type: Date },
-        orderTaken: { type: String },
+        waiterName: { type: String },
         comment: { type: String },
-        fullName: { type: String },
+        customerName: { type: String },     /** fullName means Customer name */
         agreeToContent: { type: Boolean },
         itemTotalPrice: { type: Number },
         tableNo: { type: Number },
@@ -17,6 +17,8 @@ let orderSchema = new Schema(
             ref: 'all_users'
         },
         isDeleted: { type: Number, default: 0 },
+        covers: { type: Number }    /**covers means numberOfPeople on table*/
+
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

@@ -91,7 +91,7 @@ router.get('/info/:id', async (req, res, next) => {
 
 
 /**Find base on menu category to subcategory to dishes details */
-/**Dishes filter and sort from frontend side */
+/**need Dishes filter and sort from frontend side */
 router.post('/category_subcategory_dishes', async (req, res, next) => {
     try {
         if (req.body.allergen && req.body.allergen.length > 0) {
@@ -134,9 +134,9 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                     as: "subcategoriesDetail.dishesDetail"
                 }
             },
-            {
-                $unwind: "$subcategoriesDetail.dishesDetail"
-            }
+            // {
+            //     $unwind: "$subcategoriesDetail.dishesDetail"
+            // }
         ];
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };

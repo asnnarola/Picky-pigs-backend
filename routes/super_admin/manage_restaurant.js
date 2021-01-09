@@ -117,15 +117,16 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const update_resp = await common_helper.update(Restaurant, { "_id": req.params.id }, { isDeleted: 1 })
-        const update_all_users_resp = await common_helper.update(Users, { "_id": update_resp.data.userId }, { isDeleted: 1 })
+        
+        const update_all_users_resp = await common_helper.update(Users, { "_id": req.params.id  }, { isDeleted: 1 })
+        const update_resp = await common_helper.update(Restaurant, { "userId": req.params.id }, { isDeleted: 1 })
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Restaurant deleted" });
         } else {
             res.status(constants.OK_STATUS).json({ status: 1, message: "Restaurant deleted successfully", update_resp });
         }
     } catch (err) {
-        res.status(constants.BAD_REQUEST).json({ message: "Error into Restaurant deleted successfully", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error into Restaurant deleted", error: err });
     }
 })
 

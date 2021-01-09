@@ -7,6 +7,7 @@ const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
 const auth = require('../../validation/auth');
 const Subcategory = require('../../models/subcategory');
+const Restaurant = require('../../models/restaurant');
 const validation_response = require('../../validation/validation_response');
 const validation = require('../../validation/admin/validation');
 

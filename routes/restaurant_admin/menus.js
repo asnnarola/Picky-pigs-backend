@@ -6,6 +6,7 @@ const config = require('../../config/config');
 const constants = require('../../config/constants');
 const validation_response = require('../../validation/validation_response');
 const Menus = require('../../models/menus');
+const Restaurant = require('../../models/restaurant');
 const Category = require('../../models/category');
 const validation = require('../../validation/admin/validation');
 

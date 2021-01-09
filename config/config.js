@@ -27,6 +27,8 @@ module.exports = Object.freeze({
     ? process.env.CLIENT_ORIGIN
     : 'http://localhost:3000',
   APIURL: process.env.APIURL || 'http://localhost:3000',
+  FRONT_RESTAURANT_ADMIN_URL: process.env.FRONT_RESTAURANT_ADMIN_URL || 'http://localhost:3000',
+  FRONT_SUPER_ADMIN_URL: process.env.FRONT_SUPER_ADMIN_URL || 'http://localhost:3000',
   SECRET_KEY: "shukrana_mushkurana",
   TOKEN_EXPIRED_TIME: "7d"
 

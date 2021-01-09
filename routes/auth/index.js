@@ -34,7 +34,7 @@ passwordValidatorSchema
 //signup
 router.post('/user_signup', auth.signup, validation_response, async (req, res, next) => {
     try {
-        const data = await common_helper.findOne(Users, { "email": req.body.email })
+        const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
         if (data.status === 1 && data.data) {
             res.status(constants.BAD_REQUEST).json({ status: 0, message: "Email is already registered" });
         } else {
@@ -54,7 +54,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                     to: req.body.email,
                     subject: 'Email verification for Picky pigs',
                     token: `${config.APIURL}/auth/verification/${token}`,
-                    filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
+                    filePath: "./views/resturant_admin/auth/verification.ejs"
                 }
 
                 const emailResp = await sendMail(emailContent);
@@ -114,7 +114,7 @@ router.get('/verification/:id', async (req, res, next) => {
 //signin with email
 router.post('/login', auth.login, validation_response, async (req, res, next) => {
     try {
-        const user_data = await common_helper.findOne(Users, { "email": req.body.email })
+        const user_data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
         if (user_data.status === 1 && user_data.data) {
 
             const comparePassword = await (bcrypt.compare(req.body.password, user_data.data.password))
@@ -152,7 +152,7 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
 
 //signin with google
 router.post('/google', async (req, res, next) => {
-    const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId })
+    const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId, "isDeleted": 0 })
 
     if (user_data.status === 1 && user_data.data) {
         //update
@@ -201,7 +201,7 @@ router.post('/google', async (req, res, next) => {
 });
 
 router.post('/facebook', async (req, res, next) => {
-    var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId })
+    var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId, "isDeleted": 0 })
     if (user_data.status === 1 && user_data.data) {
         //update
         const obj = {
@@ -270,7 +270,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
 
 router.post('/forgot_password', auth.forgotPassword, validation_response, async (req, res, next) => {
     try {
-        const data = await common_helper.findOne(Users, { "email": req.body.email })
+        const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
         if (data.status === 0) {
             res.json({ status: 0, message: "Error while finding email" });
         }
@@ -286,11 +286,19 @@ router.post('/forgot_password', auth.forgotPassword, validation_response, async 
 
 
             await common_helper.update(Users, { "_id": data.data._id }, { forgotPasswordToken: token })
-
+            let optimizeToken = "";
+            if (data.data.role == "super_admin") {
+                optimizeToken = `${config.FRONT_SUPER_ADMIN_URL}/reset_password/${token}`
+            }
+            else if (data.data.role == "super_admin") {
+                optimizeToken = `${config.FRONT_RESTAURANT_ADMIN_URL}/reset_password/${token}`
+            } else {
+                optimizeToken = `${config.FRONT_RESTAURANT_ADMIN_URL}/reset_password/${token}`
+            }
             const emailContent = {
                 to: req.body.email,
                 subject: 'Reset password for Picky pigs',
-                token: `${config.CLIENT_ORIGIN}/reset_password/${token}`,
+                token: optimizeToken,
                 filePath: "./views/resturant_admin/auth/forgotpassword.ejs"
             }
             await sendMail(emailContent)

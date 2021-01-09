@@ -12,7 +12,7 @@ let user_preferenceSchema = new Schema(
         gender: { type: String },
         userId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'users'
         },
         myPreferences: {
             allergenInformation: [{

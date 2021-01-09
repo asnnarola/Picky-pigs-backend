@@ -8,9 +8,9 @@ let cartSchema = new Schema(
         fullName: { type: String },
         itemTotalPrice: { type: Number },
         tableNo: { type: Number },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         // dishes: [
         //     {

@@ -9,9 +9,9 @@ let dish_caloriesAndMacrosSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'dish'
         },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         isDeleted: { type: Number, default: 0 },
         fat: {

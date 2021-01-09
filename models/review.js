@@ -6,13 +6,13 @@ let reviewSchema = new Schema(
         rate: {
             type: Number
         },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
-        userId: {
+        user_preferenceId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'user_preference'
         },
         comment: {
             type: String

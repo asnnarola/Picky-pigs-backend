@@ -12,9 +12,9 @@ let orderSchema = new Schema(
         agreeToContent: { type: Boolean },
         itemTotalPrice: { type: Number },
         tableNo: { type: Number },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         isDeleted: { type: Number, default: 0 },
         covers: { type: Number }    /**covers means numberOfPeople on table*/

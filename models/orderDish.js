@@ -17,9 +17,9 @@ let orderDishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'allergen'
         }],
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         orderTakenTime: { type: Date },
         orderCompletedTime: { type: Date },

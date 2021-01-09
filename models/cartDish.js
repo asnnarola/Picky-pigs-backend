@@ -7,9 +7,9 @@ let cartDishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'cart'
         },
-        restaurantAdminId: {
+        restaurantId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         },
         name: { type: String },
         dishId: {

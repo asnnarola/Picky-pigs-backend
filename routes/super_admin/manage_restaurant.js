@@ -90,8 +90,8 @@ router.post('/list', async (req, res, next) => {
         }
 
         await Users.aggregate(aggregate)
-            .then(restaurantAdminList => {
-                res.status(constants.OK_STATUS).json({ restaurantAdminList, totalRecord: totalRecord.length, "message": "Restaurant listing get successfully" });
+            .then(restaurantList => {
+                res.status(constants.OK_STATUS).json({ restaurantList, totalRecord: totalRecord.length, "message": "Restaurant listing get successfully" });
             }).catch(error => {
                 res.status(constants.BAD_REQUEST).json({ message: "Error into restaurant listing", error: error });
             });

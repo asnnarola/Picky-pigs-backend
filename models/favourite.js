@@ -3,17 +3,17 @@ let Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 let favouriteSchema = new Schema(
     {
-        restaurantAdminId: [{
+        restaurantId: [{
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'restaurant'
         }],
         dishesId: [{
             type: Schema.Types.ObjectId,
             ref: 'dish'
         }],
-        userId: {
+        user_preferenceId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'user_preference'
         },
         isDeleted: { type: Number, default: 0 },
     },

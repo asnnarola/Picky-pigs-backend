@@ -39,7 +39,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 router.post('/menu_categories', async (req, res, next) => {
-    var data = await common_helper.find(Category, { "menuId": { $in: req.body.menuId } })
+    var data = await common_helper.find(Category, { "menuId": { $in: req.body.menuId }, "isDeleted": 0 })
     if (data.status === 0) {
         res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
     }

@@ -1,7 +1,6 @@
 
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
 let dietarySchema = new Schema(
     {
         name: { type: String, required: true, unique: true },

@@ -12,7 +12,7 @@ let restaurantSchema = new Schema(
         about: { type: String },
         userId: {
             type: Schema.Types.ObjectId,
-            ref: 'all_users'
+            ref: 'users'
         },
         info: {
             login: { type: String },

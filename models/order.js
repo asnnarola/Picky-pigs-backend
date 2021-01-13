@@ -1,6 +1,5 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
 let orderSchema = new Schema(
     {
         status: { type: String, default: "pending" },    //pending, completed, cancel

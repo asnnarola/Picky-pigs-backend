@@ -1,6 +1,5 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-const bcrypt = require('bcrypt');
 let cooking_methodSchema = new Schema(
     {
         name: { type: String, required: true },

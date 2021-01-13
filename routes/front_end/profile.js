@@ -2,8 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
-const User = require("../../models/users");
-const All_Users = require("../../models/all_users");
+const Users = require("../../models/users");
 const Favourite = require("../../models/favourite");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
@@ -23,7 +22,7 @@ router.get('/:id', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "users",
+                    from: "user_preferences",
                     localField: "_id",
                     foreignField: "userId",
                     as: "userDetail"
@@ -35,7 +34,7 @@ router.get('/:id', async (req, res, next) => {
         ];
 
 
-        await All_Users.aggregate(aggregate)
+        await Users.aggregate(aggregate)
             .then(userDetail => {
                 res.status(constants.OK_STATUS).json({ userDetail, message: "User details get successfully." });
             }).catch(error => {
@@ -55,7 +54,7 @@ router.put('/', async (req, res, next) => {
     try {
         if (req.body.password && req.body.password !== "") {
             req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
-            const update_resp = await common_helper.update(All_Users, { "_id": req.loginUser.id }, req.body)
+            const update_resp = await common_helper.update(Users, { "_id": req.loginUser.id }, req.body)
         }
         const update_resp = await common_helper.update(User, { "userId": req.loginUser.id }, req.body)
         if (update_resp.status === 0) {

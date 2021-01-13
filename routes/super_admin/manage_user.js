@@ -112,20 +112,18 @@ router.post('/export_user', async (req, res) => {
 
             const parser = new Parser({ fields });
             const csv = parser.parse(userArray);
-            fs.writeFile(name, csv, function (err) {
-                if (err) throw err;
-            });
+            fs.writeFileSync(name, csv);
 
+            res.download(name)
+            // res.header('Content-Type', 'text/csv');
+            // res.attachment(name);
             // res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });
-
-            res.header('Content-Type', 'text/csv');
-            res.attachment(name);
-            res.status(constants.OK_STATUS).json({ status: 1, message: "User exported successfully" });
 
         } else {
             res.status(constants.BAD_REQUEST).json({ status: 0, message: "No user founds" });
         }
     } catch (error) {
+        console.log(error)
         res.status(constants.BAD_REQUEST).json({ status: 0, message: "Error occured while export user", error: error });
 
     }

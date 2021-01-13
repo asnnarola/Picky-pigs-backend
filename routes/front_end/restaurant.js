@@ -4,7 +4,6 @@ const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
-const RestaurantAdmin = require("../../models/restaurantAdmin");
 const Restaurant = require("../../models/restaurant");
 const constants = require('../../config/constants');
 

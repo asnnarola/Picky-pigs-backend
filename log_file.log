@@ -7099,3 +7099,60 @@
     forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNzNjZTVkZDY4MTE0Y2RmNjU0YSIsImVtYWlsIjoicmVzdGF1cmFudDEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzgsImV4cCI6MTYxMDc3NjkzOH0.SSTLBfCyvIo-ZWJIRVtQLKUUAx8sALg-6uqqcrHEHxg'
   }
 }
+[2021-01-11T09:44:24.555] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9373ce5dd68114cdf654a,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$8orKJQg3aEfT8IMXVTRkc.f9E8htZIPyNJ1GHgGaMoLHlO7ZtSOem',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-09T04:55:24.018Z,
+    updatedAt: 2021-01-09T06:02:18.225Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNzNjZTVkZDY4MTE0Y2RmNjU0YSIsImVtYWlsIjoicmVzdGF1cmFudDEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzgsImV4cCI6MTYxMDc3NjkzOH0.SSTLBfCyvIo-ZWJIRVtQLKUUAx8sALg-6uqqcrHEHxg'
+  }
+}
+[2021-01-11T12:55:25.243] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9344ae5dd68114cdf6549,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$ozd3LOm9YpWEJFglxfH7j.VXDE.mAQ.cuFTjK1z.O28Qn6GQK98QK',
+    role: 'super_admin',
+    createdAt: 2021-01-09T04:42:50.170Z,
+    updatedAt: 2021-01-09T06:02:11.045Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNDRhZTVkZDY4MTE0Y2RmNjU0OSIsImVtYWlsIjoic3VwZXJhZG1pbjEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzEsImV4cCI6MTYxMDc3NjkzMX0.Zl0lBvsOqhDsJvWPGmqTe_fqdXrjFi66AOfj44WXwdk'
+  }
+}
+[2021-01-12T11:15:39.886] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9344ae5dd68114cdf6549,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$ozd3LOm9YpWEJFglxfH7j.VXDE.mAQ.cuFTjK1z.O28Qn6GQK98QK',
+    role: 'super_admin',
+    createdAt: 2021-01-09T04:42:50.170Z,
+    updatedAt: 2021-01-09T06:02:11.045Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNDRhZTVkZDY4MTE0Y2RmNjU0OSIsImVtYWlsIjoic3VwZXJhZG1pbjEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzEsImV4cCI6MTYxMDc3NjkzMX0.Zl0lBvsOqhDsJvWPGmqTe_fqdXrjFi66AOfj44WXwdk'
+  }
+}

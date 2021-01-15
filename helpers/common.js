@@ -181,6 +181,32 @@ common_helper.updatewithupsert = async (collection, id, data) => {
   }
 }
 
+
+common_helper.addOrUpdate = async (collection, condition, dataObject) => {
+  try {
+    if (dataObject._id === undefined) {
+
+      /**Insert for the new doc */
+      let document = new collection(dataObject);
+      let data = await document.save();
+      return { status: 1, message: "Data inserted", data };
+    } else {
+
+      /**update for old doc */
+      let data = await collection.findOneAndUpdate(condition, dataObject, { new: true }).lean();
+      return { status: 1, message: "Data updated", data };
+    }
+  } catch (err) {
+    console.log("-----",err)
+    return {
+      status: 0,
+      message: "Error occurred while updating data",
+      error: err
+    };
+  }
+}
+
+
 /**
  * find records in collection
  * @param {Files} files data of file or files
@@ -313,6 +339,18 @@ common_helper.pagination = async function (modified_arry, startPage, lengthPage)
       message: "Error occurred while pagination data",
       error: error
     };
+  }
+};
+
+common_helper.clone = async (model, DataObject) => {
+  try {
+    let dishCloneDetail = JSON.parse(JSON.stringify(DataObject));
+    delete dishCloneDetail._id;
+    let create_schema_document = new model(dishCloneDetail);
+    let data = await create_schema_document.save();
+    return { status: 1, message: "Data clone", data };
+  } catch (error) {
+    return { status: 0, message: "No data clone", error: error.message };
   }
 };
 

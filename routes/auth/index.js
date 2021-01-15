@@ -44,7 +44,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                     email: req.body.email,
                     phone: req.body.phone,
                     password: req.body.password,
-                    role: req.body.role
+                    role: "user"
                 };
                 const register_allUser_resp = await common_helper.insert(Users, obj);
                 obj.userId = register_allUser_resp.data._id;
@@ -262,6 +262,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
             return res.status(constants.BAD_REQUEST).json({ status: 1, message: "Email already exist !" });
 
         } else {
+            req.body.role = "restaurant_admin";
             const register_allUser_resp = await common_helper.insert(Users, req.body);
             req.body.userId = register_allUser_resp.data._id;
             const register_user_resp = await common_helper.insert(Restaurant, req.body);

@@ -17,6 +17,7 @@ let subcategorySchema = new Schema(
         },
         name: { type: String, required: true },
         isDeleted: { type: Number, default: 0 },
+        isActive: { type: Boolean, default: true },     /**active, inactive */
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

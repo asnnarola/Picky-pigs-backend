@@ -18,6 +18,7 @@ let menusSchema = new Schema(
         type: { type: String },
         styleOfmenu: { type: String },
         isDeleted: { type: Number, default: 0 },
+        isActive: { type: Boolean, default: true },     /**active, inactive */
         parentMenu: {
             type: Schema.Types.ObjectId,
             ref: 'menus'

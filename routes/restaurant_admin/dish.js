@@ -5,6 +5,7 @@ const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const Dish = require('../../models/dish');
+const DishIngredient = require('../../models/dish_ingredient');
 const DishCaloriesAndMacros = require('../../models/dish_caloriesAndMacros');
 const Restaurant = require('../../models/restaurant');
 const validation_response = require('../../validation/validation_response');
@@ -22,11 +23,25 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
         req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
         req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
         await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
+
+        req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
+            singleElement.dishId = duplicate_insert_resp.data._id;
+            singleElement.restaurantId = req.body.restaurantId;
+            return singleElement;
+        })
+        const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
     }
     const insert_resp = await common_helper.insert(Dish, req.body);
     req.body.caloriesAndMacros.dishId = insert_resp.data._id;
     req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
     const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
+    req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
+        singleElement.dishId = insert_resp.data._id;
+        singleElement.restaurantId = req.body.restaurantId;
+        return singleElement;
+    })
+    const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
+
 
     if (insert_resp.status === 1 && insert_resp.data) {
         res.status(constants.OK_STATUS).json({ insert_resp, duplicate_insert_resp });
@@ -102,7 +117,15 @@ router.get('/:id', async (req, res) => {
             },
             {
                 $unwind: "$caloriesandmacrosDetail"
-            }
+            },
+            {
+                $lookup: {
+                    from: "dish_ingredients",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "ingredientSection.dish_ingredients"
+                }
+            },
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
@@ -235,7 +258,8 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/:id', validation.dish, validation_response, async (req, res) => {
     try {
-        const update_resp = await common_helper.update(Category, { "_id": req.params.id }, req.body);
+        const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
+        const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacrosId }, req.body.caloriesAndMacros);
         if (update_resp.status === 1) {
             res.status(constants.OK_STATUS).json(insert_resp);
         } else {
@@ -245,6 +269,20 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
     } catch (error) {
         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
 
+    }
+})
+
+router.post('/add_update_ingredient', async (req, res) => {
+    try {
+        const ingredient_resp = await common_helper.addOrUpdate(DishIngredient, { _id: req.body._id }, req.body)
+        if (ingredient_resp.status === 1) {
+            res.status(constants.OK_STATUS).json(ingredient_resp);
+        } else {
+            res.status(constants.BAD_REQUEST).json(ingredient_resp);
+        }
+    } catch (error) {
+        console.log("error: ",error)
+        res.status(constants.BAD_REQUEST).json({ message: "Error into insert ingredient", error: error });
     }
 })
 

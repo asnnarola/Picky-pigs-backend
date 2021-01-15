@@ -45,22 +45,14 @@ let dishSchema = new Schema(
             ref: 'restaurant'
         },
         isDeleted: { type: Number, default: 0 },
-        cookingMethodId: {
+        isActive: { type: Boolean, default: true },     /**active, inactive */
+        cookingMethodId: [{
             type: Schema.Types.ObjectId,
             ref: 'cooking_method'
-        },
-        itemSection: {
+        }],
+        ingredientSection: {
             estimatedCost: { type: Number },
-            item: [{
-                name: { type: String },
-                qty: { type: Number },
-                unit: { type: String },
-                allergeies: { type: String },
-                name: { type: String },
-                stokUnit: { type: String },
-                recipeCost: { type: Number },
-                customisable: { type: Boolean }
-            }]
+            total: { type: Number }
         }
     },
     {

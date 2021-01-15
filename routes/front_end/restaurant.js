@@ -112,7 +112,8 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
-                    menuId: new ObjectId(req.body.menuId)
+                    menuId: new ObjectId(req.body.menuId),
+                    isDeleted: 0
                 }
             },
             {
@@ -125,6 +126,11 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             },
             {
                 $unwind: "$subcategoriesDetail"
+            },
+            {
+                $match: {
+                    "subcategoriesDetail.isDeleted": 0
+                }
             },
             {
                 $lookup: {
@@ -224,6 +230,14 @@ router.get('/dish_info/:id', async (req, res, next) => {
             },
             {
                 $unwind: "$caloriesandmacrosDetail"
+            },
+            {
+                $lookup: {
+                    from: "dish_ingredients",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "ingredientSection.dish_ingredients"
+                }
             },
             {
                 $lookup: {

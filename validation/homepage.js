@@ -12,6 +12,7 @@ module.exports = {
             .not().isEmpty().withMessage('message is required')
             .exists().withMessage('message is required'),
         check('email')
+            .isEmail().withMessage('Enter proper Email')
             .trim()
             .not().isEmpty().withMessage('Email is required')
             .exists().withMessage('Email is required')
@@ -20,7 +21,7 @@ module.exports = {
             .trim()
             .not().isEmpty().withMessage('phoneNumber is required')
             .exists().withMessage('phoneNumber is required'),
-            // .isLength({ min: 10, max: 10 }).withMessage('phoneNumber should be 10 characters long'),
+        // .isLength({ min: 10, max: 10 }).withMessage('phoneNumber should be 10 characters long'),
         check('company')
             .trim()
             .not().isEmpty().withMessage('company is required')

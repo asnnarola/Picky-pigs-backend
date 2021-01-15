@@ -252,14 +252,34 @@ router.post('/facebook', async (req, res, next) => {
 
 router.post('/restaurant_signup', manage_module.create_restaurant, validation_response, async (req, res, next) => {
     try {
-        const register_allUser_resp = await common_helper.insert(Users, req.body);
-        req.body.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(Restaurant, req.body);
 
-        if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
-            res.status(constants.OK_STATUS).json(register_allUser_resp);
+        const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
+        if (data.status === 0) {
+            res.json({ status: 0, message: "Error while finding email" });
+        }
+
+        if (data.status === 1 && data.data) {
+            return res.status(constants.BAD_REQUEST).json({ status: 1, message: "Email already exist !" });
+
         } else {
-            res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+            const register_allUser_resp = await common_helper.insert(Users, req.body);
+            req.body.userId = register_allUser_resp.data._id;
+            const register_user_resp = await common_helper.insert(Restaurant, req.body);
+
+            const token = jwt.sign({ id: register_allUser_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+            const emailContent = {
+                to: req.body.email,
+                subject: 'Email verification for Picky pigs',
+                token: `${config.APIURL}/auth/verification/${token}`,
+                filePath: "./views/resturant_admin/auth/verification.ejs"
+            }
+
+            const emailResp = await sendMail(emailContent);
+            if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
+                res.status(constants.OK_STATUS).json(register_allUser_resp);
+            } else {
+                res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+            }
         }
     } catch (err) {
         console.log(err)
@@ -290,10 +310,10 @@ router.post('/forgot_password', auth.forgotPassword, validation_response, async 
             if (data.data.role == "super_admin") {
                 optimizeToken = `${config.FRONT_SUPER_ADMIN_URL}/reset_password/${token}`
             }
-            else if (data.data.role == "super_admin") {
+            else if (data.data.role == "restaurant_admin") {
                 optimizeToken = `${config.FRONT_RESTAURANT_ADMIN_URL}/reset_password/${token}`
             } else {
-                optimizeToken = `${config.FRONT_RESTAURANT_ADMIN_URL}/reset_password/${token}`
+                optimizeToken = `${config.FRONT_USER_URL}/reset_password/${token}`
             }
             const emailContent = {
                 to: req.body.email,

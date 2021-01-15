@@ -3,7 +3,7 @@ var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const Dish = require("../../models/dish");
-const RestaurantAdmin = require("../../models/restaurantAdmin");
+// const RestaurantAdmin = require("../../models/restaurantAdmin");
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
@@ -472,10 +472,11 @@ router.post('/join_us', homepageValidation.join_us, validation_response, async (
             message: req.body.message,
             email: req.body.email,
             phoneNumber: req.body.phoneNumber,
-            comapny: req.body.comapny
+            company: req.body.company
         }
         const emailContent = {
-            to: "drl@narola.email",
+            to: "ksd@narola.email",
+            // to: req.body.email,
             subject: 'Join us to Picky pigs',
             obj: obj,
             filePath: "./views/frontend/join_us.ejs"

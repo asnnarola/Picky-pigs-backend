@@ -21,14 +21,25 @@ const saltRounds = 10;
 router.post('/create', manage_module.create_restaurant, validation_response, async (req, res, next) => {
     try {
         if (passwordValidatorSchema.validate(req.body.password) == true) {
-            const register_allUser_resp = await common_helper.insert(Users, req.body);
-            req.body.userId = register_allUser_resp.data._id;
-            const register_user_resp = await common_helper.insert(Restaurant, req.body);
+            const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
+            if (data.status === 0) {
+                res.json({ status: 0, message: "Error while finding email" });
+            }
 
-            if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
-                res.status(constants.OK_STATUS).json(register_allUser_resp);
+            if (data.status === 1 && data.data) {
+                return res.status(constants.BAD_REQUEST).json({ status: 1, message: "Email already exist !" });
+
             } else {
-                res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+                req.body.emailVerified = true;
+                const register_allUser_resp = await common_helper.insert(Users, req.body);
+                req.body.userId = register_allUser_resp.data._id;
+                const register_user_resp = await common_helper.insert(Restaurant, req.body);
+
+                if (register_allUser_resp.status === 1 && register_allUser_resp.data) {
+                    res.status(constants.OK_STATUS).json(register_allUser_resp);
+                } else {
+                    res.status(constants.BAD_REQUEST).json(register_allUser_resp);
+                }
             }
         }
         else {
@@ -117,8 +128,8 @@ router.put('/update_password/:id', manage_module.update_password, validation_res
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        
-        const update_all_users_resp = await common_helper.update(Users, { "_id": req.params.id  }, { isDeleted: 1 })
+
+        const update_all_users_resp = await common_helper.update(Users, { "_id": req.params.id }, { isDeleted: 1 })
         const update_resp = await common_helper.update(Restaurant, { "userId": req.params.id }, { isDeleted: 1 })
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Restaurant deleted" });

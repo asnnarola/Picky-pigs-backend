@@ -7,7 +7,7 @@ const super_admin_routes = require("./super_admin/super_admin_routes");
 const restaurant_admin_routes = require("./restaurant_admin/restaurant_admin_routes");
 // const tablet_routes = require("./tablet/tablet_routes");
 // const kds_routes = require("./kds/kds_routes");
-// const front_end_routes = require("./front_end/front_end_routes");
+const front_end_routes = require("./front_end/front_end_routes");
 const auth = require("./auth");
 
 
@@ -30,6 +30,6 @@ router.use("/restaurant_admin", restaurant_admin_routes);
 // router.use("/kds", kds_routes);
 
 /** Front-end Portal */
-// router.use("/frontend", front_end_routes);
+router.use("/frontend", front_end_routes);
 
 module.exports = router;

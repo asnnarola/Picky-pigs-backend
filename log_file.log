@@ -7156,3 +7156,22 @@
     forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNDRhZTVkZDY4MTE0Y2RmNjU0OSIsImVtYWlsIjoic3VwZXJhZG1pbjEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzEsImV4cCI6MTYxMDc3NjkzMX0.Zl0lBvsOqhDsJvWPGmqTe_fqdXrjFi66AOfj44WXwdk'
   }
 }
+[2021-01-15T09:34:51.520] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9344ae5dd68114cdf6549,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$ozd3LOm9YpWEJFglxfH7j.VXDE.mAQ.cuFTjK1z.O28Qn6GQK98QK',
+    role: 'super_admin',
+    createdAt: 2021-01-09T04:42:50.170Z,
+    updatedAt: 2021-01-09T06:02:11.045Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNDRhZTVkZDY4MTE0Y2RmNjU0OSIsImVtYWlsIjoic3VwZXJhZG1pbjEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzEsImV4cCI6MTYxMDc3NjkzMX0.Zl0lBvsOqhDsJvWPGmqTe_fqdXrjFi66AOfj44WXwdk'
+  }
+}

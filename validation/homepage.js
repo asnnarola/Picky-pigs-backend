@@ -21,7 +21,7 @@ module.exports = {
             .not().isEmpty().withMessage('phoneNumber is required')
             .exists().withMessage('phoneNumber is required'),
             // .isLength({ min: 10, max: 10 }).withMessage('phoneNumber should be 10 characters long'),
-        check('comapny')
+        check('company')
             .trim()
             .not().isEmpty().withMessage('company is required')
             .exists().withMessage('company is required')

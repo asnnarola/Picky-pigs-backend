@@ -140,9 +140,14 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                     as: "subcategoriesDetail.dishesDetail"
                 }
             },
-            // {
-            //     $unwind: "$subcategoriesDetail.dishesDetail"
-            // }
+            {
+                $unwind: "$subcategoriesDetail.dishesDetail"
+            },
+            {
+                $match: {
+                    "subcategoriesDetail.dishesDetail.isDeleted": 0
+                }
+            },
         ];
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
@@ -171,13 +176,46 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             });
         }
 
+        aggregate.push({
+            $group: {
+                _id: "$subcategoriesDetail._id",
+                subcategories: { $first: "$subcategoriesDetail" },
+                categoryId: { $first: "$_id" },
+                categoryisDeleted: { $first: "$isDeleted" },
+                categoryname: { $first: "$name" },
+                categorymenuId: { $first: "$menuId" },
+                categoryrestaurantId: { $first: "$restaurantId" },
+                dishes: { $push: "$subcategoriesDetail.dishesDetail" }
+            }
+        });
 
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                subcategories: {
+                    "_id": "$_id",
+                    "isDeleted": "$subcategories.isDeleted",
+                    "name": "$subcategories.name",
+                    "categoryId": "$subcategories.categoryId",
+                    "restaurantId": "$subcategories.restaurantId",
+                    "menuId": "$subcategories.menuId",
+                    "createdAt": "$subcategories.createdAt",
+                    "updatedAt": "$subcategories.updatedAt",
+                    "dishes": "$dishes"
+                },
+                categoryId: "$categoryId",
+                categoryisDeleted: "$categoryisDeleted",
+                categoryname: "$categoryname",
+                categorymenuId: "$categorymenuId",
+                categoryrestaurantId: "$categoryrestaurantId",
+            }
+        });
 
         aggregate.push({
             $group: {
-                _id: "$_id",
-                categoryName: { $first: "$name" },
-                subcategories: { $push: "$subcategoriesDetail" }
+                _id: "$categoryId",
+                categoryName: { $first: "$categoryname" },
+                subcategories: { $push: "$subcategories" }
             }
         });
 

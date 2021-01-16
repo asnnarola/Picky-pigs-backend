@@ -7267,3 +7267,201 @@
     __v: 0
   }
 }
+[2021-01-15T18:27:13.299] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:27:22.785] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:27:34.236] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:27:41.502] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:28:03.905] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:28:08.478] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:28:24.809] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-15T18:28:41.484] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60013e85f18b34522cabfea1,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'ksd@narola.email',
+    password: '$2b$10$kw0B.pW3YcBwxjpdtk8CZu2E/J4/w3Ekoq5B.sEkmgSRKLr5aImU.',
+    role: 'user',
+    createdAt: 2021-01-15T07:04:37.872Z,
+    updatedAt: 2021-01-15T07:38:19.667Z,
+    __v: 0
+  }
+}
+[2021-01-16T11:57:33.673] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9382de5dd68114cdf654c,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'user1234@gmail.com',
+    password: '$2b$10$tm9QC/05yXlB6FiT38aap.2crjxtuGYnuq/N7ZjlX77Z2Zmp2JnPO',
+    role: 'user',
+    createdAt: 2021-01-09T04:59:25.300Z,
+    updatedAt: 2021-01-09T04:59:25.300Z,
+    __v: 0
+  }
+}
+[2021-01-16T11:57:38.204] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9382de5dd68114cdf654c,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'user1234@gmail.com',
+    password: '$2b$10$tm9QC/05yXlB6FiT38aap.2crjxtuGYnuq/N7ZjlX77Z2Zmp2JnPO',
+    role: 'user',
+    createdAt: 2021-01-09T04:59:25.300Z,
+    updatedAt: 2021-01-09T04:59:25.300Z,
+    __v: 0
+  }
+}
+[2021-01-16T11:57:45.172] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9382de5dd68114cdf654c,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'user1234@gmail.com',
+    password: '$2b$10$tm9QC/05yXlB6FiT38aap.2crjxtuGYnuq/N7ZjlX77Z2Zmp2JnPO',
+    role: 'user',
+    createdAt: 2021-01-09T04:59:25.300Z,
+    updatedAt: 2021-01-09T04:59:25.300Z,
+    __v: 0
+  }
+}

@@ -37,6 +37,10 @@ let dishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'lifestyle'
         }],
+        cookingMethodId: [{
+            type: Schema.Types.ObjectId,
+            ref: 'cooking_method'
+        }],
         instructions: { type: String },
         customisable: { type: Boolean, default: false },
         createNewVersion: { type: Boolean, default: false },
@@ -46,10 +50,6 @@ let dishSchema = new Schema(
         },
         isDeleted: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true },     /**active, inactive */
-        cookingMethodId: [{
-            type: Schema.Types.ObjectId,
-            ref: 'cooking_method'
-        }],
         ingredientSection: {
             estimatedCost: { type: Number },
             total: { type: Number }

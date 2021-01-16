@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const Dish = require("../../models/dish");
 // const RestaurantAdmin = require("../../models/restaurantAdmin");
+const Restaurant = require("../../models/restaurant");
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const LOGGER = config.LOGGER;
@@ -15,7 +16,6 @@ var sendMail = require("../../mails/sendMail");
 /**Home page restaurant based on subscription and then time of day */
 router.post('/homepage_restaurant', async (req, res, next) => {
     try {
-
         let aggregate = [
             {
                 $match: {
@@ -25,8 +25,8 @@ router.post('/homepage_restaurant', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_details",
-                    localField: "userId",
-                    foreignField: "userId",
+                    localField: "_id",
+                    foreignField: "restaurantId",
                     as: "restaurantDetails"
                 }
             },
@@ -34,27 +34,29 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                 $unwind: {
                     path: "$restaurantDetails",
                     preserveNullAndEmptyArrays: true
-
                 }
             },
             {
-                $unwind: "$restaurantDetails.openingTimings.time"
+                $unwind: {
+                    path: "$restaurantDetails.openingTimings.time",
+                    preserveNullAndEmptyArrays: true
+                }
             },
             {
                 $match: {
                     "restaurantDetails.openingTimings.time.day": moment().format("dddd"),
 
                     /**Start time validation */
-                    'restaurantDetails.openingTimings.time.timeList.startTime': { $lt: moment().format("hh:mm") },
+                    'restaurantDetails.openingTimings.time.timeList.startTime': { $lt: moment().format("HH:mm") },
                     'restaurantDetails.openingTimings.time.timeList.startTimeUnit': moment().format("a"),
 
                     /**End time validation */
-                    'restaurantDetails.openingTimings.time.timeList.endTime': { $gt: moment().format("hh:mm") },
+                    'restaurantDetails.openingTimings.time.timeList.endTime': { $gt: moment().format("HH:mm") },
                     'restaurantDetails.openingTimings.time.timeList.endTimeUnit': moment().format("a")
                 }
             }
         ];
-        const totalCount = await RestaurantAdmin.aggregate(aggregate)
+        const totalCount = await Restaurant.aggregate(aggregate)
         if (req.body.start) {
             aggregate.push({
                 "$skip": req.body.start
@@ -66,7 +68,7 @@ router.post('/homepage_restaurant', async (req, res, next) => {
             });
         }
 
-        await RestaurantAdmin.aggregate(aggregate)
+        await Restaurant.aggregate(aggregate)
             .then(restaurantList => {
                 res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {

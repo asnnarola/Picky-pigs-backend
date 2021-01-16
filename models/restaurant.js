@@ -25,7 +25,7 @@ let restaurantSchema = new Schema(
         contactName: { type: String },
         company: { type: String },
         phoneNumber: { type: String },
-        package: { type: String },
+        package: { type: String },  //basic, standard, premium
         isAgreeToTerms: { type: Boolean },
         security: {
             twoFactorAuthenticationPhoneNumber: { type: Boolean, default: false },

@@ -7,7 +7,7 @@ const constants = require('../../config/constants');
 
 router.post('/upload_image', async function (req, res, next) {
     if (req.files != null) {
-        var imageData = await common_helper.upload(req.files['image'], "uploads/dish");
+        var imageData = await common_helper.upload(req.files['image'], "uploads");
         if (imageData.data.length > 0) {
             res.status(constants.OK_STATUS).json(imageData);
         } else {

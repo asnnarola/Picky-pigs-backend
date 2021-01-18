@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
+const bcrypt = require("bcrypt")
 const common_helper = require('../../helpers/common');
 const constants = require('../../config/constants');
 const validation_response = require('../../validation/validation_response');
@@ -10,6 +11,20 @@ const RestaurantAddress = require('../../models/restaurant_address');
 const RestaurantDetails = require('../../models/restaurant_details');
 const RestaurantFeatures = require('../../models/restaurant_features');
 const validation = require('../../validation/admin/validation');
+const saltRounds = 10;
+const passwordValidator = require('password-validator');
+const passwordValidatorSchema = new passwordValidator();
+passwordValidatorSchema
+    .is().min(8)
+    .symbols()	                                 // Minimum length 8
+    .is().max(100)
+    .letters()                                // Maximum length 100
+    .has().uppercase()                              // Must have uppercase letters
+    .has().lowercase()                              // Must have lowercase letters
+    .has().digits()                                 // Must have digits
+    .has().not().spaces()                       // Should not have spaces
+    .is().not().oneOf(['Passw0rd', 'Password123'])
+
 
 router.post('/', async (req, res, next) => {
     try {
@@ -18,6 +33,13 @@ router.post('/', async (req, res, next) => {
         /**For multiple restaurant to set retaurant id */
         req.body.restaurantId = save_response.data._id;
 
+        if (req.body.security.password && req.body.security.password !== "") {
+            if (passwordValidatorSchema.validate(req.body.security.password) == true) {
+                const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.security.password, saltRounds) })
+            } else {
+                return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
+            }
+        }
         if (req.body.galleryImages) {
             const save_response = await common_helper.updatewithupsert(RestaurantGallery, { restaurantId: new ObjectId(req.body.restaurantId) }, req.body.galleryImages);
         }

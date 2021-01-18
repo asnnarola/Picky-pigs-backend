@@ -11,7 +11,7 @@ const front_endProfile = require("./profile");
 /** Front-end Portal */
 router.use("/homePage", front_endHomepage);
 router.use("/restaurant", front_endRestaurant);
-// router.use("/profile", verify.jwtValidation, verify.authorization, front_endProfile);
+router.use("/profile", verify.jwtValidation, verify.authorization, front_endProfile);
 
 
 module.exports = router;

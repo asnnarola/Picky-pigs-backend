@@ -15,18 +15,21 @@ let user_preferenceSchema = new Schema(
             ref: 'users'
         },
         myPreferences: {
-            allergenInformation: [{
-                type: Schema.Types.ObjectId,
-                ref: 'allergen'
-            }],
-            dietaryPreferences: [{
-                type: Schema.Types.ObjectId,
-                ref: 'dietary'
-            }],
-            lifestyleChoice: [{
-                type: Schema.Types.ObjectId,
-                ref: 'lifestyle'
-            }],
+            // allergenInformation: [{
+            //     type: Schema.Types.ObjectId,
+            //     ref: 'allergen'
+            // }],
+            // dietaryPreferences: [{
+            //     type: Schema.Types.ObjectId,
+            //     ref: 'dietary'
+            // }],
+            // lifestyleChoice: [{
+            //     type: Schema.Types.ObjectId,
+            //     ref: 'lifestyle'
+            // }],
+            allergenInformation: [{ type: String }],
+            dietaryPreferences: [{ type: String }],
+            lifestyleChoice: [{ type: String }],
             restaurantFeatures: [{ type: String }]
         },
         isDeleted: { type: Number, default: 0 },

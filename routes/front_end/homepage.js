@@ -138,24 +138,25 @@ router.post('/homepage_dishes', async (req, res, next) => {
 });
 
 /**page no 3 */
+/**	Base on the dishes schema ***/
 router.post('/restaurantlist', async (req, res, next) => {
     try {
 
-        if (req.body.allergen && req.body.allergen.length > 0) {
-            req.body.allergen = req.body.allergen.map((element) => {
-                return new ObjectId(element)
-            })
-        }
-        if (req.body.dietary && req.body.dietary.length > 0) {
-            req.body.dietary = req.body.dietary.map((element) => {
-                return new ObjectId(element)
-            })
-        }
-        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
-            req.body.lifestyle = req.body.lifestyle.map((element) => {
-                return new ObjectId(element)
-            })
-        }
+        // if (req.body.allergen && req.body.allergen.length > 0) {
+        //     req.body.allergen = req.body.allergen.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
+        // if (req.body.dietary && req.body.dietary.length > 0) {
+        //     req.body.dietary = req.body.dietary.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
+        // if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+        //     req.body.lifestyle = req.body.lifestyle.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
         let aggregate = [
             // {
             //     $match: {
@@ -164,30 +165,43 @@ router.post('/restaurantlist', async (req, res, next) => {
             // },
             {
                 $lookup: {
-                    from: "restaurant_admins",
-                    localField: "restaurantAdminId",
-                    foreignField: "userId",
-                    as: "restaurant_adminDetail"
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantInfo"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurant_adminDetail",
+                    path: "$restaurantInfo",
                     preserveNullAndEmptyArrays: true
 
                 }
             },
             {
+                $match: {
+                    "restaurantInfo.isDeleted": 0,
+                }
+            },
+            {
                 $lookup: {
-                    from: "restaurant_freatures",
-                    localField: "restaurantAdminId",
-                    foreignField: "userId",
-                    as: "restaurant_adminDetail.restaurantFeatures"
+                    from: "dishes",
+                    localField: "restaurantInfo._id",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.restaurantDishes"
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_features",
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.restaurantFeatures"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurant_adminDetail.restaurantFeatures",
+                    path: "$restaurantInfo.restaurantFeatures",
                     preserveNullAndEmptyArrays: true
 
                 }
@@ -195,23 +209,37 @@ router.post('/restaurantlist', async (req, res, next) => {
             {
                 $lookup: {
                     from: "restaurant_details",
-                    localField: "restaurantAdminId",
-                    foreignField: "userId",
-                    as: "restaurant_adminDetail.restaurantDetails"
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.restaurantDetails"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurant_adminDetail.restaurantDetails",
+                    path: "$restaurantInfo.restaurantDetails",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_addresses",
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantInfo.address",
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: "reviews",
-                    localField: "restaurantAdminId",
+                    localField: "restaurantId",
                     foreignField: "userId",
-                    as: "restaurant_adminDetail.reviewDetail"
+                    as: "restaurantInfo.reviewDetail"
                 }
             }
         ];
@@ -222,8 +250,8 @@ router.post('/restaurantlist', async (req, res, next) => {
                 "$match":
                 {
                     $or: [
-                        { "restaurant_adminDetail.name": RE },
-                        { "restaurant_adminDetail.restaurantFeatures.cuisineType": RE }
+                        { "restaurantInfo.name": RE },
+                        // { "restaurantInfo.restaurantFeatures.cuisineType": RE }
                     ]
                 }
             });
@@ -233,14 +261,14 @@ router.post('/restaurantlist', async (req, res, next) => {
         if (req.body.openingTimings && req.body.openingTimings.length > 0) {
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.restaurantDetails.openingTimings.time.day": moment().format("dddd") }
+                    { "restaurantInfo.restaurantDetails.openingTimings.time.day": moment().format("dddd") }
             });
         }
         if (req.body.features && req.body.features.length > 0) {
 
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
+                    { "restaurantInfo.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
             });
 
         }
@@ -265,14 +293,26 @@ router.post('/restaurantlist', async (req, res, next) => {
 
         aggregate.push({
             $group: {
-                _id: "$restaurant_adminDetail._id",
-                restaurantDetail: { $first: "$restaurant_adminDetail" }
+                _id: "$restaurantInfo._id",
+                restaurantDetail: { $first: "$restaurantInfo" },
+                filterDishes: {
+                    $push: {
+                        "_id": "$_id",
+                        "name": "$name",
+                    }
+                }
             }
         });
         aggregate.push({
             $project: {
                 _id: "$_id",
-                restaurantDetail: "$restaurantDetail",
+                name: "$restaurantDetail.name",
+                restaurantProfilePhoto: "$restaurantDetail.restaurantProfilePhoto",
+                averageCostOfTwoPerson: "$restaurantDetail.restaurantFeatures.averageCostOfTwoPerson",
+                restaurantFeaturesOptions: "$restaurantDetail.restaurantFeatures.restaurantFeaturesOptions",
+                address: "$restaurantDetail.address",
+                relevance: { $divide: [{ $size: "$filterDishes" }, { $size: "$restaurantDetail.restaurantDishes" }] },
+                // restaurantDetail: "$restaurantDetail",
                 restaurantRate: { $avg: "$restaurantDetail.reviewDetail.rate" }
             }
         });
@@ -280,7 +320,7 @@ router.post('/restaurantlist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "restaurantDetail.restaurantFeatures.averageCostOfTwoPerson": 1 }
+                    { "averageCostOfTwoPerson": 1 }
             });
 
         }
@@ -288,7 +328,7 @@ router.post('/restaurantlist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "restaurantDetail.restaurantFeatures.averageCostOfTwoPerson": -1 }
+                    { "averageCostOfTwoPerson": -1 }
             });
 
         }
@@ -297,6 +337,14 @@ router.post('/restaurantlist', async (req, res, next) => {
             aggregate.push({
                 "$sort":
                     { "restaurantRate": -1 }
+            });
+
+        }
+        if (req.body.sort && req.body.sort.relevance && req.body.sort.relevance == "h2l") {
+
+            aggregate.push({
+                "$sort":
+                    { "relevance": -1 }
             });
 
         }
@@ -354,26 +402,41 @@ router.post('/disheslist', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "restaurant_admins",
-                    localField: "restaurantAdminId",
-                    foreignField: "userId",
-                    as: "restaurant_adminDetail"
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantInfo"
                 }
             },
             {
-                $unwind: "$restaurant_adminDetail"
+                $unwind: "$restaurantInfo"
             },
             {
                 $lookup: {
                     from: "restaurant_addresses",
-                    localField: "restaurantAdminId",
-                    foreignField: "userId",
-                    as: "restaurant_adminDetail.address"
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.address"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurant_adminDetail.address",
+                    path: "$restaurantInfo.address",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_features",
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.restaurantFeatures"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantInfo.restaurantFeatures",
                     preserveNullAndEmptyArrays: true
 
                 }
@@ -387,7 +450,7 @@ router.post('/disheslist', async (req, res, next) => {
                 {
                     $or: [
                         { "name": RE },
-                        { "itemSection.item.name": RE }
+                        // { "itemSection.item.name": RE }
                     ]
                 }
             });
@@ -397,7 +460,7 @@ router.post('/disheslist', async (req, res, next) => {
 
             aggregate.push({
                 "$match":
-                    { "restaurant_adminDetail.address.restaurantFeaturesOptions": { $in: req.body.features } }
+                    { "restaurantInfo.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
             });
 
         }

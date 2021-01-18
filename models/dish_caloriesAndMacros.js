@@ -23,19 +23,19 @@ let dish_caloriesAndMacrosSchema = new Schema(
                 percentage: { type: Number }
             }],
         },
-        Cholesterol: {
+        cholesterol: {
             name: { type: String },
             weight: { type: Number },
             weightUnit: { type: String }, // gm, etc
             percentage: { type: Number }
         },
-        Sodium: {
+        sodium: {
             name: { type: String },
             weight: { type: Number },
             weightUnit: { type: String }, // gm, etc
             percentage: { type: Number }
         },
-        TotalCarbohydrate: {
+        totalCarbohydrate: {
             name: { type: String },
             totalWeight: { type: Number },
             weightUnit: { type: String }, // gm, etc
@@ -47,7 +47,7 @@ let dish_caloriesAndMacrosSchema = new Schema(
                 percentage: { type: Number }
             }],
         },
-        Protien: {
+        protien: {
             name: { type: String },
             totalWeight: { type: Number },
             weightUnit: { type: String }, // gm, etc

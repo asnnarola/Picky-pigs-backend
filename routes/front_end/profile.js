@@ -3,6 +3,7 @@ var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const Users = require("../../models/users");
+const UserPreference = require("../../models/user_preference");
 const Favourite = require("../../models/favourite");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
@@ -10,7 +11,18 @@ const config = require('../../config/config');
 const constants = require('../../config/constants');
 const bcrypt = require("bcrypt")
 const saltRounds = 10;
-
+const passwordValidator = require('password-validator');
+const passwordValidatorSchema = new passwordValidator();
+passwordValidatorSchema
+    .is().min(8)
+    .symbols()	                                 // Minimum length 8
+    .is().max(100)
+    .letters()                                // Maximum length 100
+    .has().uppercase()                              // Must have uppercase letters
+    .has().lowercase()                              // Must have lowercase letters
+    .has().digits()                                 // Must have digits
+    .has().not().spaces()                       // Should not have spaces
+    .is().not().oneOf(['Passw0rd', 'Password123'])
 
 router.get('/:id', async (req, res, next) => {
     try {
@@ -53,10 +65,14 @@ router.get('/:id', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     try {
         if (req.body.password && req.body.password !== "") {
-            req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
-            const update_resp = await common_helper.update(Users, { "_id": req.loginUser.id }, req.body)
+            if (passwordValidatorSchema.validate(req.body.password) == true) {
+                req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
+                // const update_resp = await common_helper.update(Users, { "_id": req.loginUser.id }, req.body)
+            } else {
+                return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
+            }
         }
-        const update_resp = await common_helper.update(User, { "userId": req.loginUser.id }, req.body)
+        const update_resp = await common_helper.update(UserPreference, { "userId": req.loginUser.id }, req.body)
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Details Update successfully." });
         } else {

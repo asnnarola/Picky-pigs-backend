@@ -259,14 +259,15 @@ router.post('/list', async (req, res, next) => {
 router.put('/:id', validation.dish, validation_response, async (req, res) => {
     try {
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
-        const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacrosId }, req.body.caloriesAndMacros);
+        const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
         if (update_resp.status === 1) {
-            res.status(constants.OK_STATUS).json(insert_resp);
+            res.status(constants.OK_STATUS).json(update_resp);
         } else {
-            res.status(constants.BAD_REQUEST).json(insert_resp);
+            res.status(constants.BAD_REQUEST).json(update_resp);
         }
 
     } catch (error) {
+        console.log("error; ",error)
         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
 
     }

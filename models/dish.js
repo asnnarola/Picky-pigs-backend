@@ -26,21 +26,33 @@ let dishSchema = new Schema(
         },
         description: { type: String },
         allergenId: [{
-            type: Schema.Types.ObjectId,
-            ref: 'allergen'
+            type: String
         }],
         dietaryId: [{
-            type: Schema.Types.ObjectId,
-            ref: 'dietary'
+            type: String
         }],
         lifestyleId: [{
-            type: Schema.Types.ObjectId,
-            ref: 'lifestyle'
+            type: String
         }],
         cookingMethodId: [{
-            type: Schema.Types.ObjectId,
-            ref: 'cooking_method'
+            type: String
         }],
+        // allergenId: [{
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'allergen'
+        // }],
+        // dietaryId: [{
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'dietary'
+        // }],
+        // lifestyleId: [{
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'lifestyle'
+        // }],
+        // cookingMethodId: [{
+        //     type: Schema.Types.ObjectId,
+        //     ref: 'cooking_method'
+        // }],
         instructions: { type: String },
         customisable: { type: Boolean, default: false },
         createNewVersion: { type: Boolean, default: false },

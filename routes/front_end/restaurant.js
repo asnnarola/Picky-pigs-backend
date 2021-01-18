@@ -91,7 +91,6 @@ router.get('/info/:id', async (req, res, next) => {
 
 
 /**Find base on menu category to subcategory to dishes details */
-/**need Dishes filter and sort from frontend side */
 router.post('/category_subcategory_dishes', async (req, res, next) => {
     try {
         if (req.body.allergen && req.body.allergen.length > 0) {
@@ -149,6 +148,24 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 }
             },
         ];
+
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
+
+            aggregate.push({
+                "$sort":
+                    { "subcategoriesDetail.dishesDetail.price": 1 }
+            });
+
+        }
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
+
+            aggregate.push({
+                "$sort":
+                    { "subcategoriesDetail.dishesDetail.price": -1 }
+            });
+
+        }
+
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
             aggregate.push({
@@ -186,6 +203,12 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 categorymenuId: { $first: "$menuId" },
                 categoryrestaurantId: { $first: "$restaurantId" },
                 dishes: { $push: "$subcategoriesDetail.dishesDetail" }
+                // dishes: {
+                //     $push: {
+                //         "name": "$subcategoriesDetail.dishesDetail.name",
+                //         "price": "$subcategoriesDetail.dishesDetail.price"
+                //     }
+                // }
             }
         });
 
@@ -284,7 +307,15 @@ router.get('/dish_info/:id', async (req, res, next) => {
                     foreignField: "_id",
                     as: "cooking_methods"
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: "allergens",
+                    localField: "allergenId",
+                    foreignField: "_id",
+                    as: "allergensDetail"
+                }
+            },
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {

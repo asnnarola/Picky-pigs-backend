@@ -30,6 +30,7 @@ module.exports = Object.freeze({
   FRONT_RESTAURANT_ADMIN_URL: process.env.FRONT_RESTAURANT_ADMIN_URL || 'http://localhost:3000',
   FRONT_SUPER_ADMIN_URL: process.env.FRONT_SUPER_ADMIN_URL || 'http://localhost:3000',
   FRONT_USER_URL: process.env.FRONT_USER_URL || 'http://localhost:3000',
+  GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY || 'key',
   SECRET_KEY: "shukrana_mushkurana",
   TOKEN_EXPIRED_TIME: "7d"
 

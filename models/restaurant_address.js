@@ -15,7 +15,7 @@ let restaurant_addressSchema = new Schema(
         shareLocationOption: { type: Boolean, default: false },
         getDirectionOption: { type: Boolean, default: false },
         map: {
-            coordinates: [],  //first latitude, second longitude
+            coordinates: [Number],  //first latitude, second longitude
             type: { type: String }
         }
     },

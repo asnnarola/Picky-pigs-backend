@@ -11,6 +11,8 @@ const LOGGER = config.LOGGER;
 const homepageValidation = require('../../validation/homepage');
 const validation_response = require('../../validation/validation_response');
 var sendMail = require("../../mails/sendMail");
+const Restaurant_addressModel = require("../../models/restaurant_address");
+const common_helper = require('../../helpers/common')
 
 
 /**Home page restaurant based on subscription and then time of day */
@@ -138,7 +140,6 @@ router.post('/homepage_dishes', async (req, res, next) => {
 });
 
 /**page no 3 */
-/**	Base on the dishes schema ***/
 router.post('/restaurantlist', async (req, res, next) => {
     try {
 
@@ -158,164 +159,161 @@ router.post('/restaurantlist', async (req, res, next) => {
         //     })
         // }
         let aggregate = [
-            // {
-            //     $match: {
-            //         isDeleted: 0,
-            //     }
-            // },
             {
                 $lookup: {
-                    from: "restaurants",
-                    localField: "restaurantId",
-                    foreignField: "_id",
-                    as: "restaurantInfo"
+                    from: "restaurant_addresses",
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "address"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurantInfo",
+                    path: "$address",
                     preserveNullAndEmptyArrays: true
-
-                }
-            },
-            {
-                $match: {
-                    "restaurantInfo.isDeleted": 0,
-                }
-            },
-            {
-                $lookup: {
-                    from: "dishes",
-                    localField: "restaurantInfo._id",
-                    foreignField: "restaurantId",
-                    as: "restaurantInfo.restaurantDishes"
-                }
-            },
-            {
-                $lookup: {
-                    from: "restaurant_features",
-                    localField: "restaurantId",
-                    foreignField: "restaurantId",
-                    as: "restaurantInfo.restaurantFeatures"
-                }
-            },
-            {
-                $unwind: {
-                    path: "$restaurantInfo.restaurantFeatures",
-                    preserveNullAndEmptyArrays: true
-
                 }
             },
             {
                 $lookup: {
                     from: "restaurant_details",
-                    localField: "restaurantId",
+                    localField: "_id",
                     foreignField: "restaurantId",
-                    as: "restaurantInfo.restaurantDetails"
+                    as: "restaurantDetails"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurantInfo.restaurantDetails",
+                    path: "$restaurantDetails",
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
-                    from: "restaurant_addresses",
-                    localField: "restaurantId",
+                    from: "restaurant_features",
+                    localField: "_id",
                     foreignField: "restaurantId",
-                    as: "restaurantInfo.address"
+                    as: "restaurantFeatures"
                 }
             },
             {
                 $unwind: {
-                    path: "$restaurantInfo.address",
+                    path: "$restaurantFeatures",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "dishes",
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "dishesList"
+                }
+            },
+            {
+                $lookup: {
+                    from: "dishes",
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "dishesDetails"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$dishesDetails",
                     preserveNullAndEmptyArrays: true
                 }
             },
             {
                 $lookup: {
                     from: "reviews",
-                    localField: "restaurantId",
-                    foreignField: "userId",
-                    as: "restaurantInfo.reviewDetail"
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "reviewDetail"
                 }
             }
         ];
+
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
-
             aggregate.push({
                 "$match":
                 {
                     $or: [
-                        { "restaurantInfo.name": RE },
+                        { "name": RE },
                         // { "restaurantInfo.restaurantFeatures.cuisineType": RE }
                     ]
                 }
             });
-
         }
+
         /**If need to filter today day with restaurant open day */
         if (req.body.openingTimings && req.body.openingTimings.length > 0) {
             aggregate.push({
                 "$match":
-                    { "restaurantInfo.restaurantDetails.openingTimings.time.day": moment().format("dddd") }
+                    { "restaurantDetails.openingTimings.time.day": moment().format("dddd") }
             });
         }
+
         if (req.body.features && req.body.features.length > 0) {
 
             aggregate.push({
                 "$match":
-                    { "restaurantInfo.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
+                    { "restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
             });
 
         }
+
+
         if (req.body.allergen && req.body.allergen.length > 0) {
             aggregate.push({
                 "$match":
-                    { "allergenId": { $in: req.body.allergen } }
+                    { "dishesDetails.allergenId": { $in: req.body.allergen } }
             });
         }
         if (req.body.dietary && req.body.dietary.length > 0) {
             aggregate.push({
                 "$match":
-                    { "dietaryId": { $in: req.body.dietary } }
+                    { "dishesDetails.dietaryId": { $in: req.body.dietary } }
             });
         }
         if (req.body.lifestyle && req.body.lifestyle.length > 0) {
             aggregate.push({
                 "$match":
-                    { "lifestyleId": { $in: req.body.lifestyle } }
+                    { "dishesDetails.lifestyleId": { $in: req.body.lifestyle } }
             });
         }
 
         aggregate.push({
             $group: {
-                _id: "$restaurantInfo._id",
-                restaurantDetail: { $first: "$restaurantInfo" },
-                filterDishes: {
-                    $push: {
-                        "_id": "$_id",
-                        "name": "$name",
-                    }
-                }
+                _id: "$_id",
+                name: { $first: "$name" },
+                restaurantProfilePhoto: { $first: "$restaurantProfilePhoto" },
+                averageCostOfTwoPerson: { $first: "$restaurantFeatures.averageCostOfTwoPerson" },
+                restaurantFeaturesOptions: { $first: "$restaurantFeatures.restaurantFeaturesOptions" },
+                address: { $first: "$address" },
+                totaldish: { $first: "$dishesList" },
+                filterdish: { $push: "$dishesDetails" },
+                restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
+
         aggregate.push({
             $project: {
                 _id: "$_id",
-                name: "$restaurantDetail.name",
-                restaurantProfilePhoto: "$restaurantDetail.restaurantProfilePhoto",
-                averageCostOfTwoPerson: "$restaurantDetail.restaurantFeatures.averageCostOfTwoPerson",
-                restaurantFeaturesOptions: "$restaurantDetail.restaurantFeatures.restaurantFeaturesOptions",
-                address: "$restaurantDetail.address",
-                relevance: { $divide: [{ $size: "$filterDishes" }, { $size: "$restaurantDetail.restaurantDishes" }] },
-                // restaurantDetail: "$restaurantDetail",
-                restaurantRate: { $avg: "$restaurantDetail.reviewDetail.rate" }
+                name: "$name",
+                restaurantProfilePhoto: "$restaurantProfilePhoto",
+                averageCostOfTwoPerson: "$averageCostOfTwoPerson",
+                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                address: "$address",
+                totaldish: "$totaldish",
+                filterdish: "$filterdish",
+                // relevance: { $divide: [{ $size: "$filterdish" }, { $size: "$totaldish" }] },
+                relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
+                restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
+
+
         if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
 
             aggregate.push({
@@ -348,7 +346,8 @@ router.post('/restaurantlist', async (req, res, next) => {
             });
 
         }
-        const totalCount = await Dish.aggregate(aggregate)
+
+        const totalCount = await Restaurant.aggregate(aggregate)
         if (req.body.start) {
 
             aggregate.push({
@@ -361,7 +360,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 "$limit": req.body.length
             });
         }
-        await Dish.aggregate(aggregate)
+        await Restaurant.aggregate(aggregate)
             .then(restaurantList => {
                 res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
             }).catch(error => {
@@ -555,4 +554,95 @@ router.post('/join_us', homepageValidation.join_us, validation_response, async (
 
     }
 })
+
+
+function degreesToRadians(degrees) {
+    return degrees * Math.PI / 180;
+}
+
+function getDistanceBetweenPoints(lat1, lng1, lat2, lng2) {
+    // The radius of the planet earth in meters
+    let R = 6378137;
+    let dLat = degreesToRadians(lat2 - lat1);
+    let dLong = degreesToRadians(lng2 - lng1);
+    let a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat1)) * Math.sin(dLong / 2) * Math.sin(dLong / 2);
+
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    let distance = R * c;
+
+    return distance;    //distance in meter
+}
+
+
+
+/**find nearest details */
+router.get('/nearest_location', async (req, res, next) => {
+    try {
+        // Restaurant_adminModel.aggregate([{
+        //     $geoNear: {
+        //         near: { type: "Point", coordinates: [23.022868, 72.583692] },
+        //         maxDistance: 300000,
+        //         distanceField: "dist.calculated",
+        //         spherical: true,
+        //         distanceMultiplier: 1 / 1000
+        //     }
+        // }])
+        // .then(async list => {
+        //     res.status(constants.OK_STATUS).json({ list, message: "nearest restaurant get successfully." });
+        // }).catch(err => {
+        //     console.log("err", err)
+        //     res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        // })
+
+
+        // const distance_resp = await common_helper.getDistance();
+        // res.status(constants.OK_STATUS).json({ distance_resp, message: "nearest restaurant get successfully." });
+
+        // Restaurant_addressModel.find({})
+        //     .then(async list => {
+        //         let tempArray = [];
+        //         for (let singleList of list) {
+        //             let distance_resp = await getDistanceBetweenPoints(21.193455, 72.802080, singleList.map.coordinates[0], singleList.map.coordinates[1])
+        //             let temp = Object.assign({}, singleList);
+        //             let tempAdminInfo = temp._doc;
+        //             tempAdminInfo.distance = distance_resp;
+        //             tempArray.push(tempAdminInfo)
+        //         }
+        //         tempArray.sort(function (a, b) { return a.distance - b.distance });
+        //         res.status(constants.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
+        //     }).catch(err => {
+        //         console.log("err", err)
+        //         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+        //     })
+
+
+        Restaurant_addressModel.find({})
+            .then(async list => {
+                let tempArray = [];
+                const userCoordinates = [ 21.193455, 72.802080 ]
+                for (let singleList of list) {
+                    console.log("------------------------------",singleList.map)
+                    if(singleList.map !== undefined && singleList.map.coordinates.length == 2){
+                        
+                    }
+                    const coordinates = singleList.map.coordinates;
+                    let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
+                    let singleclone = JSON.parse(JSON.stringify(singleList));
+                    singleclone.distance = distance_resp;
+                    tempArray.push(singleclone)
+                }
+                tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                res.status(constants.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
+            }).catch(err => {
+                console.log("err", err)
+                res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+            })
+
+    }
+    catch (err) {
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
+    }
+});
+
 module.exports = router;

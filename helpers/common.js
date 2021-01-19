@@ -6,6 +6,37 @@ const jwt = require('jsonwebtoken');
 const common_helper = {};
 const makeDir = require('make-dir');
 const { v4: uuidv4 } = require('uuid');
+const { Client } = require("@googlemaps/google-maps-services-js");
+
+
+common_helper.getDistance = async (lat1, lng1, lat2, lng2) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const client = new Client({});
+
+      client.distancematrix({
+        params: {
+          origins: [{ lat: lat1, lng: lng1 }],
+          destinations: [{ lat: lat2, lng: lng2 }],
+          key: config.GOOGLE_MAP_API_KEY,
+        },
+        timeout: 1000, // milliseconds
+      })
+        .then((distancematrix_resp) => {
+          /**distancematrix_resp.data.rows[0].elements[0].distance.value in metered */
+          resolve(distancematrix_resp.data.rows[0].elements[0].distance)
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error)
+        });
+    } catch (error) {
+      console.log(error)
+      reject(error)
+    }
+  });
+}
+
 
 /**
  * sign will get encode your plain Object into cipherText
@@ -197,7 +228,7 @@ common_helper.addOrUpdate = async (collection, condition, dataObject) => {
       return { status: 1, message: "Data updated", data };
     }
   } catch (err) {
-    console.log("-----",err)
+    console.log("-----", err)
     return {
       status: 0,
       message: "Error occurred while updating data",

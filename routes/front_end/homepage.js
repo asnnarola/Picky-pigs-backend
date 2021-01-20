@@ -139,7 +139,43 @@ router.post('/homepage_dishes', async (req, res, next) => {
     }
 });
 
+const distanceCalculationAndFiler = async (body, data) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let tempArray = [];
+            const userCoordinates = body.userCoordinates || [21.193455, 72.802080]
+            for (let singleList of data) {
+                let singleclone = JSON.parse(JSON.stringify(singleList));
+                if (singleList.address !== null && singleList.address.map !== undefined && singleList.address.map.coordinates.length == 2) {
+                    const coordinates = singleList.address.map.coordinates;
+                    let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
+                    singleclone.distance = distance_resp;
+                } else {
+                    singleclone.distance = {
+                        text: "null",
+                        value: null
+                    }
+                }
+                tempArray.push(singleclone)
+            }
+
+            if (body.distance && body.distance !== null) {
+                tempArray = tempArray.filter(singleElement => {
+                    if (singleElement.distance.value < body.distance) {
+                        return singleElement;
+                    }
+                })
+            }
+            resolve(tempArray)
+        } catch (error) {
+            console.log(error)
+            reject(error)
+        }
+    });
+}
+
 /**page no 3 */
+/** Distance filter are remaning */
 router.post('/restaurantlist', async (req, res, next) => {
     try {
 
@@ -305,6 +341,39 @@ router.post('/restaurantlist', async (req, res, next) => {
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
                 address: "$address",
+                totaldish: {
+                    $filter: {
+                        input: "$totaldish",
+                        as: "singleTotalDish",
+                        cond: {
+                            $and: [
+                                { $eq: ["$$singleTotalDish.isDeleted", 0] },
+                            ]
+                        }
+                    }
+                },
+                filterdish: {
+                    $filter: {
+                        input: "$filterdish",
+                        as: "singleFilterDish",
+                        cond: {
+                            $and: [
+                                { $eq: ["$$singleFilterDish.isDeleted", 0] },
+                            ]
+                        }
+                    }
+                },
+                // restaurantRate: { $avg: "$reviewDetail.rate" }
+            }
+        });
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                name: "$name",
+                restaurantProfilePhoto: "$restaurantProfilePhoto",
+                averageCostOfTwoPerson: "$averageCostOfTwoPerson",
+                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                address: "$address",
                 totaldish: "$totaldish",
                 filterdish: "$filterdish",
                 // relevance: { $divide: [{ $size: "$filterdish" }, { $size: "$totaldish" }] },
@@ -347,22 +416,18 @@ router.post('/restaurantlist', async (req, res, next) => {
 
         }
 
-        const totalCount = await Restaurant.aggregate(aggregate)
-        if (req.body.start) {
 
-            aggregate.push({
-                "$skip": req.body.start
-            });
-
-        }
-        if (req.body.length) {
-            aggregate.push({
-                "$limit": req.body.length
-            });
-        }
         await Restaurant.aggregate(aggregate)
-            .then(restaurantList => {
-                res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+            .then(async restaurantList => {
+
+                let tempArray = await distanceCalculationAndFiler(req.body, restaurantList)
+
+                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
+                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                }
+
+                const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
+                res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });
             }).catch(error => {
                 console.log(error)
                 res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: error });
@@ -376,23 +441,24 @@ router.post('/restaurantlist', async (req, res, next) => {
 });
 
 /**page no 3 */
+/** Distance filter are remaning */
 router.post('/disheslist', async (req, res, next) => {
     try {
-        if (req.body.allergen && req.body.allergen.length > 0) {
-            req.body.allergen = req.body.allergen.map((element) => {
-                return new ObjectId(element)
-            })
-        }
-        if (req.body.dietary && req.body.dietary.length > 0) {
-            req.body.dietary = req.body.dietary.map((element) => {
-                return new ObjectId(element)
-            })
-        }
-        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
-            req.body.lifestyle = req.body.lifestyle.map((element) => {
-                return new ObjectId(element)
-            })
-        }
+        // if (req.body.allergen && req.body.allergen.length > 0) {
+        //     req.body.allergen = req.body.allergen.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
+        // if (req.body.dietary && req.body.dietary.length > 0) {
+        //     req.body.dietary = req.body.dietary.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
+        // if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+        //     req.body.lifestyle = req.body.lifestyle.map((element) => {
+        //         return new ObjectId(element)
+        //     })
+        // }
         let aggregate = [
             {
                 $match: {
@@ -409,6 +475,11 @@ router.post('/disheslist', async (req, res, next) => {
             },
             {
                 $unwind: "$restaurantInfo"
+            },
+            {
+                $match: {
+                    "restaurantInfo.isDeleted": 0,
+                }
             },
             {
                 $lookup: {
@@ -440,6 +511,28 @@ router.post('/disheslist', async (req, res, next) => {
 
                 }
             },
+            {
+                $lookup: {
+                    from: "dishes",
+                    localField: "restaurantInfo._id",
+                    foreignField: "restaurantId",
+                    as: "restaurantDishes"
+                }
+            },
+            {
+                $lookup: {
+                    from: "dishes",
+                    localField: "restaurantInfo._id",
+                    foreignField: "restaurantId",
+                    as: "restaurantTotalDishes"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantDishes",
+                    preserveNullAndEmptyArrays: true
+                }
+            }
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -448,7 +541,7 @@ router.post('/disheslist', async (req, res, next) => {
                 "$match":
                 {
                     $or: [
-                        { "name": RE },
+                        { "name": RE, "restaurantDishes.name": RE },
                         // { "itemSection.item.name": RE }
                     ]
                 }
@@ -466,21 +559,85 @@ router.post('/disheslist', async (req, res, next) => {
         if (req.body.allergen && req.body.allergen.length > 0) {
             aggregate.push({
                 "$match":
-                    { "allergenId": { $in: req.body.allergen } }
+                    { "allergenId": { $in: req.body.allergen }, "restaurantDishes.allergenId": { $in: req.body.allergen } }
             });
         }
         if (req.body.dietary && req.body.dietary.length > 0) {
             aggregate.push({
                 "$match":
-                    { "dietaryId": { $in: req.body.dietary } }
+                    { "dietaryId": { $in: req.body.dietary }, "restaurantDishes.dietaryId": { $in: req.body.dietary } }
             });
         }
         if (req.body.lifestyle && req.body.lifestyle.length > 0) {
             aggregate.push({
                 "$match":
-                    { "lifestyleId": { $in: req.body.lifestyle } }
+                    { "lifestyleId": { $in: req.body.lifestyle }, "restaurantDishes.lifestyleId": { $in: req.body.lifestyle } }
             });
         }
+
+
+
+        aggregate.push({
+            $group: {
+                _id: "$_id",
+                name: { $first: "$name" },
+                dishPhoto: { $first: "$image" },
+                dishPrice: { $first: "$price" },
+                restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
+                address: { $first: "$restaurantInfo.address" },
+                filterdish: { $push: "$restaurantDishes" },
+                totaldish: { $first: "$restaurantTotalDishes" },
+            }
+        });
+
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                name: "$name",
+                dishPhoto: "$dishPhoto",
+                dishPrice: "$dishPrice",
+                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                address: "$address",
+                totaldish: {
+                    $filter: {
+                        input: "$totaldish",
+                        as: "singleTotalDish",
+                        cond: {
+                            $and: [
+                                { $eq: ["$$singleTotalDish.isDeleted", 0] },
+                            ]
+                        }
+                    }
+                },
+                filterdish: {
+                    $filter: {
+                        input: "$filterdish",
+                        as: "singleDish",
+                        cond: {
+                            $and: [
+                                { $eq: ["$$singleDish.isDeleted", 0] },
+                            ]
+                        }
+                    }
+                },
+                // restaurantRate: { $avg: "$reviewDetail.rate" }
+            }
+        });
+
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                name: "$name",
+                dishPhoto: "$dishPhoto",
+                dishPrice: "$dishPrice",
+                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                address: "$address",
+                totaldish: "$totaldish",
+                filterdish: "$filterdish",
+                relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
+                // restaurantRate: { $avg: "$reviewDetail.rate" }
+            }
+        });
 
         if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
 
@@ -499,32 +656,36 @@ router.post('/disheslist', async (req, res, next) => {
 
         }
 
-        const totalCount = await Dish.aggregate(aggregate)
-
-        if (req.body.start) {
+        if (req.body.sort && req.body.sort.relevance && req.body.sort.relevance == "h2l") {
 
             aggregate.push({
-                "$skip": req.body.start
+                "$sort":
+                    { "relevance": -1 }
             });
 
-        }
-
-        if (req.body.length) {
-            aggregate.push({
-                "$limit": req.body.length
-            });
         }
 
         await Dish.aggregate(aggregate)
-            .then(restaurantList => {
-                res.status(constants.OK_STATUS).json({ restaurantList, totalCount: totalCount.length, message: "Restaurant list get successfully." });
+            .then(async dishesList => {
+
+                let tempArray = await distanceCalculationAndFiler(req.body, dishesList)
+
+
+                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
+                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                }
+                const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
+
+
+                res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Dish list get successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: error });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Dish list", error: error });
             });
     }
     catch (err) {
-        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Dish list", error: err });
 
     }
 });
@@ -594,10 +755,6 @@ router.get('/nearest_location', async (req, res, next) => {
         //     res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
         // })
 
-
-        // const distance_resp = await common_helper.getDistance();
-        // res.status(constants.OK_STATUS).json({ distance_resp, message: "nearest restaurant get successfully." });
-
         // Restaurant_addressModel.find({})
         //     .then(async list => {
         //         let tempArray = [];
@@ -614,29 +771,6 @@ router.get('/nearest_location', async (req, res, next) => {
         //         console.log("err", err)
         //         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
         //     })
-
-
-        Restaurant_addressModel.find({})
-            .then(async list => {
-                let tempArray = [];
-                const userCoordinates = [ 21.193455, 72.802080 ]
-                for (let singleList of list) {
-                    console.log("------------------------------",singleList.map)
-                    if(singleList.map !== undefined && singleList.map.coordinates.length == 2){
-                        
-                    }
-                    const coordinates = singleList.map.coordinates;
-                    let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
-                    let singleclone = JSON.parse(JSON.stringify(singleList));
-                    singleclone.distance = distance_resp;
-                    tempArray.push(singleclone)
-                }
-                tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                res.status(constants.OK_STATUS).json({ tempArray, message: "nearest restaurant get successfully." });
-            }).catch(err => {
-                console.log("err", err)
-                res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: err });
-            })
 
     }
     catch (err) {

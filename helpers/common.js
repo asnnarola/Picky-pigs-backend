@@ -361,7 +361,7 @@ common_helper.pagination = async function (modified_arry, startPage, lengthPage)
 
     return responseData = {
       data: paginationArray,
-      recordsTotal: modified_arry.length,
+      totalRecords: modified_arry.length,
       // filteredrecords: paginationArray.length
     };
   } catch (error) {

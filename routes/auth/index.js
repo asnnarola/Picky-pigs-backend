@@ -130,10 +130,10 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
                     const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
                     LOGGER.trace("Login successfully = ", user_data);
-                    return res.status(constants.OK_STATUS).json({ token, message: "Logged in successfully", error: false });
+                    return res.status(constants.OK_STATUS).json({ token, message: "Logged in successfully", error: false, emailVerified: user_data.data.emailVerified, email: user_data.data.email });
                 } else {
                     LOGGER.error("Error occured while checking login/verification = ", user_data);
-                    return res.status(constants.UNAUTHORIZED).json({ message: "Email is not verified.", error: true });
+                    return res.status(constants.UNAUTHORIZED).json({ message: "Email is not verified.", error: true, emailVerified: user_data.data.emailVerified, email: user_data.data.email });
                 }
 
             } else {

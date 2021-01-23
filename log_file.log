@@ -7465,3 +7465,203 @@
     __v: 0
   }
 }
+[2021-01-22T09:49:48.763] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9373ce5dd68114cdf654a,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$8orKJQg3aEfT8IMXVTRkc.f9E8htZIPyNJ1GHgGaMoLHlO7ZtSOem',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-09T04:55:24.018Z,
+    updatedAt: 2021-01-09T06:02:18.225Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNzNjZTVkZDY4MTE0Y2RmNjU0YSIsImVtYWlsIjoicmVzdGF1cmFudDEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzgsImV4cCI6MTYxMDc3NjkzOH0.SSTLBfCyvIo-ZWJIRVtQLKUUAx8sALg-6uqqcrHEHxg'
+  }
+}
+[2021-01-22T09:50:02.734] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 5ff9373ce5dd68114cdf654a,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$8orKJQg3aEfT8IMXVTRkc.f9E8htZIPyNJ1GHgGaMoLHlO7ZtSOem',
+    role: 'restaurant_admin',
+    createdAt: 2021-01-09T04:55:24.018Z,
+    updatedAt: 2021-01-09T06:02:18.225Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZjkzNzNjZTVkZDY4MTE0Y2RmNjU0YSIsImVtYWlsIjoicmVzdGF1cmFudDEyM0BnbWFpbC5jb20iLCJpYXQiOjE2MTAxNzIxMzgsImV4cCI6MTYxMDc3NjkzOH0.SSTLBfCyvIo-ZWJIRVtQLKUUAx8sALg-6uqqcrHEHxg'
+  }
+}
+[2021-01-22T09:50:37.356] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T09:51:20.802] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T09:53:10.395] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T09:54:49.890] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T10:34:11.614] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T12:02:03.797] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T12:03:15.936] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T12:15:44.477] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}
+[2021-01-22T12:15:57.504] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-15T14:02:33.217Z,
+    __v: 0
+  }
+}

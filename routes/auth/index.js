@@ -162,14 +162,15 @@ router.post('/google', async (req, res, next) => {
             accountType: "google"
         };
         const register_allUser_resp = await common_helper.update(Users, { "googleId": user_data.data.googleId }, obj)
-        const register_user_resp = await common_helper.update(UserPreference, { "_id": register_allUser_resp.data._id }, obj)
+        const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
         let token_data = {
             id: register_allUser_resp.data._id,
             sociaId: register_allUser_resp.data.googleId,
             email: register_allUser_resp.data.email,
             name: register_user_resp.data.name,
             accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified
+            emailVerified: register_allUser_resp.data.emailVerified,
+            role: register_allUser_resp.data.role
         }
         const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
@@ -181,7 +182,7 @@ router.post('/google', async (req, res, next) => {
             email: req.body.email,
             googleId: req.body.googleId,
             accountType: "google",
-            role: req.body.role
+            role: "user"
         };
         const register_allUser_resp = await common_helper.insert(Users, obj);
         obj.userId = register_allUser_resp.data._id;
@@ -192,7 +193,8 @@ router.post('/google', async (req, res, next) => {
             email: register_allUser_resp.data.email,
             register_user_resp: register_user_resp.data.name,
             accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified
+            emailVerified: register_allUser_resp.data.emailVerified,
+            role: register_allUser_resp.data.role
         }
         const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
@@ -210,14 +212,15 @@ router.post('/facebook', async (req, res, next) => {
             accountType: req.body.graphDomain
         };
         const register_allUser_resp = await common_helper.update(Users, { "facebookId": user_data.data.facebookId }, obj)
-        const register_user_resp = await common_helper.update(UserPreference, { "_id": register_allUser_resp.data._id }, obj)
+        const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
         let token_data = {
             id: register_allUser_resp.data._id,
             sociaId: register_allUser_resp.data.facebookId,
             email: register_allUser_resp.data.email,
             name: register_user_resp.data.name,
             accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified
+            emailVerified: register_allUser_resp.data.emailVerified,
+            role: register_allUser_resp.data.role
         }
         const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
@@ -228,7 +231,8 @@ router.post('/facebook', async (req, res, next) => {
             name: req.body.name,
             email: req.body.email,
             facebookId: req.body.id,
-            accountType: req.body.graphDomain
+            accountType: req.body.graphDomain,
+            role: "user"
         };
 
         const register_allUser_resp = await common_helper.insert(Users, obj);
@@ -242,7 +246,8 @@ router.post('/facebook', async (req, res, next) => {
             email: register_allUser_resp.data.email,
             fullName: register_user_resp.data.fullName,
             accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified
+            emailVerified: register_allUser_resp.data.emailVerified,
+            role: register_allUser_resp.data.role
         }
         const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 

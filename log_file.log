@@ -7665,3 +7665,22 @@
     __v: 0
   }
 }
+[2021-01-25T16:21:37.944] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$JJ69uWa5AMG.LK4wU7xvlOtiP.xAjnkQka4lQCvYANNZNV6bDKS/m',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-25T10:47:27.923Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFhMDVhYTU1N2MzMDAyNDQwODQ3ZSIsImVtYWlsIjoia3J1c2huYWNoYW5kcmFkYXNoNjU0QGdtYWlsLmNvbSIsImlhdCI6MTYxMTU3MTY0NywiZXhwIjoxNjEyMTc2NDQ3fQ.eJDj1432uADUEKWzcS8o-d3M6TRXDlOS6-7CenZvGoE'
+  }
+}

@@ -15,7 +15,16 @@ const validation_response = require('../../validation/validation_response');
 
 const saltRounds = 10;
 
-
+passwordValidatorSchema
+    .is().min(8)
+    .symbols()	                                 // Minimum length 8
+    .is().max(100)
+    .letters()                                // Maximum length 100
+    .has().uppercase()                              // Must have uppercase letters
+    .has().lowercase()                              // Must have lowercase letters
+    .has().digits()                                 // Must have digits
+    .has().not().spaces()                       // Should not have spaces
+    .is().not().oneOf(['Passw0rd', 'Password123'])
 
 
 router.post('/create', manage_module.create_restaurant, validation_response, async (req, res, next) => {
@@ -115,11 +124,16 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/update_password/:id', manage_module.update_password, validation_response, async (req, res, next) => {
     try {
-        const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
-        if (update_resp.status === 0) {
-            res.json({ status: 0, message: "Error occured while update password" });
-        } else {
-            res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+        if (passwordValidatorSchema.validate(req.body.newPassword) == true) {
+            const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.password, saltRounds) })
+            if (update_resp.status === 0) {
+                res.json({ status: 0, message: "Error occured while update password" });
+            } else {
+                res.status(constants.OK_STATUS).json({ status: 1, message: "Password has been changed", update_resp });
+            }
+        }
+        else {
+            res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
         }
     } catch (err) {
         res.status(constants.BAD_REQUEST).json({ message: "Error into Password has been changed", error: err });

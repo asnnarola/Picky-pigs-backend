@@ -185,7 +185,7 @@ router.post('/join_us', homepageValidation.join_us, validation_response, async (
         }
         const emailContent = {
             // to: "ksd@narola.email",
-            to: req.body.email,
+            to: "sasha@pickypigs.com",
             subject: 'Join us to Picky pigs',
             obj: obj,
             filePath: "./views/frontend/join_us.ejs"

@@ -139,6 +139,22 @@ router.post('/restaurantlist', async (req, res, next) => {
             }
         ];
 
+        if (req.body.styleOfmenu && req.body.styleOfmenu != "") {
+            aggregate.push(
+                {
+                    $lookup: {
+                        from: "menus",
+                        localField: "_id",
+                        foreignField: "restaurantId",
+                        as: "menusList"
+                    }
+                },
+                {
+                    "$match": { "menusList.styleOfmenu": req.body.search, "menusList.isDeleted": 0 },
+                }
+            )
+        }
+
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
             aggregate.push({
@@ -404,6 +420,23 @@ router.post('/disheslist', async (req, res, next) => {
                 }
             }
         ];
+
+        if (req.body.styleOfmenu && req.body.styleOfmenu != "") {
+            aggregate.push(
+                {
+                    $lookup: {
+                        from: "menus",
+                        localField: "restaurantInfo._id",
+                        foreignField: "restaurantId",
+                        as: "menusList"
+                    }
+                },
+                {
+                    "$match": { "menusList.styleOfmenu": req.body.search, "menusList.isDeleted": 0 },
+                }
+            )
+        }
+
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };

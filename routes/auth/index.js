@@ -153,23 +153,23 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
 //signin with google
 router.post('/google', async (req, res, next) => {
     try {
-        const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId, "isDeleted": 0 })
+        const user_data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
 
         if (user_data.status === 1 && user_data.data) {
             //update
             const obj = {
                 name: req.body.name,
-                email: req.body.email,
-                accountType: "google"
+                // email: req.body.email,
+                // accountType: "google"
             };
-            const register_allUser_resp = await common_helper.update(Users, { "googleId": user_data.data.googleId }, obj)
-            const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
+            const register_allUser_resp = await common_helper.update(Users, { "_id": user_data.data._id }, obj)
+            const register_user_resp = await common_helper.update(UserPreference, { "userId": user_data.data._id }, obj)
             let token_data = {
                 id: register_allUser_resp.data._id,
-                sociaId: register_allUser_resp.data.googleId,
+                // sociaId: register_allUser_resp.data.googleId,
                 email: register_allUser_resp.data.email,
                 name: register_user_resp.data.name,
-                accountType: register_allUser_resp.data.accountType,
+                // accountType: register_allUser_resp.data.accountType,
                 emailVerified: register_allUser_resp.data.emailVerified,
                 role: register_allUser_resp.data.role
             }
@@ -209,22 +209,22 @@ router.post('/google', async (req, res, next) => {
 
 router.post('/facebook', async (req, res, next) => {
     try {
-        var user_data = await common_helper.findOne(Users, { "facebookId": req.body.facebookId, "isDeleted": 0 })
+        var user_data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
         if (user_data.status === 1 && user_data.data) {
             //update
             const obj = {
                 name: req.body.name,
-                email: req.body.email,
-                accountType: req.body.graphDomain
+                // email: req.body.email,
+                // accountType: req.body.graphDomain
             };
-            const register_allUser_resp = await common_helper.update(Users, { "facebookId": user_data.data.facebookId }, obj)
+            const register_allUser_resp = await common_helper.update(Users, { "_id": user_data.data._id }, obj)
             const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
             let token_data = {
                 id: register_allUser_resp.data._id,
-                sociaId: register_allUser_resp.data.facebookId,
+                // sociaId: register_allUser_resp.data.facebookId,
                 email: register_allUser_resp.data.email,
                 name: register_user_resp.data.name,
-                accountType: register_allUser_resp.data.accountType,
+                // accountType: register_allUser_resp.data.accountType,
                 emailVerified: register_allUser_resp.data.emailVerified,
                 role: register_allUser_resp.data.role
             }

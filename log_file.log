@@ -7684,3 +7684,57 @@
     forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMDFhMDVhYTU1N2MzMDAyNDQwODQ3ZSIsImVtYWlsIjoia3J1c2huYWNoYW5kcmFkYXNoNjU0QGdtYWlsLmNvbSIsImlhdCI6MTYxMTU3MTY0NywiZXhwIjoxNjEyMTc2NDQ3fQ.eJDj1432uADUEKWzcS8o-d3M6TRXDlOS6-7CenZvGoE'
   }
 }
+[2021-01-27T13:32:46.461] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$01wyiEHGuUakm2nkDAsVhelIlvUCKAchLQVXoWv0KLQMaMwy1sYRK',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-25T11:59:03.114Z,
+    __v: 0
+  }
+}
+[2021-01-27T13:50:40.138] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6001a05aa557c3002440847e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'krushnachandradash654@gmail.com',
+    password: '$2b$10$01wyiEHGuUakm2nkDAsVhelIlvUCKAchLQVXoWv0KLQMaMwy1sYRK',
+    role: 'user',
+    createdAt: 2021-01-15T14:02:02.023Z,
+    updatedAt: 2021-01-25T11:59:03.114Z,
+    __v: 0
+  }
+}
+[2021-01-27T14:10:19.402] [ERROR] development - Error occured while checking login/verification =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 601124178e6dea5ea4a46f83,
+    emailVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'demo1234567@gmail.com',
+    password: '$2b$10$oYHqi7K5nfaOR6FDQDFgeuY7kmrONYNRwjX5hdjpO74EBXuoPS2F2',
+    role: 'user',
+    createdAt: 2021-01-27T08:28:07.986Z,
+    updatedAt: 2021-01-27T08:28:07.986Z,
+    __v: 0
+  }
+}

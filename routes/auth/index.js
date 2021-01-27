@@ -175,7 +175,7 @@ router.post('/google', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!",email: register_allUser_resp.data.email })
         } else {
             //insert
             let obj = {
@@ -199,7 +199,7 @@ router.post('/google', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !", email: register_allUser_resp.data.email });
         }
     } catch (err) {
         console.log(err)
@@ -209,7 +209,7 @@ router.post('/google', async (req, res, next) => {
 
 router.post('/facebook', async (req, res, next) => {
     try {
-        var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId, "isDeleted": 0 })
+        var user_data = await common_helper.findOne(Users, { "facebookId": req.body.facebookId, "isDeleted": 0 })
         if (user_data.status === 1 && user_data.data) {
             //update
             const obj = {
@@ -230,14 +230,14 @@ router.post('/facebook', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!",  email: register_allUser_resp.data.email })
         } else {
             //insert
             let obj = {
                 name: req.body.name,
                 email: req.body.email,
-                facebookId: req.body.id,
-                accountType: req.body.graphDomain,
+                facebookId: req.body.facebookId,
+                accountType: "facebook",
                 role: "user"
             };
 
@@ -257,7 +257,7 @@ router.post('/facebook', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !", email: register_allUser_resp.data.email });
         }
     } catch (err) {
         console.log(err)

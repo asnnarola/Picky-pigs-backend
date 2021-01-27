@@ -152,106 +152,116 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
 
 //signin with google
 router.post('/google', async (req, res, next) => {
-    const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId, "isDeleted": 0 })
+    try {
+        const user_data = await common_helper.findOne(Users, { "googleId": req.body.googleId, "isDeleted": 0 })
 
-    if (user_data.status === 1 && user_data.data) {
-        //update
-        const obj = {
-            name: req.body.name,
-            email: req.body.email,
-            accountType: "google"
-        };
-        const register_allUser_resp = await common_helper.update(Users, { "googleId": user_data.data.googleId }, obj)
-        const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
-        let token_data = {
-            id: register_allUser_resp.data._id,
-            sociaId: register_allUser_resp.data.googleId,
-            email: register_allUser_resp.data.email,
-            name: register_user_resp.data.name,
-            accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified,
-            role: register_allUser_resp.data.role
+        if (user_data.status === 1 && user_data.data) {
+            //update
+            const obj = {
+                name: req.body.name,
+                email: req.body.email,
+                accountType: "google"
+            };
+            const register_allUser_resp = await common_helper.update(Users, { "googleId": user_data.data.googleId }, obj)
+            const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
+            let token_data = {
+                id: register_allUser_resp.data._id,
+                sociaId: register_allUser_resp.data.googleId,
+                email: register_allUser_resp.data.email,
+                name: register_user_resp.data.name,
+                accountType: register_allUser_resp.data.accountType,
+                emailVerified: register_allUser_resp.data.emailVerified,
+                role: register_allUser_resp.data.role
+            }
+            const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+        } else {
+            //insert
+            let obj = {
+                name: req.body.name,
+                email: req.body.email,
+                googleId: req.body.googleId,
+                accountType: "google",
+                role: "user"
+            };
+            const register_allUser_resp = await common_helper.insert(Users, obj);
+            obj.userId = register_allUser_resp.data._id;
+            const register_user_resp = await common_helper.insert(UserPreference, obj);
+            let token_data = {
+                id: register_allUser_resp.data._id,
+                sociaId: register_allUser_resp.data.googleId,
+                email: register_allUser_resp.data.email,
+                register_user_resp: register_user_resp.data.name,
+                accountType: register_allUser_resp.data.accountType,
+                emailVerified: register_allUser_resp.data.emailVerified,
+                role: register_allUser_resp.data.role
+            }
+            const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
         }
-        const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-
-        return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
-    } else {
-        //insert
-        let obj = {
-            name: req.body.name,
-            email: req.body.email,
-            googleId: req.body.googleId,
-            accountType: "google",
-            role: "user"
-        };
-        const register_allUser_resp = await common_helper.insert(Users, obj);
-        obj.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(UserPreference, obj);
-        let token_data = {
-            id: register_allUser_resp.data._id,
-            sociaId: register_allUser_resp.data.googleId,
-            email: register_allUser_resp.data.email,
-            register_user_resp: register_user_resp.data.name,
-            accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified,
-            role: register_allUser_resp.data.role
-        }
-        const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-
-        return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+    } catch (err) {
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ status: 0, err: err });
     }
 });
 
 router.post('/facebook', async (req, res, next) => {
-    var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId, "isDeleted": 0 })
-    if (user_data.status === 1 && user_data.data) {
-        //update
-        const obj = {
-            name: req.body.name,
-            email: req.body.email,
-            accountType: req.body.graphDomain
-        };
-        const register_allUser_resp = await common_helper.update(Users, { "facebookId": user_data.data.facebookId }, obj)
-        const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
-        let token_data = {
-            id: register_allUser_resp.data._id,
-            sociaId: register_allUser_resp.data.facebookId,
-            email: register_allUser_resp.data.email,
-            name: register_user_resp.data.name,
-            accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified,
-            role: register_allUser_resp.data.role
+    try {
+        var user_data = await common_helper.findOne(Users, { "facebookId": user_data.data.facebookId, "isDeleted": 0 })
+        if (user_data.status === 1 && user_data.data) {
+            //update
+            const obj = {
+                name: req.body.name,
+                email: req.body.email,
+                accountType: req.body.graphDomain
+            };
+            const register_allUser_resp = await common_helper.update(Users, { "facebookId": user_data.data.facebookId }, obj)
+            const register_user_resp = await common_helper.update(UserPreference, { "userId": register_allUser_resp.data._id }, obj)
+            let token_data = {
+                id: register_allUser_resp.data._id,
+                sociaId: register_allUser_resp.data.facebookId,
+                email: register_allUser_resp.data.email,
+                name: register_user_resp.data.name,
+                accountType: register_allUser_resp.data.accountType,
+                emailVerified: register_allUser_resp.data.emailVerified,
+                role: register_allUser_resp.data.role
+            }
+            const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
+        } else {
+            //insert
+            let obj = {
+                name: req.body.name,
+                email: req.body.email,
+                facebookId: req.body.id,
+                accountType: req.body.graphDomain,
+                role: "user"
+            };
+
+            const register_allUser_resp = await common_helper.insert(Users, obj);
+            obj.userId = register_allUser_resp.data._id;
+            const register_user_resp = await common_helper.insert(UserPreference, obj);
+
+            //token generate with user data then send it
+            let token_data = {
+                id: register_allUser_resp.data._id,
+                sociaId: register_allUser_resp.data.facebookId,
+                email: register_allUser_resp.data.email,
+                fullName: register_user_resp.data.fullName,
+                accountType: register_allUser_resp.data.accountType,
+                emailVerified: register_allUser_resp.data.emailVerified,
+                role: register_allUser_resp.data.role
+            }
+            const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
+
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
         }
-        const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-
-        return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!" })
-    } else {
-        //insert
-        let obj = {
-            name: req.body.name,
-            email: req.body.email,
-            facebookId: req.body.id,
-            accountType: req.body.graphDomain,
-            role: "user"
-        };
-
-        const register_allUser_resp = await common_helper.insert(Users, obj);
-        obj.userId = register_allUser_resp.data._id;
-        const register_user_resp = await common_helper.insert(UserPreference, obj);
-
-        //token generate with user data then send it
-        let token_data = {
-            id: register_allUser_resp.data._id,
-            sociaId: register_allUser_resp.data.facebookId,
-            email: register_allUser_resp.data.email,
-            fullName: register_user_resp.data.fullName,
-            accountType: register_allUser_resp.data.accountType,
-            emailVerified: register_allUser_resp.data.emailVerified,
-            role: register_allUser_resp.data.role
-        }
-        const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
-
-        return res.status(constants.OK_STATUS).json({ token, message: "Loggeed in successfully insert !" });
+    } catch (err) {
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ status: 0, err: err });
     }
 });
 

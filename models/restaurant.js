@@ -21,10 +21,10 @@ let restaurantSchema = new Schema(
             location: { type: String },
             email: { type: String },
         },
-        subscriptionLevel: { type: String },
         contactName: { type: String },
         company: { type: String },
         phoneNumber: { type: String },
+        numericSubscriptionLevel: { type: Number }, //basic = 0, standard = 1, premium = 2
         package: { type: String },  //basic, standard, premium
         isAgreeToTerms: { type: Boolean },
         security: {

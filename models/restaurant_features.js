@@ -17,7 +17,7 @@ let restaurant_featuresSchema = new Schema(
         // }],
         cuisineType: [{ type: String }],
         restaurantFeaturesOptions: [{ type: String }],
-        appliesOfRestaurant: { type: String }  //what was the use case?
+        appliesOfRestaurant: [{ type: String }]
     },
     {
         timestamps: true

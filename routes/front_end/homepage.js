@@ -126,7 +126,15 @@ router.post('/homepage_dishes', async (req, res, next) => {
             {
                 $match: {
                     isDeleted: 0,
-                    menuId: new ObjectId(req.body.menuId)
+                    // menuId: new ObjectId(req.body.menuId)
+                }
+            },
+            {
+                $lookup: {
+                    from: "cooking_methods",
+                    localField: "cookingMethodId",
+                    foreignField: "_id",
+                    as: "cookingMethods"
                 }
             },
             {
@@ -137,29 +145,34 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     as: "menusDetail"
                 }
             },
+            // {
+            //     $match: {
+            //         "menusDetail.availability": moment().format("dddd"),
+
+            //         /**Start time validation */
+            //         'menusDetail.timeFrom': { $lt: moment().format("HH:mm") },
+
+            //         // /**End time validation */
+            //         'menusDetail.timeTo': { $gt: moment().format("HH:mm") },
+            //     }
+            // },
             {
-                $match: {
-                    "menusDetail.availability": moment().format("dddd"),
-
-                    /**Start time validation */
-                    'menusDetail.timeFrom': { $lt: moment().format("HH:mm") },
-
-                    // /**End time validation */
-                    'menusDetail.timeTo': { $gt: moment().format("HH:mm") },
+                $sample: {
+                    size: 8
                 }
             }
         ];
         const totalCount = await Dish.aggregate(aggregate)
-        if (req.body.start) {
-            aggregate.push({
-                "$skip": req.body.start
-            });
-        }
-        if (req.body.length) {
-            aggregate.push({
-                "$limit": req.body.length
-            });
-        }
+        // if (req.body.start) {
+        //     aggregate.push({
+        //         "$skip": req.body.start
+        //     });
+        // }
+        // if (req.body.length) {
+        //     aggregate.push({
+        //         "$limit": req.body.length
+        //     });
+        // }
 
         await Dish.aggregate(aggregate)
             .then(dishesList => {

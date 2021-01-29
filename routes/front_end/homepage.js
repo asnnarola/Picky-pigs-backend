@@ -97,13 +97,18 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                     restaurantFeaturesOptions: { $first: "$restaurantFeatures.restaurantFeaturesOptions" },
                     address: { $first: "$address" }
                 }
+            },
+            {
+                $sort: {
+                    numericSubscriptionLevel: -1
+                }
             }
         ];
 
         await Restaurant.aggregate(aggregate)
             .then(async restaurantList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, restaurantList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
@@ -160,9 +165,30 @@ router.post('/homepage_dishes', async (req, res, next) => {
                 $sample: {
                     size: 8
                 }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    description: "$description",
+                    price: "$price",
+                    image: "$image",
+                    cookingMethods: "$cookingMethods",
+                    menusDetail: {
+                        $filter: {
+                            input: "$menusDetail",
+                            as: "singleMenu",
+                            cond: {
+                                $and: [
+                                    { $eq: ["$$singleMenu.isDeleted", 0] },
+                                ]
+                            }
+                        }
+                    }
+                }
             }
         ];
-        const totalCount = await Dish.aggregate(aggregate)
+        // const totalCount = await Dish.aggregate(aggregate)
         // if (req.body.start) {
         //     aggregate.push({
         //         "$skip": req.body.start
@@ -176,7 +202,8 @@ router.post('/homepage_dishes', async (req, res, next) => {
 
         await Dish.aggregate(aggregate)
             .then(dishesList => {
-                res.status(constants.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
+                // res.status(constants.OK_STATUS).json({ dishesList, totalCount: totalCount.length, message: "Dishes list get successfully." });
+                res.status(constants.OK_STATUS).json({ dishesList, message: "Dishes list get successfully." });
             }).catch(error => {
                 res.status(constants.BAD_REQUEST).json({ message: "Error while get dishes list", error: error });
             });

@@ -151,7 +151,13 @@ router.post('/restaurantlist', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.search, "menusList.isDeleted": 0 },
+                    $unwind: {
+                        path: "$menusList",
+                        preserveNullAndEmptyArrays: true
+                    }
+                },
+                {
+                    "$match": { "menusList.isDeleted": 0 },
                 }
             )
         }
@@ -307,7 +313,7 @@ router.post('/restaurantlist', async (req, res, next) => {
         await Restaurant.aggregate(aggregate)
             .then(async restaurantList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, restaurantList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
                 if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
                     tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
@@ -572,7 +578,7 @@ router.post('/disheslist', async (req, res, next) => {
         await Dish.aggregate(aggregate)
             .then(async dishesList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, dishesList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishesList)
 
 
                 if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
@@ -594,7 +600,7 @@ router.post('/disheslist', async (req, res, next) => {
     }
 });
 
-/**page no 1 */
+/**page no 1 dishes list*/
 router.post('/page_1_dishes', async (req, res, next) => {
     try {
         const optionCondition = (req.body.option === "new") ? { new: true } : { favorite: true }
@@ -711,7 +717,7 @@ router.post('/page_1_dishes', async (req, res, next) => {
         Dish.aggregate(aggregate)
             .then(async dishList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, dishList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishList)
 
                 if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
                     tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
@@ -903,7 +909,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
         await Restaurant.aggregate(aggregate)
             .then(async restaurantList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, restaurantList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
                 if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
                     tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
@@ -978,7 +984,7 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
         await Restaurant.aggregate(aggregate)
             .then(async restaurantList => {
 
-                let tempArray = await distanceCalculationAndFiler(req.body, restaurantList)
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
                 if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
                     tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });

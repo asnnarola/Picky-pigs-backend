@@ -385,4 +385,39 @@ common_helper.clone = async (model, DataObject) => {
   }
 };
 
+common_helper.distanceCalculationAndFiler = async (body, data) => {
+  return new Promise(async (resolve, reject) => {
+      try {
+          let tempArray = [];
+          const userCoordinates = body.userCoordinates || [21.193455, 72.802080]
+          for (let singleList of data) {
+              let singleclone = JSON.parse(JSON.stringify(singleList));
+              // console.log("singleList.address : ", singleList.address)
+              if (singleList.address !== null && singleList.address !== undefined && singleList.address.map !== undefined && singleList.address.map.coordinates.length == 2) {
+                  const coordinates = singleList.address.map.coordinates;
+                  let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
+                  singleclone.distance = distance_resp;
+              } else {
+                  singleclone.distance = {
+                      text: "null",
+                      value: null
+                  }
+              }
+              tempArray.push(singleclone)
+          }
+
+          if (body.distance && body.distance !== null) {
+              tempArray = tempArray.filter(singleElement => {
+                  if (singleElement.distance.value < body.distance) {
+                      return singleElement;
+                  }
+              })
+          }
+          resolve(tempArray)
+      } catch (error) {
+          console.log(error)
+          reject(error)
+      }
+  });
+}
 module.exports = common_helper;

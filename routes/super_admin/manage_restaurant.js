@@ -41,6 +41,7 @@ router.post('/create', manage_module.create_restaurant, validation_response, asy
             } else {
                 req.body.emailVerified = true;
                 const register_allUser_resp = await common_helper.insert(Users, req.body);
+                req.body.numericSubscriptionLevel = config.STRIPE_PACKAGE_LIST.findIndex(singlePackage => singlePackage === req.body.package);
                 req.body.userId = register_allUser_resp.data._id;
                 const register_user_resp = await common_helper.insert(Restaurant, req.body);
 

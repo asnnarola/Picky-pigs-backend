@@ -175,7 +175,7 @@ router.post('/google', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!",email: register_allUser_resp.data.email })
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!", email: register_allUser_resp.data.email })
         } else {
             //insert
             let obj = {
@@ -230,7 +230,7 @@ router.post('/facebook', async (req, res, next) => {
             }
             const token = jwt.sign(token_data, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
 
-            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!",  email: register_allUser_resp.data.email })
+            return res.status(constants.OK_STATUS).json({ token, message: "Loggied in succesfully and update!", email: register_allUser_resp.data.email })
         } else {
             //insert
             let obj = {
@@ -267,7 +267,6 @@ router.post('/facebook', async (req, res, next) => {
 
 router.post('/restaurant_signup', manage_module.create_restaurant, validation_response, async (req, res, next) => {
     try {
-
         const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
         if (data.status === 0) {
             res.json({ status: 0, message: "Error while finding email" });
@@ -279,6 +278,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
         } else {
             req.body.role = "restaurant_admin";
             const register_allUser_resp = await common_helper.insert(Users, req.body);
+            req.body.numericSubscriptionLevel = config.STRIPE_PACKAGE_LIST.findIndex(singlePackage => singlePackage === req.body.package);
             req.body.userId = register_allUser_resp.data._id;
             const register_user_resp = await common_helper.insert(Restaurant, req.body);
 

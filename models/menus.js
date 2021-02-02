@@ -4,7 +4,6 @@ let Schema = mongoose.Schema;
 let menusSchema = new Schema(
     {
         name: { type: String },
-        // day: { type: String, enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"] },
         timeFrom: { type: String },
         timeTo: { type: String },
         isAvailable: { type: Boolean, default: false },
@@ -22,7 +21,12 @@ let menusSchema = new Schema(
         parentMenu: {
             type: Schema.Types.ObjectId,
             ref: 'menus'
-        }
+        },
+        cloneMenu: {
+            type: Schema.Types.ObjectId,
+            ref: 'menus'
+        },
+        isSeasonBase: { type: Boolean, default: false },
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

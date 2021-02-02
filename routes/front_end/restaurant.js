@@ -12,7 +12,7 @@ router.get('/info/:id', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
-                    userId: new ObjectId(req.params.id)
+                    _id: new ObjectId(req.params.id)
                 }
             },
             {
@@ -24,7 +24,11 @@ router.get('/info/:id', async (req, res, next) => {
                 }
             },
             {
-                $unwind: "$restaurant_galleries"
+                $unwind: {
+                    path: "$restaurant_galleries",
+                    preserveNullAndEmptyArrays: true
+
+                }
             },
             {
                 $lookup: {
@@ -79,12 +83,12 @@ router.get('/info/:id', async (req, res, next) => {
                 res.status(constants.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
             }).catch(error => {
                 console.log(error)
-                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+                res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant Detail", error: error });
             });
     }
     catch (err) {
         console.log("err", err)
-        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant Detail", error: err });
 
     }
 });
@@ -112,7 +116,9 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             {
                 $match: {
                     menuId: new ObjectId(req.body.menuId),
-                    isDeleted: 0
+                    isDeleted: 0,
+                    isActive: true,
+
                 }
             },
             {
@@ -128,7 +134,8 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             },
             {
                 $match: {
-                    "subcategoriesDetail.isDeleted": 0
+                    "subcategoriesDetail.isDeleted": 0,
+                    "subcategoriesDetail.isActive": true,
                 }
             },
             {

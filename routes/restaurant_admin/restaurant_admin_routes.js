@@ -8,8 +8,6 @@ const dietary = require("./dietary");
 const lifestyle = require("./lifestyle");
 const ingredient = require("./ingredient");
 const menus = require("./menus");
-const masterGroup = require("./masterGroup");
-const supplier = require("./supplier");
 const category = require("./category");
 const subcategory = require("./subcategory");
 const dish = require("./dish");
@@ -20,8 +18,6 @@ const restaurant_adminDashboard = require("./dashboard");
 
 //for admin panel
 // router.use("/admin/allergen", verify ,allergen);
-router.use("/group", masterGroup);
-router.use("/supplier", supplier);
 router.use("/allergen", allergen);
 router.use("/dietary", dietary);
 router.use("/lifestyle", lifestyle);

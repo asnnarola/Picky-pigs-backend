@@ -110,18 +110,53 @@ router.post("/list", async (req, res) => {
                 $sort: {
                     createdAt: 1
                 }
+            },
+            {
+                $project: {
+                    "_id": "$_id",
+                    "isAvailable": "$isAvailable",
+                    "availability": "$availability",
+                    "isDeleted": "$isDeleted",
+                    "isActive": "$isActive",
+                    "name": "$name",
+                    "timeFrom": "$timeFrom",
+                    "timeTo": "$timeTo",
+                    "type": "$type",
+                    "styleOfmenu": "$styleOfmenu",
+                    "restaurantId": "$restaurantId",
+                    "createdAt": "$createdAt",
+                    "updatedAt": "$updatedAt",
+                    "cloneMenu": "$cloneMenu",
+                    "dishesDetail": {
+                        $filter: {
+                            input: "$dishesDetail",
+                            as: "singleDish",
+                            cond: {
+                                $and: [
+                                    { $eq: ["$$singleDish.isDeleted", 0] },
+                                ]
+                            }
+                        }
+                    }
+                }
             }
         ]
-        aggregate.push({
-            $match: {
-                isDeleted: parseInt(req.body.delete) || 0
-            }
-        })
-        aggregate.push({
-            $match: {
-                type: req.body.type || "menu"
-            }
-        })
+
+        if (parseInt(req.body.delete) == 0) {
+            aggregate.push({
+                $match: {
+                    isDeleted: parseInt(req.body.delete) || 0
+                }
+            })
+        }
+
+        if (req.body.type) {
+            aggregate.push({
+                $match: {
+                    type: req.body.type || "menu"
+                }
+            })
+        }
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
@@ -225,5 +260,50 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
 
     }
 });
+
+router.put('/active_inactive/:id', validation.hide_unhide, validation_response, async (req, res, next) => {
+    try {
+        const data = await common_helper.update(Menus, { "_id": req.params.id }, { isActive: req.body.isActive })
+
+        if (data.status === 0) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
+        }
+
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else if (data.data === null) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "No data found" });
+        }
+    } catch (error) {
+        res.status(constants.BAD_REQUEST).json({ error: error.messag, message: "Error occured while active/inavtive data" });
+    }
+});
+
+router.put('/duplicate/:id', async (req, res) => {
+    try {
+        const manage_clone_resp = await common_helper.manage_clone(Menus, req.params, "cloneMenu");
+        res.status(constants.OK_STATUS).json(manage_clone_resp);
+    } catch (error) {
+        res.status(constants.BAD_REQUEST).json({ error: error.message, message: "Error occured while duplicating data" });
+    }
+})
+
+router.put('/redo/:id', async (req, res) => {
+    try {
+        const data = await common_helper.update(Menus, { "_id": req.params.id }, { isDeleted: 0 })
+
+        if (data.status === 0) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
+        }
+
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else if (data.data === null) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "No data found" });
+        }
+    } catch (error) {
+        res.status(constants.BAD_REQUEST).json({ error: error.message, message: "Error occured while redo data" });
+    }
+})
 
 module.exports = router;

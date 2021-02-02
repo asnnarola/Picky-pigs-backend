@@ -42,7 +42,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                 let obj = {
                     name: req.body.name,
                     email: req.body.email,
-                    phone: req.body.phone,
+                    // phone: req.body.phone,
                     password: req.body.password,
                     role: "user"
                 };
@@ -62,7 +62,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                 register_allUser_resp.data = {
                     email: register_allUser_resp.data.email,
                     name: register_user_resp.data.name,
-                    phone: register_user_resp.data.phone,
+                    // phone: register_user_resp.data.phone,
                     accountType: register_allUser_resp.data.accountType,
                     emailVerified: register_allUser_resp.data.emailVerified,
                 }
@@ -285,9 +285,10 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
             const token = jwt.sign({ id: register_allUser_resp.data._id }, config.SECRET_KEY, { expiresIn: config.TOKEN_EXPIRED_TIME })
             const emailContent = {
                 to: req.body.email,
-                subject: 'Email verification for Picky pigs',
+                subject: 'Welcome on Picky pigs',
                 token: `${config.APIURL}/auth/verification/${token}`,
-                filePath: "./views/resturant_admin/auth/verification.ejs"
+                // filePath: "./views/resturant_admin/auth/verification.ejs"
+                filePath: "./views/resturant_admin/auth/welcome.ejs"
             }
 
             const emailResp = await sendMail(emailContent);
@@ -306,7 +307,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
 
 router.post('/forgot_password', auth.forgotPassword, validation_response, async (req, res, next) => {
     try {
-        const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0 })
+        const data = await common_helper.findOne(Users, { "email": req.body.email, "isDeleted": 0, accountType: "email" })
         if (data.status === 0) {
             res.json({ status: 0, message: "Error while finding email" });
         }

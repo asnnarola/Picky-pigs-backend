@@ -131,6 +131,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
             {
                 $match: {
                     isDeleted: 0,
+                    isActive: true
                     // menuId: new ObjectId(req.body.menuId)
                 }
             },
@@ -147,7 +148,50 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     from: "menus",
                     localField: "menuId",
                     foreignField: "_id",
-                    as: "menusDetail"
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
                 }
             },
             // {
@@ -167,6 +211,22 @@ router.post('/homepage_dishes', async (req, res, next) => {
                 }
             },
             {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+                    description: { $first: "$description" },
+                    price: { $first: "$price" },
+                    image: { $first: "$image" },
+                    cookingMethods: { $first: "$cookingMethods" },
+                    menuList: {
+                        $push: {
+                            _id: "$menuDetail._id",
+                            name: "$menuDetail.name"
+                        }
+                    }
+                }
+            },
+            {
                 $project: {
                     _id: "$_id",
                     name: "$name",
@@ -174,17 +234,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     price: "$price",
                     image: "$image",
                     cookingMethods: "$cookingMethods",
-                    menusDetail: {
-                        $filter: {
-                            input: "$menusDetail",
-                            as: "singleMenu",
-                            cond: {
-                                $and: [
-                                    { $eq: ["$$singleMenu.isDeleted", 0] },
-                                ]
-                            }
-                        }
-                    }
+                    menusDetail: "$menuList"
                 }
             }
         ];

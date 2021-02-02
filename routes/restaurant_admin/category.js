@@ -79,6 +79,29 @@ router.post('/list', async (req, res, next) => {
                 $sort: {
                     createdAt: 1
                 }
+            },
+            {
+                $project: {
+                    "_id": "$_id",
+                    "isDeleted": "$isDeleted",
+                    "isActive": "$isActive",
+                    "name": "$name",
+                    "menuId": "$menuId",
+                    "restaurantId": "$restaurantId",
+                    "createdAt": "$createdAt",
+                    "updatedAt": "$updatedAt",
+                    "dishesDetail": {
+                        $filter: {
+                            input: "$dishesDetail",
+                            as: "singleDish",
+                            cond: {
+                                $and: [
+                                    { $eq: ["$$singleDish.isDeleted", 0] },
+                                ]
+                            }
+                        }
+                    }
+                }
             }
         ]
 
@@ -159,5 +182,32 @@ router.delete('/:id', async (req, res, next) => {
         res.status(constants.BAD_REQUEST).json({ ...data, message: "No data found" });
     }
 });
+
+router.put('/active_inactive/:id', validation.hide_unhide, validation_response, async (req, res, next) => {
+    try {
+        const data = await common_helper.update(Category, { "_id": req.params.id }, { isActive: req.body.isActive })
+
+        if (data.status === 0) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });
+        }
+
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else if (data.data === null) {
+            res.status(constants.BAD_REQUEST).json({ ...data, message: "No data found" });
+        }
+    } catch (error) {
+        res.status(constants.BAD_REQUEST).json({ error: error.messag, message: "Error occured while active/inavtive data" });
+    }
+});
+
+router.put('/duplicate/:id', async (req, res) => {
+    try {
+        const manage_clone_resp = await common_helper.manage_clone(Category, req.params, "cloneCategory");
+        res.status(constants.OK_STATUS).json(manage_clone_resp);
+    } catch (error) {
+        res.status(constants.BAD_REQUEST).json({ error: error.message, message: "Error occured while duplicating data" });
+    }
+})
 
 module.exports = router;

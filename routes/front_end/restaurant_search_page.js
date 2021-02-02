@@ -157,7 +157,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.isDeleted": 0 },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, "menusList.isActive": true },
                 }
             )
         }
@@ -360,6 +360,57 @@ router.post('/disheslist', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
                     from: "restaurants",
                     localField: "restaurantId",
                     foreignField: "_id",
@@ -439,7 +490,7 @@ router.post('/disheslist', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.search, "menusList.isDeleted": 0 },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, isActive: true },
                 }
             )
         }
@@ -614,6 +665,57 @@ router.post('/page_1_dishes', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
                     from: "restaurants",
                     localField: "restaurantId",
                     foreignField: "_id",
@@ -701,16 +803,29 @@ router.post('/page_1_dishes', async (req, res, next) => {
 
 
         aggregate.push({
+            $group: {
+                _id: "$_id",
+                name: { $first: "$name" },
+                dishPhoto: { $first: "$image" },
+                dishPrice: { $first: "$price" },
+                favorite: { $first: "$favorite" },
+                new: { $first: "$new" },
+                restaurantId: { $first: "$restaurantInfo._id" },
+                restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
+                address: { $first: "$restaurantInfo.address" }
+            }
+        });
+        aggregate.push({
             $project: {
                 _id: "$_id",
                 name: "$name",
-                dishPhoto: "$image",
-                dishPrice: "$price",
+                dishPhoto: "$dishPhoto",
+                dishPrice: "$dishPrice",
                 favorite: "$favorite",
                 new: "$new",
-                restaurantId: "$restaurantInfo._id",
-                restaurantFeaturesOptions: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions",
-                address: "$restaurantInfo.address"
+                restaurantId: "$restaurantId",
+                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                address: "$address"
             }
         });
 

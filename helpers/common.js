@@ -385,39 +385,83 @@ common_helper.clone = async (model, DataObject) => {
   }
 };
 
+
+const isAvailable = async (model, cloneDetail, totalClones) => {
+  let newName = (totalClones === 0) ? `${cloneDetail.name} copy` : `${cloneDetail.name} copy (${totalClones})`;
+  console.log("<><><><><><><<>><<")
+  const findName = await model.find({ name: newName, isDeleted: 0 });
+  if (findName) {
+    newName = (totalClones === 0) ? `${cloneDetail.name} copy` : `${cloneDetail.name} copy (${totalClones + 1})`;
+    console.log("file ifffff",newName)
+  } else {
+    console.log("elseeeeee - ",newName)
+  }
+}
+
+common_helper.manage_clone = async (model, DataObject, cloneParentName) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await model.findById(DataObject.id)
+        .then(async result => {
+          if (result) {
+            let cloneDetail = JSON.parse(JSON.stringify(result));
+            delete cloneDetail._id;
+            const totalClones = await model.countDocuments({ [cloneParentName]: DataObject.id });
+            cloneDetail[cloneParentName] = DataObject.id;
+
+            // let newName = (totalClones === 0) ? `${cloneDetail.name} copy` : `${cloneDetail.name} copy (${totalClones})`;
+            let newName = (totalClones === 0) ? `${cloneDetail.name} copy` : `${cloneDetail.name} copy ${totalClones}`;
+
+            cloneDetail.name = newName;
+            let create_schema_document = await new model(cloneDetail);
+            let data = await create_schema_document.save();
+            resolve({ status: 1, message: "Data clone successfully", data })
+          } else {
+            reject({ status: 0, message: "Not found cloning details" })
+          }
+        })
+        .catch(error => {
+          reject({ status: 0, message: "Not found cloning details", error: error.message })
+        })
+    } catch (error) {
+      reject({ status: 0, message: "No data clone", error: error.message });
+    }
+  })
+};
+
 common_helper.distanceCalculationAndFiler = async (body, data) => {
   return new Promise(async (resolve, reject) => {
-      try {
-          let tempArray = [];
-          const userCoordinates = body.userCoordinates || [21.193455, 72.802080]
-          for (let singleList of data) {
-              let singleclone = JSON.parse(JSON.stringify(singleList));
-              // console.log("singleList.address : ", singleList.address)
-              if (singleList.address !== null && singleList.address !== undefined && singleList.address.map !== undefined && singleList.address.map.coordinates.length == 2) {
-                  const coordinates = singleList.address.map.coordinates;
-                  let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
-                  singleclone.distance = distance_resp;
-              } else {
-                  singleclone.distance = {
-                      text: "null",
-                      value: null
-                  }
-              }
-              tempArray.push(singleclone)
+    try {
+      let tempArray = [];
+      const userCoordinates = body.userCoordinates || [21.193455, 72.802080]
+      for (let singleList of data) {
+        let singleclone = JSON.parse(JSON.stringify(singleList));
+        // console.log("singleList.address : ", singleList.address)
+        if (singleList.address !== null && singleList.address !== undefined && singleList.address.map !== undefined && singleList.address.map.coordinates.length == 2) {
+          const coordinates = singleList.address.map.coordinates;
+          let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
+          singleclone.distance = distance_resp;
+        } else {
+          singleclone.distance = {
+            text: "null",
+            value: null
           }
-
-          if (body.distance && body.distance !== null) {
-              tempArray = tempArray.filter(singleElement => {
-                  if (singleElement.distance.value < body.distance) {
-                      return singleElement;
-                  }
-              })
-          }
-          resolve(tempArray)
-      } catch (error) {
-          console.log(error)
-          reject(error)
+        }
+        tempArray.push(singleclone)
       }
+
+      if (body.distance && body.distance !== null) {
+        tempArray = tempArray.filter(singleElement => {
+          if (singleElement.distance.value < body.distance) {
+            return singleElement;
+          }
+        })
+      }
+      resolve(tempArray)
+    } catch (error) {
+      console.log(error)
+      reject(error)
+    }
   });
 }
 module.exports = common_helper;

@@ -2,6 +2,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 const constants = require('../config/constants');
 const moment = require('moment');
+const UsersModel = require('../models/users');
 
 exports.jwtValidation = function (req, res, next) {
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -13,7 +14,23 @@ exports.jwtValidation = function (req, res, next) {
                 });
             } else {
                 req.decoded = decoded;
-                next();
+
+                UsersModel.findById(decoded.id)
+                    .then(userDetail => {
+                        if (userDetail && userDetail.isDeleted === 0) {
+                            next();
+                        } else {
+                            return res.status(constants.UNAUTHORIZED).json({
+                                message: 'Unauthorized access'
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        console.log("err - ",err)
+                        return res.status(constants.UNAUTHORIZED).json({
+                            message: 'Unauthorized access'
+                        });
+                    })
             }
         });
     } else {
@@ -58,13 +75,13 @@ exports.authorization = function (req, res, next) {
 
 exports.subscriptionAuthorization = function (req, res, next) {
     try {
-        if (req.loginUser.subscriptionLevel == "freetrial" && (moment(req.loginUser.subscriptionDate).add(3,'month') > moment())) {
+        if (req.loginUser.subscriptionLevel == "freetrial" && (moment(req.loginUser.subscriptionDate).add(3, 'month') > moment())) {
             console.log("free trial plan")
         }
-        else if (req.loginUser.subscriptionLevel == "standard" && (moment(req.loginUser.subscriptionDate).add(1,'month') > moment())) {
+        else if (req.loginUser.subscriptionLevel == "standard" && (moment(req.loginUser.subscriptionDate).add(1, 'month') > moment())) {
             console.log("standard plan")
         }
-        else if (req.loginUser.subscriptionLevel == "premium" && (moment(req.loginUser.subscriptionDate).add(1,'month') > moment())) {
+        else if (req.loginUser.subscriptionLevel == "premium" && (moment(req.loginUser.subscriptionDate).add(1, 'month') > moment())) {
             console.log("premium plan")
         } else {
             console.log("Your subscription was expired")

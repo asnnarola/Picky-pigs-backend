@@ -15,6 +15,10 @@ let categorySchema = new Schema(
         },
         isDeleted: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true },     /**active, inactive */
+        cloneCategory: {
+            type: Schema.Types.ObjectId,
+            ref: 'category'
+        },
     },
     {
         timestamps: true//, adds createdAt and updatedAt fields automatically

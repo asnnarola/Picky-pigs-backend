@@ -136,4 +136,10 @@ module.exports = {
 
 
     ],
+    hide_unhide:[
+        check('isActive')
+            .trim()
+            .not().isEmpty().withMessage('isActive is required')
+            .exists().withMessage('isActive is required')
+    ]
 };

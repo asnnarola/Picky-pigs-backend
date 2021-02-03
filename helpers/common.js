@@ -154,9 +154,9 @@ common_helper.delete = async (model, condition) => {
  * @param {Object} condition condition of which record to be find
  * @return {Object} responseObject with status,message and data(fetched records array)
  */
-common_helper.find = async (model, condition = {}) => {
+common_helper.find = async (model, condition = {}, selection = {}) => {
   try {
-    let data = await model.find(condition).lean();
+    let data = await model.find(condition).select(selection).lean();
     return { status: 1, message: "Data found", data };
   } catch (error) {
     return { status: 0, message: "No data found", error: error.message };

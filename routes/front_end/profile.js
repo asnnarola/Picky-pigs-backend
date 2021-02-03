@@ -67,7 +67,7 @@ router.put('/', async (req, res, next) => {
         if (req.body.password && req.body.password !== "") {
             if (passwordValidatorSchema.validate(req.body.password) == true) {
                 req.body.password = bcrypt.hashSync(req.body.password, saltRounds)
-                // const update_resp = await common_helper.update(Users, { "_id": req.loginUser.id }, req.body)
+                const update_resp = await common_helper.update(Users, { "_id": req.loginUser.id }, req.body)
             } else {
                 return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
             }

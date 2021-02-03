@@ -7756,3 +7756,21 @@
     __v: 0
   }
 }
+[2021-02-03T17:23:59.102] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6013e8cd82f9150024e5f224,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'superadmin123@gmail.com',
+    password: '$2b$10$dSN/KeMeM9G06.1viaRcreM3X7Qtbi29.TA/q2uxpE37cLNKhwU5m',
+    role: 'super_admin',
+    createdAt: 2021-01-29T10:51:58.004Z,
+    updatedAt: 2021-01-29T10:51:58.004Z,
+    __v: 0
+  }
+}

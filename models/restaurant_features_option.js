@@ -10,7 +10,7 @@ let restaurant_features_optionSchema = new Schema(
         },
         description: { type: String },
         image: { type: String, default: null },
-        isDeleted: { type: Boolean, default: false },
+        isDeleted: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true }     /**active, inactive */
 
     },

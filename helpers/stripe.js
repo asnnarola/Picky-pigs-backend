@@ -1,5 +1,9 @@
 require('dotenv').config();
-const stripe = require('stripe')(process.env.STRIPE_API_KEY);
+// const stripe = require('stripe')(process.env.STRIPE_API_KEY);
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_API_KEY, {
+    apiVersion: '2020-08-27',
+});
 
 
 
@@ -33,6 +37,13 @@ async function createCustomerAndSubscription(paymentMethodId, customerInfo) {
         payment_method: paymentMethodId,
         email: customerInfo.email,
         name: customerInfo.name,
+        address: {
+            line1: '510 Townsend St',
+            postal_code: '98140',
+            city: 'San Francisco',
+            state: 'CA',
+            country: 'US',
+        },
         invoice_settings: {
             default_payment_method: paymentMethodId,
         },
@@ -48,6 +59,7 @@ async function createCustomerAndSubscription(paymentMethodId, customerInfo) {
         items: [{
             plan: customerInfo.planId,
         }],
+        // trial_end: 1614686163,
         // trial_from_plan: true,
         expand: ["latest_invoice.payment_intent"],
     });
@@ -55,9 +67,22 @@ async function createCustomerAndSubscription(paymentMethodId, customerInfo) {
     return subscription;
 }
 
+async function getPaymentMethodToken() {
+    const paymentMethod = await stripe.paymentMethods.create({
+        type: 'card',
+        card: {
+            number: '4242424242424242',
+            exp_month: 2,
+            exp_year: 2022,
+            cvc: '314',
+        },
+    });
+    return paymentMethod;
+}
+
 async function updateSubscription(subscriptionId, priceId) {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
-    const updatedSubscription = await stripe.subscriptions.update( subscriptionId,
+    const updatedSubscription = await stripe.subscriptions.update(subscriptionId,
         {
             cancel_at_period_end: false,
             items: [
@@ -72,8 +97,12 @@ async function updateSubscription(subscriptionId, priceId) {
 }
 
 
+// current_period_end
+// current_period_start
+// var now = moment.unix(1614686163).format("DD/MM/YYYY");
 module.exports = {
     getProductsAndPlans,
     createCustomerAndSubscription,
-    updateSubscription
+    updateSubscription,
+    getPaymentMethodToken
 };

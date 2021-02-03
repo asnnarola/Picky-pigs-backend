@@ -130,14 +130,14 @@ router.post('/restaurantlist', async (req, res, next) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            {
-                $lookup: {
-                    from: "reviews",
-                    localField: "_id",
-                    foreignField: "restaurantId",
-                    as: "reviewDetail"
-                }
-            }
+            // {
+            //     $lookup: {
+            //         from: "reviews",
+            //         localField: "_id",
+            //         foreignField: "restaurantId",
+            //         as: "reviewDetail"
+            //     }
+            // }
         ];
 
         if (req.body.styleOfmenu && req.body.styleOfmenu != "") {
@@ -222,7 +222,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 address: { $first: "$address" },
                 totaldish: { $first: "$dishesList" },
                 filterdish: { $push: "$dishesDetails" },
-                restaurantRate: { $avg: "$reviewDetail.rate" }
+                // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
 
@@ -271,7 +271,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 filterdish: "$filterdish",
                 // relevance: { $divide: [{ $size: "$filterdish" }, { $size: "$totaldish" }] },
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
-                restaurantRate: { $avg: "$reviewDetail.rate" }
+                // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
 
@@ -356,6 +356,14 @@ router.post('/disheslist', async (req, res, next) => {
             {
                 $match: {
                     isDeleted: 0,
+                }
+            },
+            {
+                $lookup: {
+                    from: "cooking_methods",
+                    localField: "cookingMethodId",
+                    foreignField: "_id",
+                    as: "cookingMethods"
                 }
             },
             {
@@ -548,6 +556,7 @@ router.post('/disheslist', async (req, res, next) => {
                 address: { $first: "$restaurantInfo.address" },
                 filterdish: { $push: "$restaurantDishes" },
                 totaldish: { $first: "$restaurantTotalDishes" },
+                cookingMethods: { $first: "$cookingMethods" }
             }
         });
 
@@ -581,6 +590,7 @@ router.post('/disheslist', async (req, res, next) => {
                         }
                     }
                 },
+                cookingMethods: "$cookingMethods",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -596,6 +606,7 @@ router.post('/disheslist', async (req, res, next) => {
                 totaldish: "$totaldish",
                 filterdish: "$filterdish",
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
+                cookingMethods: "$cookingMethods",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });

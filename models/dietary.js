@@ -3,15 +3,15 @@ let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 let dietarySchema = new Schema(
     {
-        name: { type: String, required: true, unique: true },
+        name: { type: String, required: true },
         superAdminId: {
             type: Schema.Types.ObjectId,
             ref: 'users'
         },
         description: { type: String },
-        image: { type: String, default: null },
+        image: { type: String },
         isDeleted: { type: Number, default: 0 },
-        status: { type: String, default: "active" }     /**active, inactive */
+        isActive: { type: Boolean, default: true }    /**active, inactive */
 
     },
     {

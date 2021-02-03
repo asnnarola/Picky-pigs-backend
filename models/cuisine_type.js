@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
-let cusine_typeSchema = new Schema(
+let cuisine_typeSchema = new Schema(
     {
         name: { type: String, required: true },
         superAdminId: {
@@ -8,8 +8,8 @@ let cusine_typeSchema = new Schema(
             ref: 'users'
         },
         description: { type: String },
-        image: { type: String, default: null },
-        isDeleted: { type: Boolean, default: false },
+        image: { type: String },
+        isDeleted: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true }    /**active, inactive */
     },
     {
@@ -17,6 +17,6 @@ let cusine_typeSchema = new Schema(
         //minimize: false   // will make sure all properties exist, even if null
     });
 
-const Cusine_typeModel = mongoose.model('cusine_type', cusine_typeSchema);
+const Cuisine_typeModel = mongoose.model('cuisine_type', cuisine_typeSchema);
 
-module.exports = Cusine_typeModel;
+module.exports = Cuisine_typeModel;

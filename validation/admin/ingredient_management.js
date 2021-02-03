@@ -7,6 +7,11 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        check('description')
+            .trim()
+            .not().isEmpty().withMessage('Description is required')
+            .exists().withMessage('Description is required')
+            .isLength({ min: 2, max: 300 }).withMessage('Name should be between 2 to 300 characters long'),
         check('image')
             .trim()
             .not().isEmpty().withMessage('Image is required')
@@ -19,11 +24,11 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('image')
-            .trim()
-            .not().isEmpty().withMessage('Image is required')
-            .exists().withMessage('Image is required')
-            .isLength({ min: 4 }).withMessage('Image is required')
+        // check('image')
+        //     .trim()
+        //     .not().isEmpty().withMessage('Image is required')
+        //     .exists().withMessage('Image is required')
+        //     .isLength({ min: 4 }).withMessage('Image is required')
     ],
     lifestyle: [
         check('name')
@@ -31,11 +36,23 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('image')
+        // check('image')
+        //     .trim()
+        //     .not().isEmpty().withMessage('Image is required')
+        //     .exists().withMessage('Image is required')
+        //     .isLength({ min: 4 }).withMessage('Image is required')
+    ],
+    cuisine_type: [
+        check('name')
             .trim()
-            .not().isEmpty().withMessage('Image is required')
-            .exists().withMessage('Image is required')
-            .isLength({ min: 4 }).withMessage('Image is required')
+            .not().isEmpty().withMessage('Name is required')
+            .exists().withMessage('Name is required')
+            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        // check('image')
+        //     .trim()
+        //     .not().isEmpty().withMessage('Image is required')
+        //     .exists().withMessage('Image is required')
+        //     .isLength({ min: 4 }).withMessage('Image is required')
     ],
     cooking_method: [
         check('name')

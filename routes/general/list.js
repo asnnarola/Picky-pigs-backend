@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
-const allergen = require("../../models/allergen");
-const dietary = require("../../models/dietary");
-const lifestyle = require("../../models/lifestyle");
+const Allergen = require("../../models/allergen");
+const Dietary = require("../../models/dietary");
+const Lifestyle = require("../../models/lifestyle");
+const Cooking_method = require("../../models/cooking_method");
+const Cuisine_type = require("../../models/cuisine_type");
+const Restaurant_features_option = require("../../models/restaurant_features_option");
 const Menu = require("../../models/menus");
 const Dish = require("../../models/dish");
 const Review = require("../../models/review");
@@ -14,27 +17,86 @@ const LOGGER = config.LOGGER;
 
 
 router.get('/allergen', async (req, res, next) => {
-    var data = await common_helper.find(allergen);
-    if (data.status === 1 && data.data) {
-        res.status(constants.OK_STATUS).json(data);
-    } else {
-        res.status(constants.BAD_REQUEST).json(data);
+    try {
+        const data = await common_helper.find(Allergen, { isDeleted: 0 }, 'name image description');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
     }
 });
+
 router.get('/dietary', async (req, res, next) => {
-    var data = await common_helper.find(dietary);
-    if (data.status === 1 && data.data) {
-        res.status(constants.OK_STATUS).json(data);
-    } else {
-        res.status(constants.BAD_REQUEST).json(data);
+    try {
+        const data = await common_helper.find(Dietary, { isDeleted: 0 }, 'name');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
     }
 });
+
 router.get('/lifeStyle', async (req, res, next) => {
-    var data = await common_helper.find(lifestyle);
-    if (data.status === 1 && data.data) {
-        res.status(constants.OK_STATUS).json(data);
-    } else {
-        res.status(constants.BAD_REQUEST).json(data);
+    try {
+        const data = await common_helper.find(Lifestyle, { isDeleted: 0 }, 'name');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
+    }
+});
+
+router.get('/cooking_method', async (req, res, next) => {
+    try {
+        const data = await common_helper.find(Cooking_method, { isDeleted: 0 }, 'name image');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
+    }
+});
+
+router.get('/restaurant_features_option', async (req, res, next) => {
+    try {
+        const data = await common_helper.find(Restaurant_features_option, { isDeleted: 0 }, 'name image');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
+    }
+});
+
+router.get('/cuisine_type', async (req, res, next) => {
+    try {
+        const data = await common_helper.find(Cuisine_type, { isDeleted: 0 }, 'name');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
     }
 });
 

@@ -277,6 +277,7 @@ router.post('/restaurant_signup', manage_module.create_restaurant, validation_re
 
         } else {
             req.body.role = "restaurant_admin";
+            req.body.emailVerified = true;
             const register_allUser_resp = await common_helper.insert(Users, req.body);
             req.body.numericSubscriptionLevel = config.STRIPE_PACKAGE_LIST.findIndex(singlePackage => singlePackage === req.body.package);
             req.body.userId = register_allUser_resp.data._id;

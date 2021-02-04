@@ -80,6 +80,8 @@ async function getPaymentMethodToken() {
     return paymentMethod;
 }
 
+
+/**Params was subscriptoinId getting from old and priceId of new paurchase plan*/
 async function updateSubscription(subscriptionId, priceId) {
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
     const updatedSubscription = await stripe.subscriptions.update(subscriptionId,

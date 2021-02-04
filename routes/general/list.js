@@ -18,7 +18,7 @@ const LOGGER = config.LOGGER;
 
 router.get('/allergen', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Allergen, { isDeleted: 0 }, 'name image description');
+        const data = await common_helper.find(Allergen, { isDeleted: 0, isActive: true }, 'name image description');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {
@@ -32,7 +32,7 @@ router.get('/allergen', async (req, res, next) => {
 
 router.get('/dietary', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Dietary, { isDeleted: 0 }, 'name');
+        const data = await common_helper.find(Dietary, { isDeleted: 0, isActive: true }, 'name');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {
@@ -46,7 +46,7 @@ router.get('/dietary', async (req, res, next) => {
 
 router.get('/lifeStyle', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Lifestyle, { isDeleted: 0 }, 'name');
+        const data = await common_helper.find(Lifestyle, { isDeleted: 0, isActive: true }, 'name');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {
@@ -60,7 +60,7 @@ router.get('/lifeStyle', async (req, res, next) => {
 
 router.get('/cooking_method', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Cooking_method, { isDeleted: 0 }, 'name image');
+        const data = await common_helper.find(Cooking_method, { isDeleted: 0, isActive: true }, 'name image');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {
@@ -74,7 +74,7 @@ router.get('/cooking_method', async (req, res, next) => {
 
 router.get('/restaurant_features_option', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Restaurant_features_option, { isDeleted: 0 }, 'name image');
+        const data = await common_helper.find(Restaurant_features_option, { isDeleted: 0, isActive: true }, 'name image');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {
@@ -88,7 +88,7 @@ router.get('/restaurant_features_option', async (req, res, next) => {
 
 router.get('/cuisine_type', async (req, res, next) => {
     try {
-        const data = await common_helper.find(Cuisine_type, { isDeleted: 0 }, 'name');
+        const data = await common_helper.find(Cuisine_type, { isDeleted: 0, isActive: true }, 'name');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {

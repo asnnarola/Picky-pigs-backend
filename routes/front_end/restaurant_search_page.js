@@ -50,21 +50,21 @@ const distanceCalculationAndFiler = async (body, data) => {
 router.post('/restaurantlist', async (req, res, next) => {
     try {
 
-        // if (req.body.allergen && req.body.allergen.length > 0) {
-        //     req.body.allergen = req.body.allergen.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
-        // if (req.body.dietary && req.body.dietary.length > 0) {
-        //     req.body.dietary = req.body.dietary.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
-        // if (req.body.lifestyle && req.body.lifestyle.length > 0) {
-        //     req.body.lifestyle = req.body.lifestyle.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
         let aggregate = [
             {
                 $lookup: {
@@ -337,21 +337,21 @@ router.post('/restaurantlist', async (req, res, next) => {
 /** Distance filter are remaning */
 router.post('/disheslist', async (req, res, next) => {
     try {
-        // if (req.body.allergen && req.body.allergen.length > 0) {
-        //     req.body.allergen = req.body.allergen.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
-        // if (req.body.dietary && req.body.dietary.length > 0) {
-        //     req.body.dietary = req.body.dietary.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
-        // if (req.body.lifestyle && req.body.lifestyle.length > 0) {
-        //     req.body.lifestyle = req.body.lifestyle.map((element) => {
-        //         return new ObjectId(element)
-        //     })
-        // }
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
         let aggregate = [
             {
                 $match: {

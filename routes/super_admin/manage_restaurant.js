@@ -156,4 +156,20 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
+router.post('/change_subscription', async (req, res) => {
+    try {
+        let obj = {};
+        obj.numericSubscriptionLevel = config.STRIPE_PACKAGE_LIST.findIndex(singlePackage => singlePackage === req.body.package);
+        obj.package = req.body.package;
+        const update_resp = await common_helper.update(Restaurant, { "userId": req.params.id }, obj)
+        if (update_resp.status === 0) {
+            res.json({ status: 0, message: "Error occured while Restaurant deleted" });
+        } else {
+            res.status(constants.OK_STATUS).json({ status: 1, message: "Restaurant deleted successfully", update_resp });
+        }
+    } catch (err) {
+        res.status(constants.BAD_REQUEST).json({ message: "Error into change subscription", error: err });
+    }
+})
+
 module.exports = router;

@@ -35,6 +35,12 @@ router.post('/list', async (req, res, next) => {
                 $project: {
                     _id: "$_id",
                     name: "$name",
+                    createdAt: "$createdAt"
+                }
+            },
+            {
+                $sort: {
+                    createdAt: -1
                 }
             }
         ]

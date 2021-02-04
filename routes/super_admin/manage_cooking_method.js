@@ -9,6 +9,10 @@ const ingredient_management = require('../../validation/admin/ingredient_managem
 
 router.post('/', ingredient_management.cooking_method, validation_response, async (req, res, next) => {
     try {
+        if (req.files && req.files['image']) {
+            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            req.body.image = imageRes.data[0].path
+        }
         req.body.superAdminId = req.loginUser.id;
         const data = await common_helper.insert(Cooking_method, req.body);
 
@@ -35,7 +39,13 @@ router.post('/list', async (req, res, next) => {
                 $project: {
                     _id: "$_id",
                     name: "$name",
-                    image: "$image"
+                    image: "$image",
+                    createdAt: "$createdAt"
+                }
+            },
+            {
+                $sort: {
+                    createdAt: -1
                 }
             }
         ]

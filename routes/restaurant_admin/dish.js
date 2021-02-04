@@ -31,6 +31,10 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
         })
         const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
     }
+    if (req.files && req.files['image']) {
+        const imageRes = await common_helper.upload(req.files['image'], "uploads");
+        req.body.image = imageRes.data[0].path
+    }
     const insert_resp = await common_helper.insert(Dish, req.body);
     req.body.caloriesAndMacros.dishId = insert_resp.data._id;
     req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
@@ -258,6 +262,10 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/:id', validation.dish, validation_response, async (req, res) => {
     try {
+        if (req.files && req.files['image']) {
+            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            req.body.image = imageRes.data[0].path
+        }
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
         const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
         if (update_resp.status === 1) {

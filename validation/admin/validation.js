@@ -97,10 +97,10 @@ module.exports = {
             .not().isEmpty().withMessage('grossProfit is required')
             .exists().withMessage('grossProfit is required')
             .isFloat(),
-        check('image')
-            .trim()
-            .not().isEmpty().withMessage('image is required')
-            .exists().withMessage('image is required'),
+        // check('image')
+        //     .trim()
+        //     .not().isEmpty().withMessage('image is required')
+        //     .exists().withMessage('image is required'),
         check('menuId')
             .trim()
             .not().isEmpty().withMessage('menu is required')

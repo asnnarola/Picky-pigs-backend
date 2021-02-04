@@ -6,8 +6,12 @@ const constants = require('../../config/constants');
 const validation_response = require('../../validation/validation_response');
 const ingredient_management = require('../../validation/admin/ingredient_management');
 
-router.post('/', ingredient_management.allergen, validation_response, async (req, res, next) => {
+router.post('/', ingredient_management.restaurant_feature_option, validation_response, async (req, res, next) => {
     try {
+        if (req.files && req.files['image']) {
+            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            req.body.image = imageRes.data[0].path
+        }
         req.body.superAdminId = req.loginUser.id;
         const data = await common_helper.insert(Restaurant_features_option, req.body);
 
@@ -36,7 +40,13 @@ router.post('/list', async (req, res, next) => {
                     _id: "$_id",
                     image: "$image",
                     name: "$name",
-                    description: "$description"
+                    description: "$description",
+                    createdAt: "$createdAt"
+                }
+            },
+            {
+                $sort: {
+                    createdAt: -1
                 }
             }
         ]
@@ -95,8 +105,12 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.put('/:id', ingredient_management.allergen, validation_response, async (req, res, next) => {
+router.put('/:id', ingredient_management.restaurant_feature_option, validation_response, async (req, res, next) => {
     try {
+        if (req.files && req.files['image']) {
+            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            req.body.image = imageRes.data[0].path
+        }
         const data = await common_helper.update(Restaurant_features_option, { "_id": req.params.id }, req.body)
         if (data.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });

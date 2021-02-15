@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
+const fs = require('fs')
 const Users = require("../../models/users");
 const UserPreference = require("../../models/user_preference");
 const Favourite = require("../../models/favourite");
@@ -24,7 +25,7 @@ passwordValidatorSchema
     .has().not().spaces()                       // Should not have spaces
     .is().not().oneOf(['Passw0rd', 'Password123'])
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         let aggregate = [
             {
@@ -82,6 +83,37 @@ router.put('/', async (req, res, next) => {
     catch (err) {
         console.log("err", err)
         res.status(constants.BAD_REQUEST).json({ message: "Error while Details Update successfully.", error: err });
+
+    }
+});
+
+router.put('/upload_profile_image', async function (req, res, next) {
+    try {
+        if (req.files != null) {
+            let imageData = await common_helper.upload(req.files['image'], "uploads");
+            if (imageData.data.length > 0) {
+                const getUserPreference = await UserPreference.findOne({ userId: req.loginUser.id });
+                if (getUserPreference && getUserPreference.profileImage) {
+                    await fs.unlinkSync(`./${getUserPreference.profileImage}`);
+                }
+                const obj = {
+                    profileImage: imageData.data[0].path
+                }
+                const update_resp = await common_helper.update(UserPreference, { "userId": req.loginUser.id }, obj)
+                if (update_resp.status === 0) {
+                    res.json({ status: 0, message: "Error occured while Profile Update." });
+                } else {
+                    res.status(constants.OK_STATUS).json({ status: 1, message: "Profile Update successfully.", update_resp });
+                }
+            } else {
+                res.status(constants.BAD_REQUEST).json({ "message": "File not uploaded" });
+            }
+        } else {
+            res.status(constants.BAD_REQUEST).json({ "message": "Please Upload proper file" });
+        }
+    } catch (err) {
+        console.log("err", err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error occured while Profile image Update.", error: err });
 
     }
 });

@@ -5,6 +5,7 @@ const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 const Dish = require('../../models/dish');
+const Allergen = require('../../models/allergen');
 const DishIngredient = require('../../models/dish_ingredient');
 const DishCaloriesAndMacros = require('../../models/dish_caloriesAndMacros');
 const Restaurant = require('../../models/restaurant');
@@ -17,20 +18,29 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     req.body.restaurantId = find_response._id;
     /**********/
 
-    var duplicate_insert_resp = {};
-    if (req.body.createNewVersion) {
-        duplicate_insert_resp = await common_helper.insert(Dish, req.body);
-        req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
-        req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
-        await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
 
-        req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
-            singleElement.dishId = duplicate_insert_resp.data._id;
-            singleElement.restaurantId = req.body.restaurantId;
-            return singleElement;
-        })
-        const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
-    }
+    req.body.menuId = JSON.parse(req.body.menuId),
+    req.body.allergenId = JSON.parse(req.body.allergenId);
+    req.body.dietaryId = JSON.parse(req.body.dietaryId);
+    req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
+    req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
+    req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
+    req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+
+    var duplicate_insert_resp = {};
+    // if (req.body.createNewVersion) {
+    //     duplicate_insert_resp = await common_helper.insert(Dish, req.body);
+    //     req.body.caloriesAndMacros.dishId = duplicate_insert_resp.data._id;
+    //     req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
+    //     await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
+
+    //     req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
+    //         singleElement.dishId = duplicate_insert_resp.data._id;
+    //         singleElement.restaurantId = req.body.restaurantId;
+    //         return singleElement;
+    //     })
+    //     const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
+    // }
     if (req.files && req.files['image']) {
         const imageRes = await common_helper.upload(req.files['image'], "uploads");
         req.body.image = imageRes.data[0].path
@@ -130,11 +140,89 @@ router.get('/:id', async (req, res) => {
                     as: "ingredientSection.dish_ingredients"
                 }
             },
+            {
+                $unwind: {
+                    path: "$ingredientSection.dish_ingredients",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "allergens",
+                    localField: "ingredientSection.dish_ingredients.allergeies",
+                    foreignField: "_id",
+                    as: "ingredientSection.dish_ingredients.allergenlist"
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    "favorite": { $first: "$favorite" },
+                    "prepItem": { $first: "$prepItem" },
+                    "new": { $first: "$new" },
+                    "available": { $first: "$available" },
+                    "menuId": { $first: "$menuId" },
+                    "allergenId": { $first: "$allergenId" },
+                    "dietaryId": { $first: "$dietaryId" },
+                    "lifestyleId": { $first: "$lifestyleId" },
+                    "cookingMethodId": { $first: "$cookingMethodId" },
+                    "customisable": { $first: "$customisable" },
+                    "createNewVersion": { $first: "$createNewVersion" },
+                    "isDeleted": { $first: "$isDeleted" },
+                    "isActive": { $first: "$isActive" },
+                    "name": { $first: "$name" },
+                    "makes": { $first: "$makes" },
+                    "price": { $first: "$price" },
+                    "grossProfit": { $first: "$grossProfit" },
+                    "categoryId": { $first: "$categoryId" },
+                    "restaurantId": { $first: "$restaurantId" },
+                    "subcategoryId": { $first: "$subcategoryId" },
+                    "description": { $first: "$description" },
+                    "instructions": { $first: "$instructions" },
+                    "dish_ingredientPrice": { $first: "$ingredientSection.total" },
+                    "dish_ingredientsMerge": {
+                        $push: "$ingredientSection.dish_ingredients"
+                    },
+                }
+            },
+            {
+                $project: {
+                    "_id": "$_id",
+                    "favorite": "$favorite",
+                    "prepItem": "$prepItem",
+                    "new": "$new",
+                    "available": "$available",
+                    "menuId": "$menuId",
+                    "allergenId": "$allergenId",
+                    "dietaryId": "$dietaryId",
+                    "lifestyleId": "$lifestyleId",
+                    "cookingMethodId": "$cookingMethodId",
+                    "customisable": "$customisable",
+                    "createNewVersion": "$createNewVersion",
+                    "isDeleted": "$isDeleted",
+                    "isActive": "$isActive",
+                    "name": "$name",
+                    "makes": "$makes",
+                    "price": "$price",
+                    "grossProfit": "$grossProfit",
+                    "categoryId": "$categoryId",
+                    "restaurantId": "$restaurantId",
+                    "subcategoryId": "$subcategoryId",
+                    "description": "$description",
+                    "instructions": "$instructions",
+                    "ingredientSection": {
+                        total: "$dish_ingredientPrice",
+                        dish_ingredients: "$dish_ingredientsMerge"
+                    }
+                }
+            }
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
                 res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
+                console.log("error", error)
                 res.status(constants.BAD_REQUEST).json({ message: "get sigle dish detail", error: error });
             });
     }
@@ -266,6 +354,16 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
             const imageRes = await common_helper.upload(req.files['image'], "uploads");
             req.body.image = imageRes.data[0].path
         }
+
+        req.body.menuId = JSON.parse(req.body.menuId),
+        req.body.allergenId = JSON.parse(req.body.allergenId);
+        req.body.dietaryId = JSON.parse(req.body.dietaryId);
+        req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
+        req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
+        req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
+        req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+
+
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
         const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
         if (update_resp.status === 1) {
@@ -275,7 +373,7 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
         }
 
     } catch (error) {
-        console.log("error; ",error)
+        // console.log("error; ", error)
         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
 
     }
@@ -290,7 +388,7 @@ router.post('/add_update_ingredient', async (req, res) => {
             res.status(constants.BAD_REQUEST).json(ingredient_resp);
         }
     } catch (error) {
-        console.log("error: ",error)
+        // console.log("error: ", error)
         res.status(constants.BAD_REQUEST).json({ message: "Error into insert ingredient", error: error });
     }
 })

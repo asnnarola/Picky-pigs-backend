@@ -6,7 +6,11 @@ let dishSchema = new Schema(
         item: { type: String },
         qty: { type: Number },
         // unit: { type: String },
-        allergeies: [{ type: String }],
+        // allergeies: [{ type: String }],
+        allergeies: [{
+            type: Schema.Types.ObjectId,
+            ref: 'allergen'
+        }],
         // stokUnit: { type: String },
         // recipeCost: { type: Number },
         customisable: { type: Boolean },

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const bcrypt = require("bcrypt")
+const fs = require('fs')
 const common_helper = require('../../helpers/common');
 const constants = require('../../config/constants');
 const validation_response = require('../../validation/validation_response');
@@ -33,7 +34,7 @@ router.post('/', async (req, res, next) => {
         /**For multiple restaurant to set retaurant id */
         req.body.restaurantId = save_response.data._id;
 
-        if (req.body.security.password && req.body.security.password !== "") {
+        if (req.body.security && req.body.security.password && req.body.security.password !== "") {
             if (passwordValidatorSchema.validate(req.body.security.password) == true) {
                 const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.security.password, saltRounds) })
             } else {
@@ -59,13 +60,19 @@ router.post('/', async (req, res, next) => {
             res.status(constants.BAD_REQUEST).json(save_response);
         }
     } catch (error) {
-        res.status(constants.BAD_REQUEST).json({ ...save_response, error: error.messag, message: "Error occured while inserting data" });
+        console.log("error : ", error)
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while inserting data" });
     }
 });
 
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
+
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.params.id = find_response._id;
+        /**********/
 
         let aggregate = [
             {
@@ -169,6 +176,128 @@ router.get('/restaurantlist', async (req, res, next) => {
         res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while finding data" });
     }
 });
+
+router.put('/profile_image', async (req, res) => {
+    try {
+        if (req.files != null) {
+            let imageData = await common_helper.upload(req.files['image'], "uploads");
+            if (imageData.data.length > 0) {
+                const getRestaurantDetail = await Restaurant.findOne({ userId: req.loginUser.id });
+                if (getRestaurantDetail && getRestaurantDetail.restaurantProfilePhoto) {
+                    if (await fs.existsSync(`./${getRestaurantDetail.restaurantProfilePhoto}`))
+                        await fs.unlinkSync(`./${getRestaurantDetail.restaurantProfilePhoto}`);
+                }
+                const obj = {
+                    restaurantProfilePhoto: imageData.data[0].path
+                }
+                const update_resp = await common_helper.update(Restaurant, { "userId": req.loginUser.id }, obj)
+                if (update_resp.status === 0) {
+                    res.json({ status: 0, message: "Error occured while Profile Image upload." });
+                } else {
+                    res.status(constants.OK_STATUS).json({ status: 1, message: "Profile Image upload successfully.", update_resp });
+                }
+            } else {
+                res.status(constants.BAD_REQUEST).json({ "message": "File not uploaded" });
+            }
+        } else {
+            res.status(constants.BAD_REQUEST).json({ "message": "Please Upload proper file" });
+        }
+    } catch (error) {
+        console.log("error : ", error)
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while uploading the profile image" });
+    }
+})
+
+router.put('/cover_image', async (req, res) => {
+    try {
+        if (req.files != null) {
+            let imageData = await common_helper.upload(req.files['image'], "uploads");
+            if (imageData.data.length > 0) {
+                const getRestaurantDetail = await Restaurant.findOne({ userId: req.loginUser.id });
+                if (getRestaurantDetail && getRestaurantDetail.restaurantCoverPhoto) {
+                    if (await fs.existsSync(`./${getRestaurantDetail.restaurantCoverPhoto}`))
+                        await fs.unlinkSync(`./${getRestaurantDetail.restaurantCoverPhoto}`);
+                }
+                const obj = {
+                    restaurantCoverPhoto: imageData.data[0].path
+                }
+                const update_resp = await common_helper.update(Restaurant, { "userId": req.loginUser.id }, obj)
+                if (update_resp.status === 0) {
+                    res.json({ status: 0, message: "Error occured while cover image upload." });
+                } else {
+                    res.status(constants.OK_STATUS).json({ status: 1, message: "Cover image upload successfully.", update_resp });
+                }
+            } else {
+                res.status(constants.BAD_REQUEST).json({ "message": "File not uploaded" });
+            }
+        } else {
+            res.status(constants.BAD_REQUEST).json({ "message": "Please Upload proper file" });
+        }
+    } catch (error) {
+        console.log("error : ", error)
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while uploading the cover image" });
+    }
+})
+
+
+
+router.put('/upload_gallery_image', async (req, res) => {
+    try {
+        /**For multiple restaurant to set retaurant id */
+        const find_restaurant_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        /**********/
+
+        if (req.files != null) {
+            let imageData = await common_helper.upload(req.files['image'], "uploads");
+            if (imageData.data.length > 0) {
+                let modifiedImageUrl = imageData.data.filter(singleImage => {
+                    return singleImage.url = singleImage.path;
+                })
+
+                if (req.body.type === "Ambience") {
+                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'ambience': modifiedImageUrl } }, { new: true });
+                    res.status(constants.OK_STATUS).json({ "message": "File uploaded", getRestaurantDetail });
+                } else {
+                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'food': modifiedImageUrl } }, { new: true });
+                    res.status(constants.OK_STATUS).json({ "message": "File uploaded", getRestaurantDetail });
+                }
+            } else {
+                res.status(constants.BAD_REQUEST).json({ "message": "File not uploaded" });
+            }
+        } else {
+            res.status(constants.BAD_REQUEST).json({ "message": "Please Upload proper file" });
+        }
+    } catch (error) {
+        console.log("error : ", error)
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while uploading the cover image" });
+    }
+})
+
+
+router.put('/delete_gallery_image', async (req, res) => {
+    try {
+        /**For multiple restaurant to set retaurant id */
+        const find_restaurant_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        /**********/
+        console.log("req.body.type : ", req.body.type)
+        if (req.body.type === "Ambience") {
+            await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'ambience': { _id: ObjectId(req.body.imageId) } } }, { new: true })
+            res.status(constants.OK_STATUS).json({ "message": "File deleted successfully" });
+
+        } 
+        else if (req.body.type === "Food") {
+            await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'ambience': { _id: ObjectId(req.body.imageId) } } }, { new: true })
+            res.status(constants.OK_STATUS).json({ "message": "File deleted successfully" });
+
+        } 
+        else {
+            res.status(constants.BAD_REQUEST).json({ "message": "Please enter proper type" });
+        }
+    } catch (error) {
+        console.log("error : ", error)
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while uploading the cover image" });
+    }
+})
 
 
 module.exports = router;

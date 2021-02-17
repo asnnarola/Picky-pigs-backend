@@ -33,7 +33,7 @@ let restaurant_detailsSchema = new Schema(
             isWebsite: { type: Boolean },
             isEmail: { type: Boolean },
             isCall: { type: Boolean },
-            websiteUrl: { type: String },
+            websiteUrl: [{ type: String }],
             email: [{ type: String }],
             phoneNumber: [{ type: String }],
         },
@@ -42,9 +42,9 @@ let restaurant_detailsSchema = new Schema(
             isFacebook: { type: Boolean },
             isTwitter: { type: Boolean },
             isInstagram: { type: Boolean },
-            facebookUrl: { type: String },
-            twitterUrl: { type: String },
-            instagramUrl: { type: String },
+            facebookUrl: [{ type: String }],
+            twitterUrl: [{ type: String }],
+            instagramUrl: [{ type: String }],
         }
     },
     {

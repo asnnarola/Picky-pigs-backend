@@ -9,7 +9,7 @@ let restaurant_gallerySchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'restaurant'
         },
-        restaurantAmbience: [{ url: { type: String } }],
+        ambience: [{ url: { type: String } }],
         food: [{ url: { type: String } }],
         videos: [{ url: { type: String } }],
         images: [{ url: { type: String }, type: { type: String, default: "image" } }]

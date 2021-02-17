@@ -7,7 +7,7 @@ const common_helper = {};
 const makeDir = require('make-dir');
 const { v4: uuidv4 } = require('uuid');
 const { Client } = require("@googlemaps/google-maps-services-js");
-
+const Jimp = require('jimp')
 
 common_helper.getDistance = async (lat1, lng1, lat2, lng2) => {
   return new Promise((resolve, reject) => {
@@ -258,6 +258,7 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
       if (_files.length > 0) {
         await makeDir(dir);
         async.eachSeries(_files, async (file, next) => {
+          console.log("files : ", file)
           if (constant.MIME_TYPES[mimetype].indexOf(file.mimetype) >= 0) {
 
             if (!fs.existsSync(dir)) {
@@ -281,6 +282,18 @@ common_helper.upload = async (files, dir, mimetype = "image") => {
 
             file.mv(dir + "/" + filename, err => {
             });
+
+            // Jimp.read(`${dir}/${filename}`, (error, img) => {
+            //   if (error) {
+            //     reject(error);
+            //   } else {
+            //     img
+            //       .resize(567, Jimp.AUTO) // resize
+            //       .quality(90) // set JPEG quality
+            //       .write(`${dir}/${filename}`); // save
+            //   }
+            // });
+
           } else {
 
             next();
@@ -392,9 +405,9 @@ const isAvailable = async (model, cloneDetail, totalClones) => {
   const findName = await model.find({ name: newName, isDeleted: 0 });
   if (findName) {
     newName = (totalClones === 0) ? `${cloneDetail.name} copy` : `${cloneDetail.name} copy (${totalClones + 1})`;
-    console.log("file ifffff",newName)
+    console.log("file ifffff", newName)
   } else {
-    console.log("elseeeeee - ",newName)
+    console.log("elseeeeee - ", newName)
   }
 }
 

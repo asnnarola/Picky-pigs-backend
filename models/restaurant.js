@@ -31,6 +31,7 @@ let restaurantSchema = new Schema(
             twoFactorAuthenticationPhoneNumber: { type: Boolean, default: false },
             twoFactorAuthenticationEmail: { type: Boolean, default: false }
         },
+        pageViews: { type: Number, default: 0 },
 
     },
     {

@@ -13,6 +13,7 @@ let restaurant_detailsSchema = new Schema(
             time: [
                 {
                     day: { type: String },
+                    isSelected: { type: Boolean },
                     timeList: [
                         {
                             startTime: { type: String },
@@ -25,7 +26,7 @@ let restaurant_detailsSchema = new Schema(
             ]
         },
         website: {
-            websiteUrl: { type: String },
+            websiteUrl: [{ type: String }],
             isAddToProfilePage: { type: Boolean }
         },
         bookings: {

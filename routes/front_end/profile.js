@@ -94,7 +94,7 @@ router.put('/upload_profile_image', async function (req, res, next) {
             if (imageData.data.length > 0) {
                 const getUserPreference = await UserPreference.findOne({ userId: req.loginUser.id });
                 if (getUserPreference && getUserPreference.profileImage) {
-                    if (await fs.existsSync(`./${getUserPreference.profileImage}`)) 
+                    if (await fs.existsSync(`./${getUserPreference.profileImage}`))
                         await fs.unlinkSync(`./${getUserPreference.profileImage}`);
                 }
                 const obj = {

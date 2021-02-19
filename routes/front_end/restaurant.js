@@ -79,7 +79,8 @@ router.get('/info/:id', async (req, res, next) => {
 
 
         await Restaurant.aggregate(aggregate)
-            .then(restaurantDetail => {
+            .then(async restaurantDetail => {
+                await Restaurant.findByIdAndUpdate(req.params.id, { $inc: { pageViews: 1 } }, { new: true });
                 res.status(constants.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
             }).catch(error => {
                 console.log(error)

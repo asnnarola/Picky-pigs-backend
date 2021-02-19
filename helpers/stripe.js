@@ -33,6 +33,23 @@ function getProductsAndPlans() {
  * @return {Object} Your customer's newly created subscription
  */
 async function createCustomerAndSubscription(paymentMethodId, customerInfo) {
+    let freeTrail = {
+        isFreeTrail: false,
+        days: 90
+    }
+
+    const planList = await stripe.plans.retrieve(
+        customerInfo.planId
+    );
+
+    if (planList.trial_period_days !== null) {
+        freeTrail.isFreeTrail = true,
+            freeTrail.days = planList.trial_period_days
+    }
+
+
+
+
     const customer = await stripe.customers.create({
         payment_method: paymentMethodId,
         email: customerInfo.email,
@@ -54,15 +71,19 @@ async function createCustomerAndSubscription(paymentMethodId, customerInfo) {
     //   {amount: -50000, currency: 'USD'}
     // );
 
-    const subscription = await stripe.subscriptions.create({
+    let subscriptionObject = {
         customer: customer.id,
         items: [{
             plan: customerInfo.planId,
         }],
-        // trial_end: 1614686163,
-        // trial_from_plan: true,
+
         expand: ["latest_invoice.payment_intent"],
-    });
+    }
+    if (freeTrail.isFreeTrail) {
+        subscriptionObject.trial_end = moment().add(freeTrail.days, 'days').unix();
+    }
+
+    const subscription = await stripe.subscriptions.create(subscriptionObject);
 
     return subscription;
 }

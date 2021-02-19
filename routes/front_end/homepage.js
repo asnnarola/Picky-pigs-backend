@@ -51,6 +51,14 @@ router.post('/homepage_restaurant', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "restaurant_features_options",
+                    localField: "restaurantFeatures.restaurantFeaturesOptions",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.restaurantFeaturesOptionsList"
+                }
+            },
+            {
+                $lookup: {
                     from: "restaurant_details",
                     localField: "_id",
                     foreignField: "restaurantId",
@@ -92,10 +100,32 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                 $group: {
                     _id: "$_id",
                     name: { $first: "$name" },
+                    numericSubscriptionLevel: { $first: "$numericSubscriptionLevel" },
                     restaurantProfilePhoto: { $first: "$restaurantProfilePhoto" },
                     averageCostOfTwoPerson: { $first: "$restaurantFeatures.averageCostOfTwoPerson" },
-                    restaurantFeaturesOptions: { $first: "$restaurantFeatures.restaurantFeaturesOptions" },
+                    restaurantFeaturesOptionsList: { $first: "$restaurantFeatures.restaurantFeaturesOptionsList" },
                     address: { $first: "$address" }
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    restaurantProfilePhoto: "$restaurantProfilePhoto",
+                    averageCostOfTwoPerson: "$averageCostOfTwoPerson",
+                    numericSubscriptionLevel: "$numericSubscriptionLevel",
+                    restaurantFeaturesOptionsList: {
+                        $map: {
+                            input: "$restaurantFeaturesOptionsList",
+                            as: "singlerestaurantFeaturesOptionsList",
+                            in: {
+                                'name': '$$singlerestaurantFeaturesOptionsList.name',
+                                'image': '$$singlerestaurantFeaturesOptionsList.image'
+
+                            }
+                        }
+                    },
+                    address: "$address",
                 }
             },
             {
@@ -233,7 +263,17 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     description: "$description",
                     price: "$price",
                     image: "$image",
-                    cookingMethods: "$cookingMethods",
+                    cookingMethods: {
+                        $map:{
+                            input: "$cookingMethods",
+                            as: "singlecookingMethods",
+                            in: { 
+                                'name': '$$singlecookingMethods.name', 
+                                'image': '$$singlecookingMethods.image' 
+                                
+                            }
+                        }
+                    },
                     menusDetail: "$menuList"
                 }
             }
@@ -273,18 +313,27 @@ router.post('/join_us', homepageValidation.join_us, validation_response, async (
             phoneNumber: req.body.phoneNumber,
             company: req.body.company
         }
-        const emailContent = {
-            // to: "ksd@narola.email",
+        const toAdminEmailContent = {
+            // to: "drl@narola.email",
             to: "sasha@pickypigs.com",
-            subject: 'Join us to Picky pigs',
+            subject: 'From join us Picky pigs',
             obj: obj,
-            filePath: "./views/frontend/join_us.ejs"
+            filePath: "./views/frontend/to_admin_join_us.ejs"
         }
+        const toAdminEmailResp = await sendMail(toAdminEmailContent);
 
-        const emailResp = await sendMail(emailContent);
-        res.status(constants.OK_STATUS).json({ message: "join us successfully", data: emailResp });
+        const toUserEmailContent = {
+            // to: "drl@narola.email",
+            to: req.body.email,
+            obj: obj,
+            subject: 'Thanks to Join us Picky pigs',
+            filePath: "./views/frontend/to_user_join_us.ejs"
+        }
+        const toUserEmailResp = await sendMail(toUserEmailContent);
+        res.status(constants.OK_STATUS).json({ message: "join us request sent successfully" });
     }
     catch (err) {
+        console.log("err: ", err)
         res.status(constants.BAD_REQUEST).json({ message: "Error while join us", error: err });
 
     }

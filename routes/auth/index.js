@@ -138,7 +138,7 @@ router.post('/login', auth.login, validation_response, async (req, res, next) =>
 
             } else {
                 LOGGER.error("invalid password request = ", user_data);
-                return res.status(constants.UNAUTHORIZED).json({ message: "Invalid Password!", error: true })
+                return res.status(constants.UNAUTHORIZED).json({ message: "Invalid Credential!", error: true })
             }
         } else {
             LOGGER.error("User is not found with this email  = ", req.body);

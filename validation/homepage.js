@@ -10,10 +10,11 @@ module.exports = {
         check('message')
             .trim()
             .not().isEmpty().withMessage('message is required')
-            .exists().withMessage('message is required'),
+            .exists().withMessage('message is required')
+            .isLength({ min: 2, max: 100 }).withMessage('Email should be between 2 to 100 characters long'),
         check('email')
-            .isEmail().withMessage('Enter proper Email')
             .trim()
+            .isEmail().withMessage('Enter proper Email')
             .not().isEmpty().withMessage('Email is required')
             .exists().withMessage('Email is required')
             .isLength({ min: 2, max: 100 }).withMessage('Email should be between 2 to 100 characters long'),

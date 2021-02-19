@@ -23,8 +23,16 @@ common_helper.getDistance = async (lat1, lng1, lat2, lng2) => {
         timeout: 1000, // milliseconds
       })
         .then((distancematrix_resp) => {
-          /**distancematrix_resp.data.rows[0].elements[0].distance.value in metered */
-          resolve(distancematrix_resp.data.rows[0].elements[0].distance)
+          // console.log("distancematrix_resp.data : ", distancematrix_resp.data.rows[0].elements[0])
+
+          if (distancematrix_resp.data.rows[0].elements[0].status === 'OK') {
+            /**Google can find route distance and get response back as 'OK' */
+            /**distancematrix_resp.data.rows[0].elements[0].distance.value in metered */
+            resolve(distancematrix_resp.data.rows[0].elements[0].distance)
+          } else {
+            /**Google can not find route distance and get response back as 'ZERO_RESULTS' */
+            resolve({ text: "null", value: null })
+          }
         })
         .catch((error) => {
           console.log(error);

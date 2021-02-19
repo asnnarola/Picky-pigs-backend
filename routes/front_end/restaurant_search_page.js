@@ -9,42 +9,6 @@ const common_helper = require('../../helpers/common')
 
 
 
-const distanceCalculationAndFiler = async (body, data) => {
-    return new Promise(async (resolve, reject) => {
-        try {
-            let tempArray = [];
-            const userCoordinates = body.userCoordinates || [21.193455, 72.802080]
-            for (let singleList of data) {
-                let singleclone = JSON.parse(JSON.stringify(singleList));
-                console.log("singleList.address : ", singleList.address)
-                if (singleList.address !== null && singleList.address !== undefined && singleList.address.map !== undefined && singleList.address.map.coordinates.length == 2) {
-                    const coordinates = singleList.address.map.coordinates;
-                    let distance_resp = await common_helper.getDistance(coordinates[0], coordinates[1], userCoordinates[0], userCoordinates[1]);
-                    singleclone.distance = distance_resp;
-                } else {
-                    singleclone.distance = {
-                        text: "null",
-                        value: null
-                    }
-                }
-                tempArray.push(singleclone)
-            }
-
-            if (body.distance && body.distance !== null) {
-                tempArray = tempArray.filter(singleElement => {
-                    if (singleElement.distance.value < body.distance) {
-                        return singleElement;
-                    }
-                })
-            }
-            resolve(tempArray)
-        } catch (error) {
-            console.log(error)
-            reject(error)
-        }
-    });
-}
-
 /**page no 3 */
 /** Distance filter are remaning */
 router.post('/restaurantlist', async (req, res, next) => {
@@ -110,6 +74,14 @@ router.post('/restaurantlist', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "restaurant_features_options",
+                    localField: "restaurantFeatures.restaurantFeaturesOptions",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.restaurantFeaturesOptionsList"
+                }
+            },
+            {
+                $lookup: {
                     from: "dishes",
                     localField: "_id",
                     foreignField: "restaurantId",
@@ -169,6 +141,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 {
                     $or: [
                         { "name": RE },
+                        { "restaurantFeatures.appliesOfRestaurant": RE }
                         // { "restaurantInfo.restaurantFeatures.cuisineType": RE }
                     ]
                 }
@@ -218,7 +191,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 name: { $first: "$name" },
                 restaurantProfilePhoto: { $first: "$restaurantProfilePhoto" },
                 averageCostOfTwoPerson: { $first: "$restaurantFeatures.averageCostOfTwoPerson" },
-                restaurantFeaturesOptions: { $first: "$restaurantFeatures.restaurantFeaturesOptions" },
+                restaurantFeaturesOptionsList: { $first: "$restaurantFeatures.restaurantFeaturesOptionsList" },
                 address: { $first: "$address" },
                 totaldish: { $first: "$dishesList" },
                 filterdish: { $push: "$dishesDetails" },
@@ -232,7 +205,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 name: "$name",
                 restaurantProfilePhoto: "$restaurantProfilePhoto",
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
-                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                restaurantFeaturesOptionsList: "$restaurantFeaturesOptionsList",
                 address: "$address",
                 totaldish: {
                     $filter: {
@@ -265,10 +238,20 @@ router.post('/restaurantlist', async (req, res, next) => {
                 name: "$name",
                 restaurantProfilePhoto: "$restaurantProfilePhoto",
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
-                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
+                restaurantFeaturesOptionsList: {
+                    $map:{
+                        input: "$restaurantFeaturesOptionsList",
+                        as: "singlerestaurantFeaturesOptionsList",
+                        in: { 
+                            'name': '$$singlerestaurantFeaturesOptionsList.name', 
+                            'image': '$$singlerestaurantFeaturesOptionsList.image' 
+                            
+                        }
+                    }
+                },
                 address: "$address",
-                totaldish: "$totaldish",
-                filterdish: "$filterdish",
+                // totaldish: "$totaldish",
+                // filterdish: "$filterdish",
                 // relevance: { $divide: [{ $size: "$filterdish" }, { $size: "$totaldish" }] },
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
@@ -552,6 +535,8 @@ router.post('/disheslist', async (req, res, next) => {
                 name: { $first: "$name" },
                 dishPhoto: { $first: "$image" },
                 dishPrice: { $first: "$price" },
+                description: { $first: "$description" },
+                menuList: { $addToSet: "$menuDetail" },
                 restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
                 address: { $first: "$restaurantInfo.address" },
                 filterdish: { $push: "$restaurantDishes" },
@@ -566,6 +551,16 @@ router.post('/disheslist', async (req, res, next) => {
                 name: "$name",
                 dishPhoto: "$dishPhoto",
                 dishPrice: "$dishPrice",
+                dishDescription: "$description",
+                menuList: {
+                    $map:{
+                        input: "$menuList",
+                        as: "singlemenuList",
+                        in: { 
+                            'name': '$$singlemenuList.name'
+                        }
+                    }
+                },
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
                 address: "$address",
                 totaldish: {
@@ -590,7 +585,16 @@ router.post('/disheslist', async (req, res, next) => {
                         }
                     }
                 },
-                cookingMethods: "$cookingMethods",
+                cookingMethods: {
+                    $map:{
+                        input: "$cookingMethods",
+                        as: "singlecookingMethods",
+                        in: { 
+                            'name': '$$singlecookingMethods.name',
+                            'name': '$$singlecookingMethods.image',
+                        }
+                    }
+                },
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -601,10 +605,12 @@ router.post('/disheslist', async (req, res, next) => {
                 name: "$name",
                 dishPhoto: "$dishPhoto",
                 dishPrice: "$dishPrice",
+                dishDescription: "$dishDescription",
+                menuList: "$menuList",
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
                 address: "$address",
-                totaldish: "$totaldish",
-                filterdish: "$filterdish",
+                // totaldish: "$totaldish",
+                // filterdish: "$filterdish",
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
                 cookingMethods: "$cookingMethods",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
@@ -665,13 +671,22 @@ router.post('/disheslist', async (req, res, next) => {
 /**page no 1 dishes list*/
 router.post('/page_1_dishes', async (req, res, next) => {
     try {
-        const optionCondition = (req.body.option === "new") ? { new: true } : { favorite: true }
+        const optionCondition = (req.body.option === "new") ? { new: true } : (req.body.option === "favorite") ? { favorite: true } : {}
+        const styleOfmenu = (req.body.styleOfmenu && req.body.styleOfmenu !== "") ? { "menuDetail.styleOfmenu": req.body.styleOfmenu } : {};
 
         let aggregate = [
             {
                 $match: {
                     ...optionCondition,
                     isDeleted: 0,
+                }
+            },
+            {
+                $lookup: {
+                    from: "cooking_methods",
+                    localField: "cookingMethodId",
+                    foreignField: "_id",
+                    as: "cookingMethods"
                 }
             },
             {
@@ -689,6 +704,7 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 $match: {
                     "menuDetail.isDeleted": 0,
                     "menuDetail.isActive": true,
+                    ...styleOfmenu
                 }
             },
             {
@@ -821,6 +837,14 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 dishPrice: { $first: "$price" },
                 favorite: { $first: "$favorite" },
                 new: { $first: "$new" },
+                cookingMethods: { $first: "$cookingMethods" },
+                menuList: {
+                    $push: {
+                        "_id": "$menuDetail._id",
+                        "name": "$menuDetail.name"
+                    }
+                },
+                description: { $first: "$description" },
                 restaurantId: { $first: "$restaurantInfo._id" },
                 restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
                 address: { $first: "$restaurantInfo.address" }
@@ -834,6 +858,19 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 dishPrice: "$dishPrice",
                 favorite: "$favorite",
                 new: "$new",
+                cookingMethods: {
+                    $map:{
+                        input: "$cookingMethods",
+                        as: "singlecookingMethods",
+                        in: { 
+                            'name': '$$singlecookingMethods.name', 
+                            'image': '$$singlecookingMethods.image' 
+                            
+                        }
+                    }
+                },
+                menuList: "$menuList",
+                description: "$description",
                 restaurantId: "$restaurantId",
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
                 address: "$address"
@@ -915,6 +952,14 @@ router.post('/page_1_restaurants', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "restaurant_features_options",
+                    localField: "restaurantFeatures.restaurantFeaturesOptions",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.restaurantFeaturesOptionsList"
+                }
+            },
+            {
+                $lookup: {
                     from: "dishes",
                     localField: "_id",
                     foreignField: "restaurantId",
@@ -948,7 +993,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.search, "menusList.isDeleted": 0 },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0 },
                 }
             )
         }
@@ -960,7 +1005,8 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                 {
                     $or: [
                         { "name": RE },
-                        // { "restaurantInfo.restaurantFeatures.cuisineType": RE }
+                        { "restaurantFeatures.appliesOfRestaurant": RE }
+                        // { "restaurantFeatures.cuisineType": RE }
                     ]
                 }
             });
@@ -1007,10 +1053,11 @@ router.post('/page_1_restaurants', async (req, res, next) => {
             $group: {
                 _id: "$_id",
                 name: { $first: "$name" },
+                pageViews: { $first: "$pageViews" },
                 createdAt: { $first: "$createdAt" },
                 restaurantProfilePhoto: { $first: "$restaurantProfilePhoto" },
                 averageCostOfTwoPerson: { $first: "$averageCostOfTwoPerson" },
-                restaurantFeaturesOptions: { $first: "$restaurantFeatures.restaurantFeaturesOptions" },
+                restaurantFeaturesOptionsList: { $first: "$restaurantFeatures.restaurantFeaturesOptionsList" },
                 address: { $first: "$address" }
             }
         });
@@ -1018,10 +1065,21 @@ router.post('/page_1_restaurants', async (req, res, next) => {
             $project: {
                 _id: "$_id",
                 name: "$name",
+                pageViews: "$pageViews",
                 createdAt: "$createdAt",
                 restaurantProfilePhoto: "$restaurantProfilePhoto",
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
-                restaurantFeaturesOptions: "$restaurantFeatures.restaurantFeaturesOptions",
+                restaurantFeaturesOptionsList: {
+                    $map:{
+                        input: "$restaurantFeaturesOptionsList",
+                        as: "singlerestaurantFeaturesOptionsList",
+                        in: { 
+                            'name': '$$singlerestaurantFeaturesOptionsList.name', 
+                            'image': '$$singlerestaurantFeaturesOptionsList.image' 
+                            
+                        }
+                    }
+                },
                 address: "$address"
             }
         });
@@ -1029,6 +1087,11 @@ router.post('/page_1_restaurants', async (req, res, next) => {
         if (req.body.option && req.body.option === "new") {
             aggregate.push({
                 $sort: { createdAt: -1 }
+            })
+        }
+        else if (req.body.option && req.body.option === "count") {
+            aggregate.push({
+                $sort: { pageViews: -1 }
             })
         }
 
@@ -1099,6 +1162,34 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
                 $unwind: {
                     path: "$restaurantFeatures",
                     preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_features_options",
+                    localField: "restaurantFeatures.restaurantFeaturesOptions",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.restaurantFeaturesOptionsList"
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    restaurantProfilePhoto: "$restaurantProfilePhoto",
+                    numericSubscriptionLevel: "$numericSubscriptionLevel",
+                    restaurantFeaturesOptionsList: {
+                        $map:{
+                            input: "$restaurantFeatures.restaurantFeaturesOptionsList",
+                            as: "singlerestaurantFeaturesOptionsList",
+                            in: { 
+                                'name': '$$singlerestaurantFeaturesOptionsList.name', 
+                                'image': '$$singlerestaurantFeaturesOptionsList.image' 
+                                
+                            }
+                        }
+                    },
+                    address: "$address",
                 }
             },
             {

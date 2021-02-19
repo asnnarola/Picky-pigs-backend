@@ -26,7 +26,7 @@ exports.jwtValidation = function (req, res, next) {
                         }
                     })
                     .catch(err => {
-                        console.log("err - ",err)
+                        console.log("err - ", err)
                         return res.status(constants.UNAUTHORIZED).json({
                             message: 'Unauthorized access'
                         });
@@ -75,6 +75,11 @@ exports.authorization = function (req, res, next) {
 
 exports.subscriptionAuthorization = function (req, res, next) {
     try {
+        // if (moment(result[0].subs_ends_at).diff(new Date(), 'days') > 0) {
+        //     next();
+        // } else {
+        //     res.status(402).send({ "error": "true", "message": "Sorry, Your subscription has been expired.", "result": {} });
+        // }
         if (req.loginUser.subscriptionLevel == "freetrial" && (moment(req.loginUser.subscriptionDate).add(3, 'month') > moment())) {
             console.log("free trial plan")
         }

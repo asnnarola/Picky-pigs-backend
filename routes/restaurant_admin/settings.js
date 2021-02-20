@@ -52,6 +52,20 @@ router.post('/', async (req, res, next) => {
             console.log(save_restaurantfeature_response)
         }
         if (req.body.openingTimings !== undefined || req.body.website !== undefined || req.body.bookings !== undefined || req.body.socialMedia !== undefined) {
+            if (req.body.openingTimings) {
+                for (let timeArray of req.body.openingTimings.time) {
+                    let counter = 0;
+                    for (let singleTime of timeArray.timeList) {
+                        if (singleTime.startTime > singleTime.endTime) {
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
+                        }
+                        if (counter !== 0 && timeArray.timeList[counter - 1].endTime > singleTime.startTime) {
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
+                        }
+                        counter++;
+                    }
+                }
+            }
             const save_restaurantdetail_response = await common_helper.updatewithupsert(RestaurantDetails, { restaurantId: new ObjectId(req.body.restaurantId) }, req.body);
         }
         if (save_response.status === 1 && save_response.data) {
@@ -284,12 +298,12 @@ router.put('/delete_gallery_image', async (req, res) => {
             await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'ambience': { _id: ObjectId(req.body.imageId) } } }, { new: true })
             res.status(constants.OK_STATUS).json({ "message": "File deleted successfully" });
 
-        } 
+        }
         else if (req.body.type === "Food") {
             await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'food': { _id: ObjectId(req.body.imageId) } } }, { new: true })
             res.status(constants.OK_STATUS).json({ "message": "File deleted successfully" });
 
-        } 
+        }
         else {
             res.status(constants.BAD_REQUEST).json({ "message": "Please enter proper type" });
         }

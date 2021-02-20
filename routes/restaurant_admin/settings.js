@@ -286,7 +286,7 @@ router.put('/delete_gallery_image', async (req, res) => {
 
         } 
         else if (req.body.type === "Food") {
-            await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'ambience': { _id: ObjectId(req.body.imageId) } } }, { new: true })
+            await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $pull: { 'food': { _id: ObjectId(req.body.imageId) } } }, { new: true })
             res.status(constants.OK_STATUS).json({ "message": "File deleted successfully" });
 
         } 
@@ -295,7 +295,7 @@ router.put('/delete_gallery_image', async (req, res) => {
         }
     } catch (error) {
         console.log("error : ", error)
-        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while uploading the cover image" });
+        res.status(constants.BAD_REQUEST).json({ error: error, message: "Error occured while removving the image" });
     }
 })
 

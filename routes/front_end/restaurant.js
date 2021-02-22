@@ -2,12 +2,13 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
+const common_helper = require("../../helpers/common");
 const Category = require("../../models/category");
 const Dish = require("../../models/dish");
 const Restaurant = require("../../models/restaurant");
 const constants = require('../../config/constants');
 
-router.get('/info/:id', async (req, res, next) => {
+router.post('/info/:id', async (req, res, next) => {
     try {
         let aggregate = [
             {
@@ -62,7 +63,7 @@ router.get('/info/:id', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "restaurant_freatures",
+                    from: "restaurant_features",
                     localField: "_id",
                     foreignField: "restaurantId",
                     as: "restaurantFeatures"
@@ -75,11 +76,30 @@ router.get('/info/:id', async (req, res, next) => {
 
                 }
             },
+            {
+                $lookup: {
+                    from: "restaurant_features_options",
+                    localField: "restaurantFeatures.restaurantFeaturesOptions",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.restaurantFeaturesOptionsList"
+                }
+            },
+            {
+                $lookup: {
+                    from: "cuisine_types",
+                    localField: "restaurantFeatures.cuisineType",
+                    foreignField: "_id",
+                    as: "restaurantFeatures.cuisineTypeList"
+                }
+            },
         ];
 
 
         await Restaurant.aggregate(aggregate)
             .then(async restaurantDetail => {
+
+                restaurantDetail = await common_helper.distanceCalculationAndFiler(req.body, restaurantDetail)
+
                 await Restaurant.findByIdAndUpdate(req.params.id, { $inc: { pageViews: 1 } }, { new: true });
                 res.status(constants.OK_STATUS).json({ restaurantDetail, message: "Restaurant details get successfully." });
             }).catch(error => {
@@ -283,6 +303,23 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
 
 router.get('/dish_info/:id', async (req, res, next) => {
     try {
+
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+
         let aggregate = [
             {
                 $match: {
@@ -309,8 +346,23 @@ router.get('/dish_info/:id', async (req, res, next) => {
                 }
             },
             {
+                $unwind: {
+                    path: "$ingredientSection.dish_ingredients",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
                 $lookup: {
-                    from: "cooking_method",
+                    from: "allergens",
+                    localField: "ingredientSection.dish_ingredients.allergeies",
+                    foreignField: "_id",
+                    as: "ingredientSection.dish_ingredients.allergeiesList"
+                }
+            },
+            {
+                $lookup: {
+                    from: "cooking_methods",
                     localField: "cookingMethodId",
                     foreignField: "_id",
                     as: "cooking_methods"
@@ -324,6 +376,79 @@ router.get('/dish_info/:id', async (req, res, next) => {
                     as: "allergensDetail"
                 }
             },
+            {
+                $project: {
+                    _id: "$_id",
+                    rootData: "$$ROOT",
+                    allergeiesList: {
+                        $map: {
+                            input: "$ingredientSection.dish_ingredients.allergeiesList",
+                            as: "singledallergeiesList",
+                            in: {
+                                'name': '$$singledallergeiesList.name',
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    rootData: { $first: "$rootData" },
+                    dish_ingredients: {
+                        $push: {
+                            _id: "$rootData.ingredientSection.dish_ingredients._id",
+                            item: "$rootData.ingredientSection.dish_ingredients.item",
+                            qty: "$rootData.ingredientSection.dish_ingredients.qty",
+                            customisable: "$rootData.ingredientSection.dish_ingredients.customisable",
+                            dishId: "$rootData.ingredientSection.dish_ingredients.dishId",
+                            allergeiesList: "$allergeiesList"
+                        }
+                    }
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    new: "$rootData.new",
+                    available: "$rootData.available",
+                    customisable: "$rootData.customisable",
+                    name: "$rootData.name",
+                    price: "$rootData.price",
+                    description: "$rootData.description",
+                    ingredientSection: {
+                        total: "$rootData.ingredientSection.total",
+                        dish_ingredients: "$dish_ingredients"
+                    },
+                    image: "$rootData.image",
+                    caloriesandmacrosDetail: "$rootData.caloriesandmacrosDetail",
+                    cooking_methods: {
+                        $map: {
+                            input: "$rootData.cooking_methods",
+                            as: "singlecooking_methods",
+                            in: {
+                                '_id': '$$singlecooking_methods._id',
+                                'name': '$$singlecooking_methods.name',
+                                'image': '$$singlecooking_methods.image',
+                                'description': '$$singlecooking_methods.description',
+                            }
+                        }
+                    },
+                    allergensDetail: {
+                        $map: {
+                            input: "$rootData.allergensDetail",
+                            as: "singleallergensDetail",
+                            in: {
+                                '_id': '$$singleallergensDetail._id',
+                                'name': '$$singleallergensDetail.name',
+                                'image': '$$singleallergensDetail.image',
+                                'description': '$$singleallergensDetail.description',
+                            }
+                        }
+                    },
+                }
+            }
+
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
@@ -344,10 +469,39 @@ router.get('/dish_info/:id', async (req, res, next) => {
 /**Top pick dishes list into restaurant menu page */
 router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
     try {
+        let filterCondition = {}
+
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { "allergenId": { $in: req.body.allergen } }
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { ...filterCondition, "dietaryId": { $in: req.body.dietary } }
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { ...filterCondition, "lifestyleId": { $in: req.body.lifestyle } }
+        }
+        if (req.body.search && req.body.search != "") {
+            const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
+            filterCondition = { ...filterCondition, "name": RE }
+        }
+
+        console.log("filterCondition : ", filterCondition)
         let aggregate = [
             {
                 $match: {
-                    restaurantId: new ObjectId(req.body.restaurantId)
+                    restaurantId: new ObjectId(req.body.restaurantId),
+                    isDeleted: 0,
+                    isActive: true,
+                    ...filterCondition
                 }
             },
             {
@@ -370,6 +524,21 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
                 }
             }
         ];
+
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == 'l2h') {
+            aggregate.push({
+                $sort: {
+                    'dishDetail.price': 1
+                }
+            })
+        }
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == 'h2l') {
+            aggregate.push({
+                $sort: {
+                    'dishDetail.price': -1
+                }
+            })
+        }
         await Dish.aggregate(aggregate)
             .then(dishList => {
                 res.status(constants.OK_STATUS).json({ dishList, message: "Dish list get successfully" });

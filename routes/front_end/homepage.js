@@ -140,6 +140,7 @@ router.post('/homepage_restaurant', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
+                tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });
@@ -264,13 +265,13 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     price: "$price",
                     image: "$image",
                     cookingMethods: {
-                        $map:{
+                        $map: {
                             input: "$cookingMethods",
                             as: "singlecookingMethods",
-                            in: { 
-                                'name': '$$singlecookingMethods.name', 
-                                'image': '$$singlecookingMethods.image' 
-                                
+                            in: {
+                                'name': '$$singlecookingMethods.name',
+                                'image': '$$singlecookingMethods.image'
+
                             }
                         }
                     },

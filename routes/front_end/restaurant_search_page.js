@@ -29,6 +29,11 @@ router.post('/restaurantlist', async (req, res, next) => {
                 return new ObjectId(element)
             })
         }
+        if (req.body.features && req.body.features.length > 0) {
+            req.body.features = req.body.features.map((element) => {
+                return new ObjectId(element)
+            })
+        }
         let aggregate = [
             {
                 $lookup: {
@@ -195,6 +200,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                 address: { $first: "$address" },
                 totaldish: { $first: "$dishesList" },
                 filterdish: { $push: "$dishesDetails" },
+                pageViews: { $first: "$pageViews" },
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -229,6 +235,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                         }
                     }
                 },
+                pageViews: "$pageViews",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -250,6 +257,7 @@ router.post('/restaurantlist', async (req, res, next) => {
                     }
                 },
                 address: "$address",
+                pageViews: "$pageViews",
                 // totaldish: "$totaldish",
                 // filterdish: "$filterdish",
                 // relevance: { $divide: [{ $size: "$filterdish" }, { $size: "$totaldish" }] },
@@ -279,7 +287,7 @@ router.post('/restaurantlist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "restaurantRate": -1 }
+                    { "pageViews": -1 }
             });
 
         }
@@ -332,6 +340,11 @@ router.post('/disheslist', async (req, res, next) => {
         }
         if (req.body.lifestyle && req.body.lifestyle.length > 0) {
             req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.features && req.body.features.length > 0) {
+            req.body.features = req.body.features.map((element) => {
                 return new ObjectId(element)
             })
         }
@@ -591,7 +604,7 @@ router.post('/disheslist', async (req, res, next) => {
                         as: "singlecookingMethods",
                         in: { 
                             'name': '$$singlecookingMethods.name',
-                            'name': '$$singlecookingMethods.image',
+                            'image': '$$singlecookingMethods.image',
                         }
                     }
                 },
@@ -671,6 +684,28 @@ router.post('/disheslist', async (req, res, next) => {
 /**page no 1 dishes list*/
 router.post('/page_1_dishes', async (req, res, next) => {
     try {
+
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.features && req.body.features.length > 0) {
+            req.body.features = req.body.features.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+
         const optionCondition = (req.body.option === "new") ? { new: true } : (req.body.option === "favorite") ? { favorite: true } : {}
         const styleOfmenu = (req.body.styleOfmenu && req.body.styleOfmenu !== "") ? { "menuDetail.styleOfmenu": req.body.styleOfmenu } : {};
 
@@ -812,19 +847,22 @@ router.post('/page_1_dishes', async (req, res, next) => {
         if (req.body.allergen && req.body.allergen.length > 0) {
             aggregate.push({
                 "$match":
-                    { "allergenId": { $in: req.body.allergen }, "restaurantDishes.allergenId": { $in: req.body.allergen } }
+                    // { "allergenId": { $in: req.body.allergen }, "restaurantDishes.allergenId": { $in: req.body.allergen } }
+                    { "allergenId": { $in: req.body.allergen } }
             });
         }
         if (req.body.dietary && req.body.dietary.length > 0) {
             aggregate.push({
                 "$match":
-                    { "dietaryId": { $in: req.body.dietary }, "restaurantDishes.dietaryId": { $in: req.body.dietary } }
+                    // { "dietaryId": { $in: req.body.dietary }, "restaurantDishes.dietaryId": { $in: req.body.dietary } }
+                    { "dietaryId": { $in: req.body.dietary } }
             });
         }
         if (req.body.lifestyle && req.body.lifestyle.length > 0) {
             aggregate.push({
                 "$match":
-                    { "lifestyleId": { $in: req.body.lifestyle }, "restaurantDishes.lifestyleId": { $in: req.body.lifestyle } }
+                    // { "lifestyleId": { $in: req.body.lifestyle }, "restaurantDishes.lifestyleId": { $in: req.body.lifestyle } }
+                    { "lifestyleId": { $in: req.body.lifestyle } }
             });
         }
 
@@ -907,6 +945,28 @@ router.post('/page_1_dishes', async (req, res, next) => {
 /**Top pick are remaning */
 router.post('/page_1_restaurants', async (req, res, next) => {
     try {
+
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+        if (req.body.features && req.body.features.length > 0) {
+            req.body.features = req.body.features.map((element) => {
+                return new ObjectId(element)
+            })
+        }
+
         let aggregate = [
             {
                 $lookup: {
@@ -1089,7 +1149,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                 $sort: { createdAt: -1 }
             })
         }
-        else if (req.body.option && req.body.option === "count") {
+        else if (req.body.option && req.body.option === "toppick") {
             aggregate.push({
                 $sort: { pageViews: -1 }
             })

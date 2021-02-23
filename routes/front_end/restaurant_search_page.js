@@ -246,13 +246,13 @@ router.post('/restaurantlist', async (req, res, next) => {
                 restaurantProfilePhoto: "$restaurantProfilePhoto",
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
                 restaurantFeaturesOptionsList: {
-                    $map:{
+                    $map: {
                         input: "$restaurantFeaturesOptionsList",
                         as: "singlerestaurantFeaturesOptionsList",
-                        in: { 
-                            'name': '$$singlerestaurantFeaturesOptionsList.name', 
-                            'image': '$$singlerestaurantFeaturesOptionsList.image' 
-                            
+                        in: {
+                            'name': '$$singlerestaurantFeaturesOptionsList.name',
+                            'image': '$$singlerestaurantFeaturesOptionsList.image'
+
                         }
                     }
                 },
@@ -360,6 +360,14 @@ router.post('/disheslist', async (req, res, next) => {
                     localField: "cookingMethodId",
                     foreignField: "_id",
                     as: "cookingMethods"
+                }
+            },
+            {
+                $lookup: {
+                    from: "dish_features_options",
+                    localField: "dish_features_optionId",
+                    foreignField: "_id",
+                    as: "dish_features_optionList"
                 }
             },
             {
@@ -554,7 +562,8 @@ router.post('/disheslist', async (req, res, next) => {
                 address: { $first: "$restaurantInfo.address" },
                 filterdish: { $push: "$restaurantDishes" },
                 totaldish: { $first: "$restaurantTotalDishes" },
-                cookingMethods: { $first: "$cookingMethods" }
+                cookingMethods: { $first: "$cookingMethods" },
+                dish_features_optionList: { $first: "$dish_features_optionList" }
             }
         });
 
@@ -566,10 +575,10 @@ router.post('/disheslist', async (req, res, next) => {
                 dishPrice: "$dishPrice",
                 dishDescription: "$description",
                 menuList: {
-                    $map:{
+                    $map: {
                         input: "$menuList",
                         as: "singlemenuList",
-                        in: { 
+                        in: {
                             'name': '$$singlemenuList.name'
                         }
                     }
@@ -599,12 +608,22 @@ router.post('/disheslist', async (req, res, next) => {
                     }
                 },
                 cookingMethods: {
-                    $map:{
+                    $map: {
                         input: "$cookingMethods",
                         as: "singlecookingMethods",
-                        in: { 
+                        in: {
                             'name': '$$singlecookingMethods.name',
                             'image': '$$singlecookingMethods.image',
+                        }
+                    }
+                },
+                dish_features_optionList: {
+                    $map: {
+                        input: "$dish_features_optionList",
+                        as: "singledish_features_optionList",
+                        in: {
+                            'name': '$$singledish_features_optionList.name',
+                            'image': '$$singledish_features_optionList.image',
                         }
                     }
                 },
@@ -626,6 +645,7 @@ router.post('/disheslist', async (req, res, next) => {
                 // filterdish: "$filterdish",
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
                 cookingMethods: "$cookingMethods",
+                dish_features_optionList: "$dish_features_optionList",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -722,6 +742,14 @@ router.post('/page_1_dishes', async (req, res, next) => {
                     localField: "cookingMethodId",
                     foreignField: "_id",
                     as: "cookingMethods"
+                }
+            },
+            {
+                $lookup: {
+                    from: "dish_features_options",
+                    localField: "dish_features_optionId",
+                    foreignField: "_id",
+                    as: "dish_features_optionList"
                 }
             },
             {
@@ -876,6 +904,7 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 favorite: { $first: "$favorite" },
                 new: { $first: "$new" },
                 cookingMethods: { $first: "$cookingMethods" },
+                dish_features_optionList: { $first: "$dish_features_optionList" },
                 menuList: {
                     $push: {
                         "_id": "$menuDetail._id",
@@ -897,13 +926,23 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 favorite: "$favorite",
                 new: "$new",
                 cookingMethods: {
-                    $map:{
+                    $map: {
                         input: "$cookingMethods",
                         as: "singlecookingMethods",
-                        in: { 
-                            'name': '$$singlecookingMethods.name', 
-                            'image': '$$singlecookingMethods.image' 
-                            
+                        in: {
+                            'name': '$$singlecookingMethods.name',
+                            'image': '$$singlecookingMethods.image'
+
+                        }
+                    }
+                },
+                dish_features_optionList: {
+                    $map: {
+                        input: "$dish_features_optionList",
+                        as: "singledish_features_optionList",
+                        in: {
+                            'name': "$$singledish_features_optionList.name",
+                            'image': "$$singledish_features_optionList.image"
                         }
                     }
                 },
@@ -1130,13 +1169,13 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                 restaurantProfilePhoto: "$restaurantProfilePhoto",
                 averageCostOfTwoPerson: "$averageCostOfTwoPerson",
                 restaurantFeaturesOptionsList: {
-                    $map:{
+                    $map: {
                         input: "$restaurantFeaturesOptionsList",
                         as: "singlerestaurantFeaturesOptionsList",
-                        in: { 
-                            'name': '$$singlerestaurantFeaturesOptionsList.name', 
-                            'image': '$$singlerestaurantFeaturesOptionsList.image' 
-                            
+                        in: {
+                            'name': '$$singlerestaurantFeaturesOptionsList.name',
+                            'image': '$$singlerestaurantFeaturesOptionsList.image'
+
                         }
                     }
                 },
@@ -1239,13 +1278,13 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
                     restaurantProfilePhoto: "$restaurantProfilePhoto",
                     numericSubscriptionLevel: "$numericSubscriptionLevel",
                     restaurantFeaturesOptionsList: {
-                        $map:{
+                        $map: {
                             input: "$restaurantFeatures.restaurantFeaturesOptionsList",
                             as: "singlerestaurantFeaturesOptionsList",
-                            in: { 
-                                'name': '$$singlerestaurantFeaturesOptionsList.name', 
-                                'image': '$$singlerestaurantFeaturesOptionsList.image' 
-                                
+                            in: {
+                                'name': '$$singlerestaurantFeaturesOptionsList.name',
+                                'image': '$$singlerestaurantFeaturesOptionsList.image'
+
                             }
                         }
                     },

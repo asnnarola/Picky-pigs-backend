@@ -6,6 +6,7 @@ let dishSchema = new Schema(
         name: { type: String, required: true },
         makes: { type: Number },
         price: { type: Number },
+        priceUnit: { type: String },
         grossProfit: { type: Number },
         image: { type: String },
         favorite: { type: Boolean, default: false },
@@ -25,18 +26,6 @@ let dishSchema = new Schema(
             ref: 'subcategory'
         },
         description: { type: String },
-        // allergenId: [{
-        //     type: String
-        // }],
-        // dietaryId: [{
-        //     type: String
-        // }],
-        // lifestyleId: [{
-        //     type: String
-        // }],
-        // cookingMethodId: [{
-        //     type: String
-        // }],
         allergenId: [{
             type: Schema.Types.ObjectId,
             ref: 'allergen'
@@ -52,6 +41,10 @@ let dishSchema = new Schema(
         cookingMethodId: [{
             type: Schema.Types.ObjectId,
             ref: 'cooking_method'
+        }],
+        dish_features_optionId: [{
+            type: Schema.Types.ObjectId,
+            ref: 'dish_features_option'
         }],
         instructions: { type: String },
         customisable: { type: Boolean, default: false },

@@ -7,7 +7,9 @@ const Lifestyle = require("../../models/lifestyle");
 const Cooking_method = require("../../models/cooking_method");
 const Cuisine_type = require("../../models/cuisine_type");
 const Restaurant_features_option = require("../../models/restaurant_features_option");
+const Dish_features_option = require("../../models/dish_features_option");
 const Menu = require("../../models/menus");
+const Users = require("../../models/users");
 const Dish = require("../../models/dish");
 const Review = require("../../models/review");
 const common_helper = require('../../helpers/common');
@@ -75,6 +77,20 @@ router.get('/cooking_method', async (req, res, next) => {
 router.get('/restaurant_features_option', async (req, res, next) => {
     try {
         const data = await common_helper.find(Restaurant_features_option, { isDeleted: 0, isActive: true }, 'name image');
+        if (data.status === 1 && data.data) {
+            res.status(constants.OK_STATUS).json(data);
+        } else {
+            res.status(constants.BAD_REQUEST).json(data);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(constants.BAD_REQUEST).json({ status: 0, error: error });
+    }
+});
+
+router.get('/dish_features_option', async (req, res, next) => {
+    try {
+        const data = await common_helper.find(Dish_features_option, { isDeleted: 0, isActive: true }, 'name image');
         if (data.status === 1 && data.data) {
             res.status(constants.OK_STATUS).json(data);
         } else {

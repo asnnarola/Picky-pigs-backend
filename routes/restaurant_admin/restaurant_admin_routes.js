@@ -13,7 +13,6 @@ const restaurant_adminDashboard = require("./dashboard");
 
 
 //for admin panel
-// router.use("/admin/allergen", verify ,allergen);
 router.use("/menus", verify.jwtValidation, verify.authorization, menus);
 router.use("/category", verify.jwtValidation, verify.authorization, category);
 router.use("/subcategory", verify.jwtValidation, verify.authorization, subcategory);

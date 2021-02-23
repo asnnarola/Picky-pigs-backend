@@ -31,10 +31,6 @@ let user_preferenceSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'restaurant_features_option'
             }]
-            // allergenInformation: [{ type: String }],
-            // dietaryPreferences: [{ type: String }],
-            // lifestyleChoice: [{ type: String }],
-            // restaurantFeatures: [{ type: String }]
         },
         isDeleted: { type: Number, default: 0 },
     },

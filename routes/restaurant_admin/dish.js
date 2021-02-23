@@ -20,12 +20,13 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
 
 
     req.body.menuId = JSON.parse(req.body.menuId),
-    req.body.allergenId = JSON.parse(req.body.allergenId);
+        req.body.allergenId = JSON.parse(req.body.allergenId);
     req.body.dietaryId = JSON.parse(req.body.dietaryId);
     req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
     req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
     req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
     req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+    req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
     var duplicate_insert_resp = {};
     // if (req.body.createNewVersion) {
@@ -362,10 +363,11 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
         req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
         req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
         req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
-
+        req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
         const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
+        
         if (update_resp.status === 1) {
             res.status(constants.OK_STATUS).json(update_resp);
         } else {
@@ -373,7 +375,7 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
         }
 
     } catch (error) {
-        // console.log("error; ", error)
+        console.log("error; ", error)
         res.status(constants.BAD_REQUEST).json({ message: "Error into dishes listing", error: error });
 
     }
@@ -386,6 +388,20 @@ router.post('/add_update_ingredient', async (req, res) => {
             res.status(constants.OK_STATUS).json(ingredient_resp);
         } else {
             res.status(constants.BAD_REQUEST).json(ingredient_resp);
+        }
+    } catch (error) {
+        // console.log("error: ", error)
+        res.status(constants.BAD_REQUEST).json({ message: "Error into insert ingredient", error: error });
+    }
+})
+
+router.post('/delete_ingredient', async (req, res) => {
+    try {
+        const ingredient_delete_resp = await common_helper.delete(DishIngredient, { _id: req.body.ingredientId })
+        if (ingredient_delete_resp.status === 1) {
+            res.status(constants.OK_STATUS).json(ingredient_delete_resp);
+        } else {
+            res.status(constants.BAD_REQUEST).json(ingredient_delete_resp);
         }
     } catch (error) {
         // console.log("error: ", error)

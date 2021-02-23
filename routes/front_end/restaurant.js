@@ -370,6 +370,14 @@ router.get('/dish_info/:id', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "dish_features_options",
+                    localField: "dish_features_optionId",
+                    foreignField: "_id",
+                    as: "dish_features_optionList"
+                }
+            },
+            {
+                $lookup: {
                     from: "allergens",
                     localField: "allergenId",
                     foreignField: "_id",
@@ -431,6 +439,16 @@ router.get('/dish_info/:id', async (req, res, next) => {
                                 'name': '$$singlecooking_methods.name',
                                 'image': '$$singlecooking_methods.image',
                                 'description': '$$singlecooking_methods.description',
+                            }
+                        }
+                    },
+                    dish_features_optionList: {
+                        $map: {
+                            input: "$rootData.dish_features_optionList",
+                            as: "singledish_features_optionList",
+                            in: {
+                                "name": "$$singledish_features_optionList.name",
+                                "image": "$$singledish_features_optionList.image"
                             }
                         }
                     },

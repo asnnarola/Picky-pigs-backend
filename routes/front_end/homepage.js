@@ -168,10 +168,10 @@ router.post('/homepage_dishes', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "cooking_methods",
-                    localField: "cookingMethodId",
+                    from: "dish_features_options",
+                    localField: "dish_features_optionId",
                     foreignField: "_id",
-                    as: "cookingMethods"
+                    as: "dish_features_optionList"
                 }
             },
             {
@@ -248,7 +248,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     description: { $first: "$description" },
                     price: { $first: "$price" },
                     image: { $first: "$image" },
-                    cookingMethods: { $first: "$cookingMethods" },
+                    dish_features_optionList: { $first: "$dish_features_optionList" },
                     menuList: {
                         $push: {
                             _id: "$menuDetail._id",
@@ -264,13 +264,13 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     description: "$description",
                     price: "$price",
                     image: "$image",
-                    cookingMethods: {
+                    dish_features_optionList: {
                         $map: {
-                            input: "$cookingMethods",
-                            as: "singlecookingMethods",
+                            input: "$dish_features_optionList",
+                            as: "singledish_features_optionList",
                             in: {
-                                'name': '$$singlecookingMethods.name',
-                                'image': '$$singlecookingMethods.image'
+                                'name': '$$singledish_features_optionList.name',
+                                'image': '$$singledish_features_optionList.image'
 
                             }
                         }

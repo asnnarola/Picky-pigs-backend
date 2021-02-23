@@ -123,6 +123,21 @@ async function updateSubscription(subscriptionId, priceId) {
 // current_period_end
 // current_period_start
 // var now = moment.unix(1614686163).format("DD/MM/YYYY");
+
+/**Create response to set information */
+function responseCreateSubscriptionFunction() {
+    /**Need to information stored */
+    // customerId = createCustomerAndSubscription.subscription_resp.customer
+    // subscriptionId = createCustomerAndSubscription.subscription_resp.id
+    // current_period_start = createCustomerAndSubscription.subscription_resp.current_period_start
+    // current_period_end = createCustomerAndSubscription.subscription_resp.current_period_end
+    // invoice_pdf = createCustomerAndSubscription.subscription_resp.latest_invoice.invoice_pdf
+
+    /*validate payment confirmation*/
+    //createCustomerAndSubscription.subscription_resp.latest_invoice.payment_intent.status === "succeeded"
+    //createCustomerAndSubscription.subscription_resp.latest_invoice.status === "paid"
+    //createCustomerAndSubscription.subscription_resp === "active"
+}
 module.exports = {
     getProductsAndPlans,
     createCustomerAndSubscription,

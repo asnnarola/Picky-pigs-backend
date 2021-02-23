@@ -15,8 +15,6 @@ let restaurant_featuresSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'cusine_type'
         }],
-        // cuisineType: [{ type: String }],
-        // restaurantFeaturesOptions: [{ type: String }],
         restaurantFeaturesOptions: [{
             type: Schema.Types.ObjectId,
             ref: 'restaurant_features_option'

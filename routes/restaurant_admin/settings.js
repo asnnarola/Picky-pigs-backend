@@ -52,6 +52,45 @@ router.post('/', async (req, res, next) => {
             console.log(save_restaurantfeature_response)
         }
         if (req.body.openingTimings !== undefined || req.body.website !== undefined || req.body.bookings !== undefined || req.body.socialMedia !== undefined) {
+            const urlexpression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+            const regex = new RegExp(urlexpression);
+
+            if (req.body.bookings) {
+                for (let singleUrl of req.body.bookings.websiteUrl) {
+                    if (!singleUrl.match(regex)) {
+                        return res.status(constants.BAD_REQUEST).json({ message: "bookings Please enter proper URL." })
+                    }
+                }
+                for (let singleNumber of req.body.bookings.phoneNumber) {
+                    if (isNaN(singleNumber)) {
+                        return res.status(constants.BAD_REQUEST).json({ message: "bookings Please enter proper number." })
+                    }
+                }
+
+            }
+            if (req.body.website) {
+                if (!req.body.website.websiteUrl.match(regex)) {
+                    return res.status(constants.BAD_REQUEST).json({ message: "website Please enter proper URL." })
+                }
+            }
+            if (req.body.socialMedia) {
+                for (let singleUrl of req.body.socialMedia.facebookUrl) {
+                    if (!singleUrl.match(regex)) {
+                        return res.status(constants.BAD_REQUEST).json({ message: "facebookUrl Please enter proper URL." })
+                    }
+                }
+                for (let singleUrl of req.body.socialMedia.twitterUrl) {
+                    if (!singleUrl.match(regex)) {
+                        return res.status(constants.BAD_REQUEST).json({ message: "twitterUrl Please enter proper URL." })
+                    }
+                }
+                for (let singleUrl of req.body.socialMedia.instagramUrl) {
+                    if (!singleUrl.match(regex)) {
+                        return res.status(constants.BAD_REQUEST).json({ message: "instagramUrl Please enter proper URL." })
+                    }
+                }
+
+            }
             if (req.body.openingTimings) {
                 for (let timeArray of req.body.openingTimings.time) {
                     let counter = 0;

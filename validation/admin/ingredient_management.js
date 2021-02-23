@@ -30,6 +30,18 @@ module.exports = {
             .exists().withMessage('Description is required')
             .isLength({ min: 2, max: 300 }).withMessage('Name should be between 2 to 300 characters long'),
     ],
+    dish_feature_option: [
+        check('name')
+            .trim()
+            .not().isEmpty().withMessage('Name is required')
+            .exists().withMessage('Name is required')
+            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        check('description')
+            .trim()
+            .not().isEmpty().withMessage('Description is required')
+            .exists().withMessage('Description is required')
+            .isLength({ min: 2, max: 300 }).withMessage('Name should be between 2 to 300 characters long'),
+    ],
     dietary: [
         check('name')
             .trim()

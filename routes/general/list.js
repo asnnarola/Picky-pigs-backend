@@ -244,23 +244,23 @@ router.get('/restaurant_menus/:id', async (req, res, next) => {
             {
                 $match: {
                     isDeleted: 0,
-                    restaurantId: new ObjectId(req.params.id)
+                    isActive: true,
+                    restaurantId: new ObjectId(req.params.id),
+                    type: "menu"
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    name: 1,
+                    type: 1,
+                    styleOfmenu: 1,
+                    restaurantId: 1
                 }
             }
         ];
         await Menu.aggregate(aggregate)
             .then(menuList => {
-                // let modifiedMenuArray = []
-                // for (let singleMenu of menuList) {
-                //     if (singleMenu.isSeasonBase === true) {
-                //         if (moment(singleMenu.createdAt).format('DD-MM-YYYY') < moment().format('DD-MM-YYYY')) {
-                //             console.log("----")
-                //             modifiedMenuArray.push(singleMenu)
-                //         }
-                //     } else {
-                //         modifiedMenuArray.push(singleMenu)
-                //     }
-                // }
                 res.status(constants.OK_STATUS).json({ menuList, message: "get restaurant menu listing successfully." });
             }).catch(error => {
                 console.log(error)

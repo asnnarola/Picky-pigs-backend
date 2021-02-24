@@ -83,19 +83,19 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
-            {
-                $match: {
-                    "restaurantDetails.openingTimings.time.day": moment().format("dddd"),
+            // {
+            //     $match: {
+            //         "restaurantDetails.openingTimings.time.day": moment().format("dddd"),
 
-                    /**Start time validation */
-                    'restaurantDetails.openingTimings.time.timeList.startTime': { $lt: moment().format("HH:mm") },
-                    // 'restaurantDetails.openingTimings.time.timeList.startTimeUnit': moment().format("a"),
+            //         /**Start time validation */
+            //         'restaurantDetails.openingTimings.time.timeList.startTime': { $lt: moment().format("HH:mm") },
+            //         // 'restaurantDetails.openingTimings.time.timeList.startTimeUnit': moment().format("a"),
 
-                    /**End time validation */
-                    'restaurantDetails.openingTimings.time.timeList.endTime': { $gt: moment().format("HH:mm") },
-                    // 'restaurantDetails.openingTimings.time.timeList.endTimeUnit': moment().format("a")
-                }
-            },
+            //         /**End time validation */
+            //         'restaurantDetails.openingTimings.time.timeList.endTime': { $gt: moment().format("HH:mm") },
+            //         // 'restaurantDetails.openingTimings.time.timeList.endTimeUnit': moment().format("a")
+            //     }
+            // },
             {
                 $group: {
                     _id: "$_id",
@@ -125,7 +125,9 @@ router.post('/homepage_restaurant', async (req, res, next) => {
                             }
                         }
                     },
-                    address: "$address",
+                    address: {
+                        map: "$address.map"
+                    },
                 }
             },
             {
@@ -168,10 +170,10 @@ router.post('/homepage_dishes', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "dish_features_options",
-                    localField: "dish_features_optionId",
+                    from: "allergens",
+                    localField: "allergenId",
                     foreignField: "_id",
-                    as: "dish_features_optionList"
+                    as: "allergensList"
                 }
             },
             {
@@ -248,7 +250,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     description: { $first: "$description" },
                     price: { $first: "$price" },
                     image: { $first: "$image" },
-                    dish_features_optionList: { $first: "$dish_features_optionList" },
+                    allergensList: { $first: "$allergensList" },
                     menuList: {
                         $push: {
                             _id: "$menuDetail._id",
@@ -264,13 +266,13 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     description: "$description",
                     price: "$price",
                     image: "$image",
-                    dish_features_optionList: {
+                    allergensList: {
                         $map: {
-                            input: "$dish_features_optionList",
-                            as: "singledish_features_optionList",
+                            input: "$allergensList",
+                            as: "singleallergensList",
                             in: {
-                                'name': '$$singledish_features_optionList.name',
-                                'image': '$$singledish_features_optionList.image'
+                                'name': '$$singleallergensList.name',
+                                'image': '$$singleallergensList.image'
 
                             }
                         }

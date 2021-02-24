@@ -133,8 +133,11 @@ router.post('/restaurantlist', async (req, res, next) => {
                         preserveNullAndEmptyArrays: true
                     }
                 },
+                // {
+                //     "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, "menusList.isActive": true },
+                // }
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, "menusList.isActive": true },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, 'menusList.type': "menu", "menusList.isDeleted": 0, 'menusList.isActive': true },
                 }
             )
         }
@@ -256,7 +259,9 @@ router.post('/restaurantlist', async (req, res, next) => {
                         }
                     }
                 },
-                address: "$address",
+                address: {
+                    "map": "$address.map"
+                },
                 pageViews: "$pageViews",
                 // totaldish: "$totaldish",
                 // filterdish: "$filterdish",
@@ -364,10 +369,10 @@ router.post('/disheslist', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "dish_features_options",
-                    localField: "dish_features_optionId",
+                    from: "allergens",
+                    localField: "allergenId",
                     foreignField: "_id",
-                    as: "dish_features_optionList"
+                    as: "allergensList"
                 }
             },
             {
@@ -563,7 +568,7 @@ router.post('/disheslist', async (req, res, next) => {
                 filterdish: { $push: "$restaurantDishes" },
                 totaldish: { $first: "$restaurantTotalDishes" },
                 cookingMethods: { $first: "$cookingMethods" },
-                dish_features_optionList: { $first: "$dish_features_optionList" }
+                allergensList: { $first: "$allergensList" }
             }
         });
 
@@ -584,7 +589,9 @@ router.post('/disheslist', async (req, res, next) => {
                     }
                 },
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
-                address: "$address",
+                address: {
+                    map: "$address.map"
+                },
                 totaldish: {
                     $filter: {
                         input: "$totaldish",
@@ -617,13 +624,13 @@ router.post('/disheslist', async (req, res, next) => {
                         }
                     }
                 },
-                dish_features_optionList: {
+                allergensList: {
                     $map: {
-                        input: "$dish_features_optionList",
-                        as: "singledish_features_optionList",
+                        input: "$allergensList",
+                        as: "singleallergensList",
                         in: {
-                            'name': '$$singledish_features_optionList.name',
-                            'image': '$$singledish_features_optionList.image',
+                            'name': '$$singleallergensList.name',
+                            'image': '$$singleallergensList.image',
                         }
                     }
                 },
@@ -645,7 +652,7 @@ router.post('/disheslist', async (req, res, next) => {
                 // filterdish: "$filterdish",
                 relevance: { $cond: [{ $eq: [{ $size: "$totaldish" }, 0] }, 0, { "$divide": [{ $size: "$filterdish" }, { $size: "$totaldish" }] }] },
                 cookingMethods: "$cookingMethods",
-                dish_features_optionList: "$dish_features_optionList",
+                allergensList: "$allergensList",
                 // restaurantRate: { $avg: "$reviewDetail.rate" }
             }
         });
@@ -746,10 +753,10 @@ router.post('/page_1_dishes', async (req, res, next) => {
             },
             {
                 $lookup: {
-                    from: "dish_features_options",
-                    localField: "dish_features_optionId",
+                    from: "allergens",
+                    localField: "allergenId",
                     foreignField: "_id",
-                    as: "dish_features_optionList"
+                    as: "allergensList"
                 }
             },
             {
@@ -904,7 +911,7 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 favorite: { $first: "$favorite" },
                 new: { $first: "$new" },
                 cookingMethods: { $first: "$cookingMethods" },
-                dish_features_optionList: { $first: "$dish_features_optionList" },
+                allergensList: { $first: "$allergensList" },
                 menuList: {
                     $push: {
                         "_id": "$menuDetail._id",
@@ -936,13 +943,13 @@ router.post('/page_1_dishes', async (req, res, next) => {
                         }
                     }
                 },
-                dish_features_optionList: {
+                allergensList: {
                     $map: {
-                        input: "$dish_features_optionList",
-                        as: "singledish_features_optionList",
+                        input: "$allergensList",
+                        as: "singleallergensList",
                         in: {
-                            'name': "$$singledish_features_optionList.name",
-                            'image': "$$singledish_features_optionList.image"
+                            'name': "$$singleallergensList.name",
+                            'image': "$$singleallergensList.image"
                         }
                     }
                 },
@@ -950,7 +957,9 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 description: "$description",
                 restaurantId: "$restaurantId",
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
-                address: "$address"
+                address: {
+                    "map": "$address.map"
+                }
             }
         });
 
@@ -1179,7 +1188,9 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                         }
                     }
                 },
-                address: "$address"
+                address: {
+                    map: "$address.map"
+                }
             }
         });
 
@@ -1212,7 +1223,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
-        res.status(constants.BAD_REQUEST).json({ message: "Error while get Dish list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });
@@ -1288,7 +1299,9 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
                             }
                         }
                     },
-                    address: "$address",
+                    address: {
+                        map: "$address.map"
+                    },
                 }
             },
             {
@@ -1315,7 +1328,7 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
     }
     catch (err) {
         console.log(err)
-        res.status(constants.BAD_REQUEST).json({ message: "Error while get Dish list", error: err });
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
 
     }
 });

@@ -92,6 +92,54 @@ router.post('/info/:id', async (req, res, next) => {
                     as: "restaurantFeatures.cuisineTypeList"
                 }
             },
+            {
+                $project: {
+                    _id: 1,
+                    about: 1,
+                    info: 1,
+                    restaurantCoverPhoto: 1,
+                    restaurantProfilePhoto: 1,
+                    restaurant_galleries: 1,
+                    address: 1,
+                    restaurantDetails: {
+                        bookings: 1,
+                        openingTimings: 1,
+                        socialMedia: 1,
+                        website: 1
+
+                    },
+                    restaurantFeatures: {
+                        averageCostOfTwoPerson: 1,
+                        cardAccept: 1,
+                        cashAccept: 1,
+                        createdAt: 1,
+                        inclusiveTaxesAndCharges: 1,
+                        restaurantFeaturesOptionsList: {
+                            $map: {
+                                input: "$restaurantFeatures.restaurantFeaturesOptionsList",
+                                as: "singlerestaurantFeaturesOptionsList",
+                                in: {
+                                    'name': '$$singlerestaurantFeaturesOptionsList.name',
+                                    'image': '$$singlerestaurantFeaturesOptionsList.image'
+
+                                }
+                            }
+                        },
+                        cuisineTypeList: {
+                            $map: {
+                                input: "$restaurantFeatures.cuisineTypeList",
+                                as: "singlecuisineTypeList",
+                                in: {
+                                    'name': '$$singlecuisineTypeList.name',
+                                    'image': '$$singlecuisineTypeList.image'
+
+                                }
+                            }
+                        },
+                    },
+                    distance: 1
+                }
+            }
         ];
 
 

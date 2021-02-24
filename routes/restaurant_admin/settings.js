@@ -11,6 +11,7 @@ const RestaurantGallery = require('../../models/restaurant_gallery');
 const RestaurantAddress = require('../../models/restaurant_address');
 const RestaurantDetails = require('../../models/restaurant_details');
 const RestaurantFeatures = require('../../models/restaurant_features');
+const Users = require('../../models/users');
 const validation = require('../../validation/admin/validation');
 const saltRounds = 10;
 const passwordValidator = require('password-validator');
@@ -36,7 +37,7 @@ router.post('/', async (req, res, next) => {
 
         if (req.body.security && req.body.security.password && req.body.security.password !== "") {
             if (passwordValidatorSchema.validate(req.body.security.password) == true) {
-                const update_resp = await common_helper.update(Users, { "_id": req.params.id }, { password: bcrypt.hashSync(req.body.security.password, saltRounds) })
+                const update_resp = await common_helper.update(Users, { "_id": save_response.data.userId }, { password: bcrypt.hashSync(req.body.security.password, saltRounds) })
             } else {
                 return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
             }
@@ -59,7 +60,7 @@ router.post('/', async (req, res, next) => {
                 if (req.body.bookings.websiteUrl.length > 0) {
                     for (let singleUrl of req.body.bookings.websiteUrl) {
                         if (!singleUrl.match(regex)) {
-                            return res.status(constants.BAD_REQUEST).json({ message: "bookings Please enter proper URL." })
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper bookings URL." })
                         }
                     }
                 }
@@ -73,7 +74,7 @@ router.post('/', async (req, res, next) => {
             if (req.body.website) {
                 if (req.body.website.websiteUrl.length > 0) {
                     if (!req.body.website.websiteUrl.match(regex)) {
-                        return res.status(constants.BAD_REQUEST).json({ message: "website Please enter proper URL." })
+                        return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper website URL." })
                     }
                 }
             }
@@ -81,21 +82,21 @@ router.post('/', async (req, res, next) => {
                 if (req.body.socialMedia.facebookUrl.length > 0) {
                     for (let singleUrl of req.body.socialMedia.facebookUrl) {
                         if (!singleUrl.match(regex)) {
-                            return res.status(constants.BAD_REQUEST).json({ message: "facebookUrl Please enter proper URL." })
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper facebook URL." })
                         }
                     }
                 }
                 if (req.body.socialMedia.twitterUrl.length > 0) {
                     for (let singleUrl of req.body.socialMedia.twitterUrl) {
                         if (!singleUrl.match(regex)) {
-                            return res.status(constants.BAD_REQUEST).json({ message: "twitterUrl Please enter proper URL." })
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper twitter URL." })
                         }
                     }
                 }
                 if (req.body.socialMedia.instagramUrl.length > 0) {
                     for (let singleUrl of req.body.socialMedia.instagramUrl) {
                         if (!singleUrl.match(regex)) {
-                            return res.status(constants.BAD_REQUEST).json({ message: "instagramUrl Please enter proper URL." })
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper instagram URL." })
                         }
                     }
                 }
@@ -108,7 +109,7 @@ router.post('/', async (req, res, next) => {
                         if (singleTime.startTime > singleTime.endTime) {
                             return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
                         }
-                        if (counter !== 0 && timeArray.timeList[counter - 1].endTime > singleTime.startTime) {
+                        if (req.body.openingTimings.isMultiTime === true && counter !== 0 && timeArray.timeList[counter - 1].endTime > singleTime.startTime) {
                             return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
                         }
                         counter++;

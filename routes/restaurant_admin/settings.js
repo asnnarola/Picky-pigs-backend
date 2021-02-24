@@ -50,7 +50,7 @@ router.post('/', async (req, res, next) => {
         }
         if (req.body.restaurantFeatures) {
             const save_restaurantfeature_response = await common_helper.updatewithupsert(RestaurantFeatures, { restaurantId: new ObjectId(req.body.restaurantId) }, req.body.restaurantFeatures);
-            console.log(save_restaurantfeature_response)
+            // console.log(save_restaurantfeature_response)
         }
         if (req.body.openingTimings !== undefined || req.body.website !== undefined || req.body.bookings !== undefined || req.body.socialMedia !== undefined) {
             const urlexpression = /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
@@ -73,8 +73,10 @@ router.post('/', async (req, res, next) => {
             }
             if (req.body.website) {
                 if (req.body.website.websiteUrl.length > 0) {
-                    if (!req.body.website.websiteUrl.match(regex)) {
-                        return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper website URL." })
+                    for (let singleUrl of req.body.website.websiteUrl) {
+                        if (!singleUrl.match(regex)) {
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please enter proper website URL." })
+                        }
                     }
                 }
             }
@@ -319,10 +321,10 @@ router.put('/upload_gallery_image', async (req, res) => {
                 })
 
                 if (req.body.type === "Ambience") {
-                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'ambience': modifiedImageUrl } }, { new: true });
+                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'ambience': modifiedImageUrl } }, { new: true, upsert: true });
                     res.status(constants.OK_STATUS).json({ "message": "File uploaded", getRestaurantDetail });
                 } else {
-                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'food': modifiedImageUrl } }, { new: true });
+                    const getRestaurantDetail = await RestaurantGallery.findOneAndUpdate({ restaurantId: find_restaurant_response._id }, { $push: { 'food': modifiedImageUrl } }, { new: true, upsert: true });
                     res.status(constants.OK_STATUS).json({ "message": "File uploaded", getRestaurantDetail });
                 }
             } else {

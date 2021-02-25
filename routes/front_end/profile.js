@@ -73,7 +73,16 @@ router.put('/', async (req, res, next) => {
                 return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter password of atleast 8 characters including 1 Uppercase,1 Lowercase,1 digit,1 special character" })
             }
         }
-        const update_resp = await common_helper.update(UserPreference, { "userId": req.loginUser.id }, req.body)
+        
+        let obj = {};
+        (req.body.name && req.body.name.trim().length > 0) ? obj.name = req.body.name : '';
+        (req.body.gender && req.body.gender.trim().length > 0) ? obj.gender = req.body.gender : '';
+        (req.body.address && req.body.address.trim().length > 0) ? obj.address = req.body.address : '';
+        (req.body.phone) ? obj.phone = req.body.phone : '';
+        (req.body.dob && req.body.dob.trim().length > 0) ? obj.dob = req.body.dob : '';
+        (req.body.myPreferences) ? obj.myPreferences = req.body.myPreferences : '';
+
+        const update_resp = await common_helper.update(UserPreference, { "userId": req.loginUser.id }, obj)
         if (update_resp.status === 0) {
             res.json({ status: 0, message: "Error occured while Details Update successfully." });
         } else {

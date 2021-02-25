@@ -14,50 +14,99 @@ let dish_caloriesAndMacrosSchema = new Schema(
         },
         isDeleted: { type: Number, default: 0 },
         fat: {
-            totalFat: { type: Number },
-            totalFatUnit: { type: String }, // gm, etc
-            items: [{
-                name: { type: String },
+            fat: { type: Number },
+            weight: { type: Number },
+            fatUnit: { type: String, default: "g" }, // gm, etc
+
+            totalFat: {
                 weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
+                weightUnit: { type: String, default: "g" }, // gm, etc
                 percentage: { type: Number }
-            }],
+            },
+            saturatedFat: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "g" }, // gm, etc
+                percentage: { type: Number }
+            },
+            transFat: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "g" }, // gm, etc
+                percentage: { type: Number }
+            },
+            polyunsaturatedFat: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "g" }, // gm, etc
+                percentage: { type: Number }
+            },
+            monounsaturatedFat: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "g" }, // gm, etc
+                percentage: { type: Number }
+            },
         },
         cholesterol: {
             name: { type: String },
             weight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
+            weightUnit: { type: String, default: "g" }, // gm, etc
             percentage: { type: Number }
         },
         sodium: {
             name: { type: String },
             weight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
+            weightUnit: { type: String, default: "g" }, // gm, etc
             percentage: { type: Number }
         },
         totalCarbohydrate: {
             name: { type: String },
             totalWeight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
+            weightUnit: { type: String, default: "g" }, // gm, etc
             totalPercentage: { type: Number },
-            items: [{
-                name: { type: String },
+            dietaryFiber: {
                 weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
+                weightUnit: { type: String, default: "g" }, // gm, etc
                 percentage: { type: Number }
-            }],
+            },
+            sugars: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "g" }, // gm, etc
+                percentage: { type: Number }
+            }
         },
         protien: {
             name: { type: String },
             totalWeight: { type: Number },
-            weightUnit: { type: String }, // gm, etc
+            weightUnit: { type: String, default: "g" }, // gm, etc
             totalPercentage: { type: Number },
-            items: [{
-                name: { type: String },
+            vitaminD: {
                 weight: { type: Number },
-                weightUnit: { type: String }, // gm, etc
+                weightUnit: { type: String, default: "mg" }, // mg etc
                 percentage: { type: Number }
-            }],
+            },
+            calcium: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "mg" }, // mg etc
+                percentage: { type: Number }
+            },
+            iron: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "mg" }, // mg etc
+                percentage: { type: Number }
+            },
+            potassium: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "mg" }, // mg etc
+                percentage: { type: Number }
+            },
+            vitaminA: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "IU" }, // IU etc
+                percentage: { type: Number }
+            },
+            vitaminC: {
+                weight: { type: Number },
+                weightUnit: { type: String, default: "mg" }, // mg etc
+                percentage: { type: Number }
+            }
         },
         total: { type: Number }
     },

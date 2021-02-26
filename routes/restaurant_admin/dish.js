@@ -384,7 +384,7 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
             for (let singleIngredient of req.body.ingredientSection.ingredient) {
                 if (singleIngredient._id === undefined) {
                     singleIngredient.dishId = req.params.id;
-                    singleIngredient.restaurantId = restaurantId;
+                    singleIngredient.restaurantId = req.body.restaurantId;
                 }
                 const ingredient_resp = await common_helper.addOrUpdate(DishIngredient, { _id: singleIngredient._id }, singleIngredient)
             }

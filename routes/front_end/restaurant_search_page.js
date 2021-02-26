@@ -561,6 +561,7 @@ router.post('/disheslist', async (req, res, next) => {
                 name: { $first: "$name" },
                 dishPhoto: { $first: "$image" },
                 dishPrice: { $first: "$price" },
+                dishPriceUnit: { $first: "$dishPriceUnit" },
                 description: { $first: "$description" },
                 menuList: { $addToSet: "$menuDetail" },
                 restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
@@ -578,6 +579,7 @@ router.post('/disheslist', async (req, res, next) => {
                 name: "$name",
                 dishPhoto: "$dishPhoto",
                 dishPrice: "$dishPrice",
+                dishPriceUnit: "$dishPriceUnit",
                 dishDescription: "$description",
                 menuList: {
                     $map: {
@@ -644,6 +646,7 @@ router.post('/disheslist', async (req, res, next) => {
                 name: "$name",
                 dishPhoto: "$dishPhoto",
                 dishPrice: "$dishPrice",
+                dishPriceUnit: "$dishPriceUnit",
                 dishDescription: "$dishDescription",
                 menuList: "$menuList",
                 restaurantFeaturesOptions: "$restaurantFeaturesOptions",
@@ -661,7 +664,7 @@ router.post('/disheslist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "price": 1 }
+                    { "dishPrice": 1 }
             });
 
         }
@@ -669,7 +672,7 @@ router.post('/disheslist', async (req, res, next) => {
 
             aggregate.push({
                 "$sort":
-                    { "price": -1 }
+                    { "dishPrice": -1 }
             });
 
         }
@@ -908,6 +911,7 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 name: { $first: "$name" },
                 dishPhoto: { $first: "$image" },
                 dishPrice: { $first: "$price" },
+                dishPriceUnit: { $first: "$priceUnit" },
                 favorite: { $first: "$favorite" },
                 new: { $first: "$new" },
                 cookingMethods: { $first: "$cookingMethods" },
@@ -930,19 +934,9 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 name: "$name",
                 dishPhoto: "$dishPhoto",
                 dishPrice: "$dishPrice",
+                dishPriceUnit: "$dishPriceUnit",
                 favorite: "$favorite",
                 new: "$new",
-                cookingMethods: {
-                    $map: {
-                        input: "$cookingMethods",
-                        as: "singlecookingMethods",
-                        in: {
-                            'name': '$$singlecookingMethods.name',
-                            'image': '$$singlecookingMethods.image'
-
-                        }
-                    }
-                },
                 allergensList: {
                     $map: {
                         input: "$allergensList",
@@ -956,7 +950,6 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 menuList: "$menuList",
                 description: "$description",
                 restaurantId: "$restaurantId",
-                restaurantFeaturesOptions: "$restaurantFeaturesOptions",
                 address: {
                     "map": "$address.map"
                 }

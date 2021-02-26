@@ -26,7 +26,7 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
     req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
     req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
-    req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
+    // req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
     var duplicate_insert_resp = {};
     // if (req.body.createNewVersion) {
@@ -162,6 +162,7 @@ router.get('/:id', async (req, res) => {
                     "favorite": { $first: "$favorite" },
                     "prepItem": { $first: "$prepItem" },
                     "new": { $first: "$new" },
+                    "image": { $first: "$image" },
                     "available": { $first: "$available" },
                     "menuId": { $first: "$menuId" },
                     "allergenId": { $first: "$allergenId" },
@@ -175,6 +176,7 @@ router.get('/:id', async (req, res) => {
                     "name": { $first: "$name" },
                     "makes": { $first: "$makes" },
                     "price": { $first: "$price" },
+                    "priceUnit": { $first: "$priceUnit" },
                     "grossProfit": { $first: "$grossProfit" },
                     "categoryId": { $first: "$categoryId" },
                     "restaurantId": { $first: "$restaurantId" },
@@ -185,6 +187,7 @@ router.get('/:id', async (req, res) => {
                     "dish_ingredientsMerge": {
                         $push: "$ingredientSection.dish_ingredients"
                     },
+                    "caloriesandmacrosDetail": { $first: "$caloriesandmacrosDetail" },
                 }
             },
             {
@@ -193,6 +196,7 @@ router.get('/:id', async (req, res) => {
                     "favorite": "$favorite",
                     "prepItem": "$prepItem",
                     "new": "$new",
+                    "image": "$image",
                     "available": "$available",
                     "menuId": "$menuId",
                     "allergenId": "$allergenId",
@@ -206,6 +210,7 @@ router.get('/:id', async (req, res) => {
                     "name": "$name",
                     "makes": "$makes",
                     "price": "$price",
+                    "priceUnit": "$priceUnit",
                     "grossProfit": "$grossProfit",
                     "categoryId": "$categoryId",
                     "restaurantId": "$restaurantId",
@@ -215,7 +220,8 @@ router.get('/:id', async (req, res) => {
                     "ingredientSection": {
                         total: "$dish_ingredientPrice",
                         dish_ingredients: "$dish_ingredientsMerge"
-                    }
+                    },
+                    "caloriesAndMacros": "$caloriesandmacrosDetail"
                 }
             }
         ];
@@ -351,23 +357,43 @@ router.post('/list', async (req, res, next) => {
 
 router.put('/:id', validation.dish, validation_response, async (req, res) => {
     try {
+        /**For multiple restaurant to set retaurant id */
+        const find_response = await Restaurant.findOne({ userId: req.loginUser.id })
+        req.body.restaurantId = find_response._id;
+        /**********/
+
+
         if (req.files && req.files['image']) {
             const imageRes = await common_helper.upload(req.files['image'], "uploads");
             req.body.image = imageRes.data[0].path
         }
 
-        req.body.menuId = JSON.parse(req.body.menuId),
+        req.body.menuId = JSON.parse(req.body.menuId);
         req.body.allergenId = JSON.parse(req.body.allergenId);
         req.body.dietaryId = JSON.parse(req.body.dietaryId);
         req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
         req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
         req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
         req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
-        req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
+        // req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
         const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
-        
+
+        if (req.body.ingredientSection.ingredient.length > 0) {
+            for (let singleIngredient of req.body.ingredientSection.ingredient) {
+                if (singleIngredient._id === undefined) {
+                    singleIngredient.dishId = req.params.id;
+                    singleIngredient.restaurantId = restaurantId;
+                }
+                const ingredient_resp = await common_helper.addOrUpdate(DishIngredient, { _id: singleIngredient._id }, singleIngredient)
+            }
+        }
+
+        if (req.body.ingredientSection.deleteIngredients.length > 0) {
+            await DishIngredient.deleteMany({ _id: { $in: req.body.ingredientSection.deleteIngredients } });
+        }
+
         if (update_resp.status === 1) {
             res.status(constants.OK_STATUS).json(update_resp);
         } else {

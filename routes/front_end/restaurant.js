@@ -220,27 +220,12 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             },
             {
                 $match: {
-                    "subcategoriesDetail.dishesDetail.isDeleted": 0
+                    "subcategoriesDetail.dishesDetail.isDeleted": 0,
+                    "subcategoriesDetail.dishesDetail.isActive": true
                 }
             },
         ];
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
-
-            aggregate.push({
-                "$sort":
-                    { "subcategoriesDetail.dishesDetail.price": 1 }
-            });
-
-        }
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
-
-            aggregate.push({
-                "$sort":
-                    { "subcategoriesDetail.dishesDetail.price": -1 }
-            });
-
-        }
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
@@ -269,6 +254,19 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
             });
         }
 
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
+            aggregate.push({
+                "$sort":
+                    { "subcategoriesDetail.dishesDetail.price": -1 }
+            });
+        }
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
+            aggregate.push({
+                "$sort":
+                    { "subcategoriesDetail.dishesDetail.price": 1 }
+            });
+        }
+
         aggregate.push({
             $group: {
                 _id: "$subcategoriesDetail._id",
@@ -293,31 +291,74 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 _id: "$_id",
                 subcategories: {
                     "_id": "$_id",
-                    "isDeleted": "$subcategories.isDeleted",
                     "name": "$subcategories.name",
-                    "categoryId": "$subcategories.categoryId",
-                    "restaurantId": "$subcategories.restaurantId",
-                    "menuId": "$subcategories.menuId",
-                    "createdAt": "$subcategories.createdAt",
-                    "updatedAt": "$subcategories.updatedAt",
-                    "dishes": "$dishes"
+                    // "categoryId": "$subcategories.categoryId",
+                    // "restaurantId": "$subcategories.restaurantId",
+                    // "menuId": "$subcategories.menuId",
+                    "dishes": {
+                        $map: {
+                            input: "$dishes",
+                            as: "singledishes",
+                            in: {
+                                '_id': '$$singledishes._id',
+                                'name': '$$singledishes.name',
+                                'image': '$$singledishes.image',
+                                'description': '$$singledishes.description',
+                                'price': '$$singledishes.price',
+                                'priceUnit': '$$singledishes.priceUnit',
+                                'customisable': '$$singledishes.customisable',
+
+                            }
+                        }
+                    },
+                    maxDishPriceOfSubcategory: { "$max": "$dishes.price" },
+                    miniDishPriceOfSubcategory: { "$min": "$dishes.price" }
                 },
                 categoryId: "$categoryId",
-                categoryisDeleted: "$categoryisDeleted",
                 categoryname: "$categoryname",
-                categorymenuId: "$categorymenuId",
-                categoryrestaurantId: "$categoryrestaurantId",
+                // categorymenuId: "$categorymenuId",
+                // categoryrestaurantId: "$categoryrestaurantId",
             }
         });
+
+        if (req.body.sort && req.body.sort.price && req.body.sort.price === "l2h") {
+            aggregate.push({
+                "$sort": {
+                    'subcategories.miniDishPriceOfSubcategory': 1
+                }
+            })
+        }
+
+        if (req.body.sort && req.body.sort.price && req.body.sort.price === "h2l") {
+            aggregate.push({
+                "$sort": {
+                    'subcategories.maxDishPriceOfSubcategory': -1
+                }
+            })
+        }
 
         aggregate.push({
             $group: {
                 _id: "$categoryId",
                 categoryName: { $first: "$categoryname" },
-                subcategories: { $push: "$subcategories" }
+                subcategories: { $push: "$subcategories" },
+                maxDishPriceOfCategory: { "$max": "$subcategories.maxDishPriceOfSubcategory" },
+                miniDishPriceOfCategory: { "$min": "$subcategories.miniDishPriceOfSubcategory" }
             }
         });
 
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
+            aggregate.push({
+                "$sort":
+                    { "maxDishPriceOfCategory": -1 }
+            });
+        }
+        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
+            aggregate.push({
+                "$sort":
+                    { "miniDishPriceOfCategory": 1 }
+            });
+        }
 
         const totalCount = await Category.aggregate(aggregate)
         if (req.body.start) {
@@ -567,41 +608,35 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
                     restaurantId: new ObjectId(req.body.restaurantId),
                     isDeleted: 0,
                     isActive: true,
+                    favorite: true,
                     ...filterCondition
                 }
             },
             {
-                $lookup: {
-                    from: "order_dishes",
-                    localField: "_id",
-                    foreignField: "dishId",
-                    as: "ordersDishDetail"
-                }
-            },
-            {
                 $project: {
-                    dishDetail: "$$ROOT",
-                    ordersDishDetail: { $size: "$ordersDishDetail" }
-                }
-            },
-            {
-                $sort: {
-                    ordersDishDetail: -1
+                    _id: 1,
+                    name: 1,
+                    favorite: 1,
+                    price: 1,
+                    priceUnit: 1,
+                    image: 1,
+                    description: 1,
+                    customisable: 1
                 }
             }
         ];
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == 'l2h') {
+        if (req.body.sort && req.body.sort.price && req.body.sort.price === 'l2h') {
             aggregate.push({
                 $sort: {
-                    'dishDetail.price': 1
+                    'price': 1
                 }
             })
         }
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == 'h2l') {
+        if (req.body.sort && req.body.sort.price && req.body.sort.price === 'h2l') {
             aggregate.push({
                 $sort: {
-                    'dishDetail.price': -1
+                    'price': -1
                 }
             })
         }

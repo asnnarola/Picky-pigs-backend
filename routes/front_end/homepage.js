@@ -249,6 +249,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     name: { $first: "$name" },
                     description: { $first: "$description" },
                     price: { $first: "$price" },
+                    dishPriceUnit: { $first: "$dishPriceUnit" },
                     image: { $first: "$image" },
                     allergensList: { $first: "$allergensList" },
                     menuList: {
@@ -265,6 +266,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     name: "$name",
                     description: "$description",
                     price: "$price",
+                    priceUnit: "$dishPriceUnit",
                     image: "$image",
                     allergensList: {
                         $map: {

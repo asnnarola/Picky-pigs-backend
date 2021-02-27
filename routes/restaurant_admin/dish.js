@@ -46,6 +46,7 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
         const imageRes = await common_helper.upload(req.files['image'], "uploads");
         req.body.image = imageRes.data[0].path
     }
+    req.body.available = true;
     const insert_resp = await common_helper.insert(Dish, req.body);
     req.body.caloriesAndMacros.dishId = insert_resp.data._id;
     req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;

@@ -183,6 +183,7 @@ router.get('/:id', async (req, res) => {
                     "subcategoryId": { $first: "$subcategoryId" },
                     "description": { $first: "$description" },
                     "instructions": { $first: "$instructions" },
+                    "updatedAt": { $first: "$updatedAt" },
                     "dish_ingredientPrice": { $first: "$ingredientSection.total" },
                     "dish_ingredientsMerge": {
                         $push: "$ingredientSection.dish_ingredients"
@@ -217,6 +218,7 @@ router.get('/:id', async (req, res) => {
                     "subcategoryId": "$subcategoryId",
                     "description": "$description",
                     "instructions": "$instructions",
+                    "updatedAt": "$updatedAt",
                     "ingredientSection": {
                         total: "$dish_ingredientPrice",
                         dish_ingredients: "$dish_ingredientsMerge"

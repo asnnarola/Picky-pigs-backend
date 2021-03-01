@@ -305,6 +305,14 @@ router.post('/list', async (req, res, next) => {
                     as: "subcategoriesDetail"
                 }
             },
+            {
+                $lookup: {
+                    from: "dish_ingredients",
+                    localField: "_id",
+                    foreignField: "dishId",
+                    as: "dish_ingredientsList"
+                }
+            },
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -330,6 +338,28 @@ router.post('/list', async (req, res, next) => {
             });
 
         }
+
+        aggregate.push({
+            "$project":
+            {
+                "_id": "$_id",
+                "allergensDetail": {
+                    $map: {
+                        input: "$allergensDetail",
+                        as: "singleallergensDetail",
+                        in: {
+                            'name': '$$singleallergensDetail.name',
+                            'image': '$$singleallergensDetail.image',
+                        }
+                    }
+                },
+                "available": "$available",
+                "name": "$name",
+                "updatedAt": "$updatedAt",
+                "menuDetail": "$menuDetail",
+                "total_items": { $size: "$dish_ingredientsList" }
+            }
+        });
         const totalDish = await Dish.aggregate(aggregate)
         if (req.body.start) {
 

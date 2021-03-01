@@ -102,6 +102,28 @@ router.post('/list', async (req, res, next) => {
                         }
                     }
                 }
+            },
+            {
+                $project: {
+                    "_id": "$_id",
+                    "isDeleted": "$isDeleted",
+                    "isActive": "$isActive",
+                    "name": "$name",
+                    "menuId": "$menuId",
+                    "restaurantId": "$restaurantId",
+                    "createdAt": "$createdAt",
+                    "updatedAt": "$updatedAt",
+                    "dishesDetail": {
+                        $map: {
+                            input: "$dishesDetail",
+                            as: "singleDish",
+                            in: {
+                                "_id":"$$singleDish._id",
+                                "name":"$$singleDish.name",
+                            }
+                        }
+                    }
+                }
             }
         ]
 

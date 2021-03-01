@@ -115,7 +115,31 @@ router.post("/list", async (req, res) => {
                         }
                     }
                 }
-            }
+            },
+            {
+                $project: {
+                    "_id": "$_id",
+                    "isDeleted": "$isDeleted",
+                    "isActive": "$isActive",
+                    "name": "$name",
+                    "categoryId": "$categoryId",
+                    "restaurantId": "$restaurantId",
+                    "menuId": "$menuId",
+                    "createdAt": "$createdAt",
+                    "updatedAt": "$updatedAt",
+                    "cloneSubcategory": "$cloneSubcategory",
+                    "dishesDetail": {
+                        $map: {
+                            input: "$dishesDetail",
+                            as: "singleDish",
+                            in: {
+                                "_id": "$$singleDish._id",
+                                "name": "$$singleDish.name",
+                            }
+                        }
+                    }
+                }
+            },
         ]
 
         if (req.body.search && req.body.search != "") {

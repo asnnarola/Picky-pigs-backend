@@ -512,6 +512,7 @@ router.get('/dish_info/:id', async (req, res, next) => {
                     customisable: "$rootData.customisable",
                     name: "$rootData.name",
                     price: "$rootData.price",
+                    priceUnit: "$rootData.priceUnit",
                     description: "$rootData.description",
                     ingredientSection: {
                         total: "$rootData.ingredientSection.total",

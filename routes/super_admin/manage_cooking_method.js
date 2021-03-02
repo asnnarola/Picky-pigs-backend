@@ -10,7 +10,7 @@ const ingredient_management = require('../../validation/admin/ingredient_managem
 router.post('/', ingredient_management.cooking_method, validation_response, async (req, res, next) => {
     try {
         if (req.files && req.files['image']) {
-            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            const imageRes = await common_helper.upload(req.files['image'], "uploads/cooking_method");
             req.body.image = imageRes.data[0].path
         }
         req.body.superAdminId = req.loginUser.id;
@@ -107,7 +107,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', ingredient_management.cooking_method, validation_response, async (req, res, next) => {
     try {
         if (req.files && req.files['image']) {
-            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            const imageRes = await common_helper.upload(req.files['image'], "uploads/cooking_method");
             req.body.image = imageRes.data[0].path
         }
         const data = await common_helper.update(Cooking_method, { "_id": req.params.id }, req.body)

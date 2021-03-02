@@ -11,7 +11,7 @@ router.post('/', async (req, res, next) => {
     try {
         req.body.superAdminId = req.loginUser.id;
         if (req.files && req.files['image']) {
-            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            const imageRes = await common_helper.upload(req.files['image'], "uploads/allergen");
             req.body.image = imageRes.data[0].path
         }
         const data = await common_helper.insert(Allergen, req.body);
@@ -106,7 +106,7 @@ router.put('/:id', ingredient_management.allergen, validation_response, async (r
     try {
 
         if (req.files && req.files['image']) {
-            const imageRes = await common_helper.upload(req.files['image'], "uploads");
+            const imageRes = await common_helper.upload(req.files['image'], "uploads/allergen");
             req.body.image = imageRes.data[0].path
         }
         const data = await common_helper.update(Allergen, { "_id": req.params.id }, req.body)

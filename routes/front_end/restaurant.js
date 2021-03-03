@@ -417,6 +417,21 @@ router.get('/dish_info/:id', async (req, res, next) => {
             },
             {
                 $lookup: {
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantsDetail"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantsDetail",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
                     from: "dish_caloriesandmacros",
                     localField: "_id",
                     foreignField: "dishId",
@@ -508,6 +523,8 @@ router.get('/dish_info/:id', async (req, res, next) => {
                 $project: {
                     _id: "$_id",
                     new: "$rootData.new",
+                    restaurantName: "$rootData.restaurantsDetail.name",
+                    restaurantId: "$rootData.restaurantsDetail._id",
                     available: "$rootData.available",
                     customisable: "$rootData.customisable",
                     name: "$rootData.name",

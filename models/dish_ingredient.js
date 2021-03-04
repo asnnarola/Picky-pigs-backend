@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-let dishSchema = new Schema(
+let dish_ingredientSchema = new Schema(
     {
         item: { type: String },
         qty: { type: Number },
@@ -29,8 +29,9 @@ let dishSchema = new Schema(
     });
 
 
+dish_ingredientSchema.index({ item: 'text' });
 
 
-const DishModel = mongoose.model('dish_ingredient', dishSchema);
+const Dish_ingredientModel = mongoose.model('dish_ingredient', dish_ingredientSchema);
 
-module.exports = DishModel;
+module.exports = Dish_ingredientModel;

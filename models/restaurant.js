@@ -38,6 +38,7 @@ let restaurantSchema = new Schema(
         timestamps: true
     });
 
+restaurantSchema.index({ name: 'text' });
 
 restaurantSchema.pre('save', function save(next) {
     const user = this;

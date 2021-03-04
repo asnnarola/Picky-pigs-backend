@@ -99,8 +99,22 @@ router.post('/info/:id', async (req, res, next) => {
                     info: 1,
                     restaurantCoverPhoto: 1,
                     restaurantProfilePhoto: 1,
-                    restaurant_galleries: 1,
-                    address: 1,
+                    restaurant_galleries: {
+                        food: 1,
+                        ambience: 1,
+                        videos: 1
+                    },
+                    address: {
+                        street: 1,
+                        locality: 1,
+                        pincode: 1,
+                        zipcode: 1,
+                        addLocationMap: 1,
+                        shareLocationOption: 1,
+                        getDirectionOption: 1,
+                        googleAddress: 1,
+                        map: 1,
+                    },
                     restaurantDetails: {
                         bookings: 1,
                         openingTimings: 1,

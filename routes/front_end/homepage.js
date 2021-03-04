@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
+
 const Dish = require("../../models/dish");
 const Restaurant = require("../../models/restaurant");
 const constants = require('../../config/constants');
@@ -344,5 +345,146 @@ router.post('/join_us', homepageValidation.join_us, validation_response, async (
     }
 })
 
+router.post('/restaurant_dish_suggestion', async (req, res) => {
+    try {
+        const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
+        console.log("RE: ", RE);
+        let serchObj = {}
+        serchObj.name = RE
+
+
+        let dish_aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+                    isActive: true,
+                    $or: [
+                        serchObj,
+                        // { $text: { $search: req.body.search, $language: "en" } }
+                    ]
+                }
+            },
+            {
+                $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+                    image: { $first: "$image" }
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    image: "$image"
+                }
+            }
+        ];
+        const dish_search_resp = await Dish.aggregate(dish_aggregate);
+
+        let aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_features",
+                    localField: "_id",
+                    foreignField: "restaurantId",
+                    as: "restaurantFeatures"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantFeatures",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $match: {
+                    $or: [
+                        serchObj,
+                        // { $text: { $search: req.body.search, $language: "en" } },
+                        { 'restaurantFeatures.appliesOfRestaurant': RE }
+                    ]
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+                    restaurantProfilePhoto: { $first: "$restaurantProfilePhoto" },
+                }
+            },
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    restaurantProfilePhoto: "$restaurantProfilePhoto",
+                }
+            },
+
+        ];
+
+        const restaurant_search_resp = await Restaurant.aggregate(aggregate)
+        res.status(constants.OK_STATUS).json({ restaurant_search_resp, restaurant_search_resp_length: restaurant_search_resp.length, dish_search_resp, dish_search_resp_length: dish_search_resp.length })
+    } catch (error) {
+        console.log("error: ", error)
+        res.status(constants.BAD_REQUEST).json({ message: "Getting error into restaurant and dish suggestion list." })
+    }
+})
 
 module.exports = router;

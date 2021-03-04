@@ -6,7 +6,7 @@ let dishSchema = new Schema(
         name: { type: String, required: true },
         makes: { type: Number },
         price: { type: Number },
-        priceUnit: { type: String , default: '$'},
+        priceUnit: { type: String, default: '$' },
         grossProfit: { type: Number },
         image: { type: String },
         favorite: { type: Boolean, default: false },
@@ -66,6 +66,7 @@ let dishSchema = new Schema(
     });
 
 
+dishSchema.index({ name: 'text' });
 
 
 const DishModel = mongoose.model('dish', dishSchema);

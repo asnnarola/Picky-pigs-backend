@@ -143,7 +143,8 @@ router.post('/homepage_restaurant', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
-                tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                tempArray.sort(function (a, b) { return b.numericSubscriptionLevel - a.numericSubscriptionLevel });
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });

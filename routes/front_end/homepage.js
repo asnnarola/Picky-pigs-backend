@@ -240,11 +240,6 @@ router.post('/homepage_dishes', async (req, res, next) => {
             //     }
             // },
             {
-                $sample: {
-                    size: 8
-                }
-            },
-            {
                 $group: {
                     _id: "$_id",
                     name: { $first: "$name" },
@@ -282,7 +277,12 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     },
                     menusDetail: "$menuList"
                 }
-            }
+            },
+            {
+                $sample: {
+                    size: 8
+                }
+            },
         ];
         // const totalCount = await Dish.aggregate(aggregate)
         // if (req.body.start) {

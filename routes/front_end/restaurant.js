@@ -591,6 +591,17 @@ router.get('/dish_info/:id', async (req, res, next) => {
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
+                let dish_ingredientsArray = [];
+                if (dishDetails.length > 0) {
+                    if (dishDetails[0].ingredientSection !== undefined && dishDetails[0].ingredientSection.dish_ingredients.length > 0) {
+                        for (let singleIngredient of dishDetails[0].ingredientSection.dish_ingredients) {
+                            if(singleIngredient._id ){
+                                dish_ingredientsArray.push(singleIngredient)
+                            }
+                        }
+                        dishDetails[0].ingredientSection.dish_ingredients = dish_ingredientsArray
+                    }
+                }
                 res.status(constants.OK_STATUS).json({ dishDetails, message: "Dish details get successfully" });
             }).catch(error => {
                 console.log(error)

@@ -95,6 +95,7 @@ router.post('/info/:id', async (req, res, next) => {
             {
                 $project: {
                     _id: 1,
+                    name: 1,
                     about: 1,
                     info: 1,
                     restaurantCoverPhoto: 1,
@@ -595,7 +596,7 @@ router.get('/dish_info/:id', async (req, res, next) => {
                 if (dishDetails.length > 0) {
                     if (dishDetails[0].ingredientSection !== undefined && dishDetails[0].ingredientSection.dish_ingredients.length > 0) {
                         for (let singleIngredient of dishDetails[0].ingredientSection.dish_ingredients) {
-                            if(singleIngredient._id ){
+                            if (singleIngredient._id) {
                                 dish_ingredientsArray.push(singleIngredient)
                             }
                         }

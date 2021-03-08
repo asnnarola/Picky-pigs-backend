@@ -4,6 +4,7 @@ const ObjectId = require('mongodb').ObjectID;
 const moment = require('moment');
 const common_helper = require("../../helpers/common");
 const Category = require("../../models/category");
+const Menu = require("../../models/menus");
 const Dish = require("../../models/dish");
 const Restaurant = require("../../models/restaurant");
 const constants = require('../../config/constants');
@@ -199,107 +200,139 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
         let aggregate = [
             {
                 $match: {
-                    menuId: new ObjectId(req.body.menuId),
                     isDeleted: 0,
                     isActive: true,
-
+                    restaurantId: new ObjectId(req.body.restaurantId),
+                    type: "menu"
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "_id",
+                    foreignField: "menuId",
+                    as: "categoriesDetail"
+                }
+            },
+            {
+                $unwind: "$categoriesDetail"
+            },
+            {
+                $match: {
+                    "categoriesDetail.isDeleted": 0,
+                    "categoriesDetail.isActive": true,
                 }
             },
             {
                 $lookup: {
                     from: "subcategories",
-                    localField: "_id",
+                    localField: "categoriesDetail._id",
                     foreignField: "categoryId",
-                    as: "subcategoriesDetail"
+                    as: "categoriesDetail.subcategoriesDetail"
                 }
             },
             {
-                $unwind: "$subcategoriesDetail"
+                $unwind: "$categoriesDetail.subcategoriesDetail"
             },
             {
                 $match: {
-                    "subcategoriesDetail.isDeleted": 0,
-                    "subcategoriesDetail.isActive": true,
+                    "categoriesDetail.subcategoriesDetail.isDeleted": 0,
+                    "categoriesDetail.subcategoriesDetail.isActive": true,
                 }
             },
             {
                 $lookup: {
                     from: "dishes",
-                    localField: "subcategoriesDetail._id",
+                    localField: "categoriesDetail.subcategoriesDetail._id",
                     foreignField: "subcategoryId",
-                    as: "subcategoriesDetail.dishesDetail"
+                    as: "categoriesDetail.subcategoriesDetail.dishesDetail"
                 }
             },
             {
-                $unwind: "$subcategoriesDetail.dishesDetail"
+                $unwind: "$categoriesDetail.subcategoriesDetail.dishesDetail"
             },
             {
                 $match: {
-                    "subcategoriesDetail.dishesDetail.isDeleted": 0,
-                    "subcategoriesDetail.dishesDetail.isActive": true
+                    "categoriesDetail.subcategoriesDetail.dishesDetail.isDeleted": 0,
+                    "categoriesDetail.subcategoriesDetail.dishesDetail.isActive": true
                 }
             },
+            {
+                $lookup: {
+                    from: 'allergens',
+                    localField: 'categoriesDetail.subcategoriesDetail.dishesDetail.allergenId',
+                    foreignField: '_id',
+                    as: 'categoriesDetail.subcategoriesDetail.dishesDetail.allergenList'
+                }
+            },
+            {
+                $lookup: {
+                    from: 'dietaries',
+                    localField: 'categoriesDetail.subcategoriesDetail.dishesDetail.dietaryId',
+                    foreignField: '_id',
+                    as: 'categoriesDetail.subcategoriesDetail.dishesDetail.dietaryList'
+                }
+            }
         ];
-
 
         if (req.body.search && req.body.search != "") {
             const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
             aggregate.push({
                 $match: {
-                    "subcategoriesDetail.dishesDetail.name": RE
+                    "categoriesDetail.subcategoriesDetail.dishesDetail.name": RE
                 }
             });
         }
+
+
         if (req.body.allergen && req.body.allergen.length > 0) {
             aggregate.push({
                 "$match":
-                    { "subcategoriesDetail.dishesDetail.allergenId": { $in: req.body.allergen } }
+                    { "categoriesDetail.subcategoriesDetail.dishesDetail.allergenId": { $in: req.body.allergen } }
             });
         }
         if (req.body.dietary && req.body.dietary.length > 0) {
             aggregate.push({
                 "$match":
-                    { "subcategoriesDetail.dishesDetail.dietaryId": { $in: req.body.dietary } }
+                    { "categoriesDetail.subcategoriesDetail.dishesDetail.dietaryId": { $in: req.body.dietary } }
             });
         }
         if (req.body.lifestyle && req.body.lifestyle.length > 0) {
             aggregate.push({
                 "$match":
-                    { "subcategoriesDetail.dishesDetail.lifestyleId": { $in: req.body.lifestyle } }
+                    { "categoriesDetail.subcategoriesDetail.dishesDetail.lifestyleId": { $in: req.body.lifestyle } }
             });
         }
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
+        if (req.body.sort && req.body.sort === "priceh2l") {
             aggregate.push({
                 "$sort":
-                    { "subcategoriesDetail.dishesDetail.price": -1 }
+                    { "categoriesDetail.subcategoriesDetail.dishesDetail.price": -1 }
             });
         }
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
+        if (req.body.sort && req.body.sort === "pricel2h") {
             aggregate.push({
                 "$sort":
-                    { "subcategoriesDetail.dishesDetail.price": 1 }
+                    { "categoriesDetail.subcategoriesDetail.dishesDetail.price": 1 }
             });
         }
 
         aggregate.push({
             $group: {
-                _id: "$subcategoriesDetail._id",
-                subcategories: { $first: "$subcategoriesDetail" },
-                categoryId: { $first: "$_id" },
-                categoryisDeleted: { $first: "$isDeleted" },
-                categoryname: { $first: "$name" },
-                categorymenuId: { $first: "$menuId" },
-                categoryrestaurantId: { $first: "$restaurantId" },
-                dishes: { $push: "$subcategoriesDetail.dishesDetail" }
-                // dishes: {
-                //     $push: {
-                //         "name": "$subcategoriesDetail.dishesDetail.name",
-                //         "price": "$subcategoriesDetail.dishesDetail.price"
-                //     }
-                // }
+                _id: "$categoriesDetail.subcategoriesDetail._id",
+                subcategories: { $first: "$categoriesDetail.subcategoriesDetail" },
+                categoryId: { $first: "$categoriesDetail._id" },
+                categoryisDeleted: { $first: "$categoriesDetail.isDeleted" },
+                categoryname: { $first: "$categoriesDetail.name" },
+                categorymenuId: { $first: "$categoriesDetail.menuId" },
+                categoryrestaurantId: { $first: "$categoriesDetail.restaurantId" },
+                menuId: { $first: "$_id" },
+                menuName: { $first: "$name" },
+                dishes: { $push: "$categoriesDetail.subcategoriesDetail.dishesDetail" },
+                count: { $sum: 1 }
             }
         });
+
 
         aggregate.push({
             $project: {
@@ -307,9 +340,6 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                 subcategories: {
                     "_id": "$_id",
                     "name": "$subcategories.name",
-                    // "categoryId": "$subcategories.categoryId",
-                    // "restaurantId": "$subcategories.restaurantId",
-                    // "menuId": "$subcategories.menuId",
                     "dishes": {
                         $map: {
                             input: "$dishes",
@@ -322,76 +352,124 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                                 'price': '$$singledishes.price',
                                 'priceUnit': '$$singledishes.priceUnit',
                                 'customisable': '$$singledishes.customisable',
+                                'dietaryList': {
+                                    $map: {
+                                        input: "$$singledishes.dietaryList",
+                                        as: 'singleDietaryList',
+                                        in: {
+                                            "name": "$$singleDietaryList.name"
+                                        }
+                                    }
+                                },
+                                'allergenList': {
+                                    $map: {
+                                        input: "$$singledishes.allergenList",
+                                        as: "singleAllergenList",
+                                        in: {
+                                            "name": "$$singleAllergenList.name",
+                                            "image": "$$singleAllergenList.image",
+                                        }
+                                    }
+                                },
 
                             }
                         }
                     },
-                    maxDishPriceOfSubcategory: { "$max": "$dishes.price" },
-                    miniDishPriceOfSubcategory: { "$min": "$dishes.price" }
+                    countDishes: "$count",
+                    maxDishPriceOfSingleSubcategory: { "$max": "$dishes.price" },
+                    miniDishPriceOfSingleSubcategory: { "$min": "$dishes.price" }
                 },
                 categoryId: "$categoryId",
                 categoryname: "$categoryname",
-                // categorymenuId: "$categorymenuId",
-                // categoryrestaurantId: "$categoryrestaurantId",
+                menuId: "$menuId",
+                menuName: "$menuName"
             }
         });
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price === "l2h") {
+        if (req.body.sort && req.body.sort === "priceh2l") {
             aggregate.push({
-                "$sort": {
-                    'subcategories.miniDishPriceOfSubcategory': 1
-                }
-            })
+                "$sort":
+                    { "subcategories.maxDishPriceOfSingleSubcategory": -1 }
+            });
         }
-
-        if (req.body.sort && req.body.sort.price && req.body.sort.price === "h2l") {
+        if (req.body.sort && req.body.sort === "pricel2h") {
             aggregate.push({
-                "$sort": {
-                    'subcategories.maxDishPriceOfSubcategory': -1
-                }
-            })
+                "$sort":
+                    { "subcategories.miniDishPriceOfSingleSubcategory": 1 }
+            });
         }
+        /**Add Sorting code  */
 
         aggregate.push({
             $group: {
                 _id: "$categoryId",
                 categoryName: { $first: "$categoryname" },
                 subcategories: { $push: "$subcategories" },
-                maxDishPriceOfCategory: { "$max": "$subcategories.maxDishPriceOfSubcategory" },
-                miniDishPriceOfCategory: { "$min": "$subcategories.miniDishPriceOfSubcategory" }
+                menuId: { $first: "$menuId" },
+                menuName: { $first: "$menuName" },
+                countDishes: { $sum: "$subcategories.countDishes" },
+                maxDishPriceOfSubCategory: { "$max": "$subcategories.maxDishPriceOfSingleSubcategory" },
+                miniDishPriceOfSubCategory: { "$min": "$subcategories.miniDishPriceOfSingleSubcategory" }
             }
         });
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "h2l") {
+
+        aggregate.push({
+            $project: {
+                _id: "$_id",
+                categories: {
+                    "_id": "$_id",
+                    "name": "$categoryName",
+                    "subcategories": "$subcategories",
+                    countDishes: "$countDishes",
+                    maxDishPriceOfSubcategory: { "$max": "$maxDishPriceOfSubCategory" },
+                    miniDishPriceOfSubcategory: { "$min": "$miniDishPriceOfSubCategory" }
+                },
+                menuId: "$menuId",
+                menuName: "$menuName"
+            }
+        });
+
+        if (req.body.sort && req.body.sort === "priceh2l") {
+            aggregate.push({
+                "$sort":
+                    { "categories.maxDishPriceOfSubcategory": -1 }
+            });
+        }
+        if (req.body.sort && req.body.sort === "pricel2h") {
+            aggregate.push({
+                "$sort":
+                    { "categories.miniDishPriceOfSubcategory": 1 }
+            });
+        }
+
+        aggregate.push({
+            $group: {
+                _id: "$menuId",
+                menuName: { $first: "$menuName" },
+                categories: { $push: "$categories" },
+                countDishes: { $sum: "$categories.countDishes" },
+                maxDishPriceOfCategory: { "$max": "$categories.maxDishPriceOfSubcategory" },
+                miniDishPriceOfCategory: { "$min": "$categories.miniDishPriceOfSubcategory" }
+            }
+        });
+
+        if (req.body.sort && req.body.sort === "priceh2l") {
             aggregate.push({
                 "$sort":
                     { "maxDishPriceOfCategory": -1 }
             });
         }
-        if (req.body.sort && req.body.sort.price && req.body.sort.price == "l2h") {
+        if (req.body.sort && req.body.sort === "pricel2h") {
             aggregate.push({
                 "$sort":
                     { "miniDishPriceOfCategory": 1 }
             });
         }
 
-        const totalCount = await Category.aggregate(aggregate)
-        if (req.body.start) {
-
-            aggregate.push({
-                "$skip": req.body.start
-            });
-
-        }
-        if (req.body.length) {
-            aggregate.push({
-                "$limit": req.body.length
-            });
-        }
-
-        await Category.aggregate(aggregate)
-            .then(categoryDetails => {
-                res.status(constants.OK_STATUS).json({ categoryDetails, totalCount: totalCount.length, message: "get category, subcategory and dishes list successfully" });
+        await Menu.aggregate(aggregate)
+            .then(menuList => {
+                res.status(constants.OK_STATUS).json({ menuList, totalCount: menuList.length, message: "get category, subcategory and dishes list successfully" });
             }).catch(error => {
                 console.log(error)
                 res.status(constants.BAD_REQUEST).json({ message: "Error while get category, subcategory and dishes list", error: err });

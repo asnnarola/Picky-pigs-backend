@@ -18,6 +18,9 @@ router.post('/', validation.menu, validation_response, async (req, res, next) =>
         req.body.restaurantId = find_response._id;
         /**********/
 
+        if (req.body.timeFrom > req.body.timeTo) {
+            return res.status(constants.BAD_REQUEST).json({ message: "Please select proper times." });
+        }
 
         const data = await common_helper.insert(Menus, req.body);
         if (data.status === 1 && data.data) {

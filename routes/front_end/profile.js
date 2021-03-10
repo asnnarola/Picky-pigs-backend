@@ -79,7 +79,14 @@ router.put('/', async (req, res, next) => {
         (req.body.gender && req.body.gender.trim().length > 0) ? obj.gender = req.body.gender : '';
         (req.body.address && req.body.address.trim().length > 0) ? obj.address = req.body.address : '';
         (req.body.phone) ? obj.phone = req.body.phone : '';
-        (req.body.dob && req.body.dob.trim().length > 0) ? obj.dob = req.body.dob : '';
+        if (req.body.dob && req.body.dob.trim().length > 0) {
+            const userDob = moment(req.body.dob).format('YYYY-MM-DD');
+            if(moment().isBefore(userDob)){
+                return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please properly enter your birthdate." })
+            }
+            obj.dob = req.body.dob;
+        }
+        // (req.body.dob && req.body.dob.trim().length > 0) ? obj.dob = req.body.dob : '';
         (req.body.myPreferences) ? obj.myPreferences = req.body.myPreferences : '';
 
         const update_resp = await common_helper.update(UserPreference, { "userId": req.loginUser.id }, obj)

@@ -748,14 +748,14 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
             }
         ];
 
-        if (req.body.sort && req.body.sort.price && req.body.sort.price === 'l2h') {
+        if (req.body.sort && req.body.sort === "pricel2h") {
             aggregate.push({
                 $sort: {
                     'price': 1
                 }
             })
         }
-        if (req.body.sort && req.body.sort.price && req.body.sort.price === 'h2l') {
+        if (req.body.sort && req.body.sort === "priceh2l") {
             aggregate.push({
                 $sort: {
                     'price': -1

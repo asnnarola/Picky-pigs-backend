@@ -36,6 +36,11 @@ router.post('/restaurantlist', async (req, res, next) => {
         }
         let aggregate = [
             {
+                $match: {
+                    isDeleted: 0,
+                }
+            },
+            {
                 $lookup: {
                     from: "restaurant_addresses",
                     localField: "_id",
@@ -107,6 +112,11 @@ router.post('/restaurantlist', async (req, res, next) => {
                     preserveNullAndEmptyArrays: true
                 }
             },
+            // {
+            //     $match: {
+            //         "dishesDetails.isDeleted": 0,
+            //     }
+            // },
             // {
             //     $lookup: {
             //         from: "reviews",
@@ -1010,6 +1020,11 @@ router.post('/page_1_restaurants', async (req, res, next) => {
 
         let aggregate = [
             {
+                $match: {
+                    isDeleted: 0,
+                }
+            },
+            {
                 $lookup: {
                     from: "restaurant_addresses",
                     localField: "_id",
@@ -1226,6 +1241,11 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
     try {
         let aggregate = [
             {
+                $match: {
+                    isDeleted: 0,
+                }
+            },
+            {
                 $lookup: {
                     from: "restaurant_addresses",
                     localField: "_id",
@@ -1322,6 +1342,222 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
     catch (err) {
         console.log(err)
         res.status(constants.BAD_REQUEST).json({ message: "Error while get Restaurant list", error: err });
+
+    }
+});
+
+/**page no 1 for Green slider dish list*/
+router.post('/green_slider_dishes', async (req, res, next) => {
+    try {
+        let filterCondition = {}
+
+        if (req.body.allergen && req.body.allergen.length > 0) {
+            req.body.allergen = req.body.allergen.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { "allergenId": { $in: req.body.allergen } }
+        }
+        if (req.body.dietary && req.body.dietary.length > 0) {
+            req.body.dietary = req.body.dietary.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { ...filterCondition, "dietaryId": { $in: req.body.dietary } }
+        }
+        if (req.body.lifestyle && req.body.lifestyle.length > 0) {
+            req.body.lifestyle = req.body.lifestyle.map((element) => {
+                return new ObjectId(element)
+            })
+            filterCondition = { ...filterCondition, "lifestyleId": { $in: req.body.lifestyle } }
+        }
+        if (req.body.search && req.body.search != "") {
+            const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
+            filterCondition = { ...filterCondition, "name": RE }
+        }
+
+        console.log("filterCondition : ", filterCondition)
+        let aggregate = [
+            {
+                $match: {
+                    isDeleted: 0,
+                    isActive: true,
+                    favorite: true,
+                    ...filterCondition
+                }
+            },
+            {
+                $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantInfo"
+                }
+            },
+            {
+                $unwind: "$restaurantInfo"
+            },
+            {
+                $match: {
+                    "restaurantInfo.isDeleted": 0,
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_addresses",
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.address"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantInfo.address",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurant_features",
+                    localField: "restaurantId",
+                    foreignField: "restaurantId",
+                    as: "restaurantInfo.restaurantFeatures"
+                }
+            },
+            {
+                $unwind: {
+                    path: "$restaurantInfo.restaurantFeatures",
+                    preserveNullAndEmptyArrays: true
+
+                }
+            }
+        ];
+
+        if (req.body.search && req.body.search != "") {
+            const RE = { $regex: new RegExp(`${req.body.search}`, 'gi') };
+            aggregate.push({
+                "$match":
+                {
+                    $or: [
+                        { "name": RE }
+                    ]
+                }
+            });
+        }
+
+        // if (req.body.features && req.body.features.length > 0) {
+
+        //     aggregate.push({
+        //         "$match":
+        //             { "restaurantInfo.restaurantFeatures.restaurantFeaturesOptions": { $in: req.body.features } }
+        //     });
+
+        // }
+
+        aggregate.push(
+            {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+                    favorite: { $first: "$favorite" },
+                    new: { $first: "$new" },
+                    price: { $first: "$price" },
+                    priceUnit: { $first: "$priceUnit" },
+                    image: { $first: "$image" },
+                    description: { $first: "$description" },
+                    address: { $first: "$restaurantInfo.address" }
+                }
+            }
+        )
+
+        aggregate.push(
+            {
+                $project: {
+                    _id: "$_id",
+                    name: "$name",
+                    favorite: "$favorite",
+                    new: "$new",
+                    price: "$price",
+                    priceUnit: "$priceUnit",
+                    image: "$image",
+                    description: "$description",
+                    address: {
+                        "map": "$address.map"
+                    }
+                }
+            }
+        )
+
+        await Dish.aggregate(aggregate)
+            .then(async dishList => {
+
+
+                let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishList)
+
+                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
+                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+                }
+                const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
+
+                res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Dish list get successfully." });
+
+            }).catch(error => {
+                res.status(constants.BAD_REQUEST).json({ message: "Error while Dish list get", error: error });
+            });
+    }
+    catch (err) {
+        console.log(err)
+        res.status(constants.BAD_REQUEST).json({ message: "Error while get Dish list", error: err });
 
     }
 });

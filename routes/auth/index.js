@@ -53,7 +53,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
                 const emailContent = {
                     to: req.body.email,
                     subject: 'Email verification for Picky pigs',
-                    token: `${config.APIURL}/auth/verification/${token}`,
+                    token: `${config.FRONT_USER_URL}/auth/email_verification/${token}`,
                     filePath: "./views/resturant_admin/auth/verification.ejs"
                 }
 
@@ -79,7 +79,7 @@ router.post('/user_signup', auth.signup, validation_response, async (req, res, n
 });
 
 // verify email
-router.get('/verification/:id', async (req, res, next) => {
+router.get('/email_verification/:id', async (req, res, next) => {
     try {
         let token = req.params.id;
         let decodeToken = jwt.verify(token, config.SECRET_KEY)
@@ -107,7 +107,7 @@ router.get('/verification/:id', async (req, res, next) => {
         }
     } catch (err) {
         console.log(err)
-        res.status(constants.BAD_REQUEST).json({ status: 0, err: err });
+        res.status(constants.BAD_REQUEST).json({ status: 0, message: "Invalid token entered !", err: err });
     }
 })
 

@@ -130,6 +130,7 @@ router.post('/info/:id', async (req, res, next) => {
                         cashAccept: 1,
                         createdAt: 1,
                         inclusiveTaxesAndCharges: 1,
+                        appliesOfRestaurant: 1,
                         restaurantFeaturesOptionsList: {
                             $map: {
                                 input: "$restaurantFeatures.restaurantFeaturesOptionsList",
@@ -347,6 +348,7 @@ router.post('/category_subcategory_dishes', async (req, res, next) => {
                             in: {
                                 '_id': '$$singledishes._id',
                                 'name': '$$singledishes.name',
+                                'new': '$$singledishes.new',
                                 'image': '$$singledishes.image',
                                 'description': '$$singledishes.description',
                                 'price': '$$singledishes.price',
@@ -621,6 +623,7 @@ router.get('/dish_info/:id', async (req, res, next) => {
                     available: "$rootData.available",
                     customisable: "$rootData.customisable",
                     name: "$rootData.name",
+                    new: "$rootData.new",
                     price: "$rootData.price",
                     priceUnit: "$rootData.priceUnit",
                     description: "$rootData.description",
@@ -735,15 +738,79 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
                 }
             },
             {
+                $lookup: {
+                    from: "menus",
+                    localField: "menuId",
+                    foreignField: "_id",
+                    as: "menuDetail"
+                }
+            },
+            {
+                $unwind: "$menuDetail"
+            },
+            {
+                $match: {
+                    "menuDetail.isDeleted": 0,
+                    "menuDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "categoryId",
+                    foreignField: "_id",
+                    as: "categoryDetail"
+                }
+            },
+            {
+                $unwind: "$categoryDetail"
+            },
+            {
+                $match: {
+                    "categoryDetail.isDeleted": 0,
+                    "categoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "subcategories",
+                    localField: "subcategoryId",
+                    foreignField: "_id",
+                    as: "subcategoryDetail"
+                }
+            },
+            {
+                $unwind: "$subcategoryDetail"
+            },
+            {
+                $match: {
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    name: { $first: "$name" },
+                    favorite: { $first: "$favorite" },
+                    new: { $first: "$new" },
+                    price: { $first: "$price" },
+                    priceUnit: { $first: "$priceUnit" },
+                    image: { $first: "$image" },
+                    description: { $first: "$description" }
+                }
+            },
+            {
                 $project: {
-                    _id: 1,
-                    name: 1,
-                    favorite: 1,
-                    price: 1,
-                    priceUnit: 1,
-                    image: 1,
-                    description: 1,
-                    customisable: 1
+                    _id: "$_id",
+                    name: "$name",
+                    favorite: "$favorite",
+                    new: "$new",
+                    price: "$price",
+                    priceUnit: "$priceUnit",
+                    image: "$image",
+                    description: "$description",
+                    customisable: "$customisable"
                 }
             }
         ];
@@ -764,7 +831,7 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
         }
         await Dish.aggregate(aggregate)
             .then(dishList => {
-                res.status(constants.OK_STATUS).json({ dishList, message: "Dish list get successfully" });
+                res.status(constants.OK_STATUS).json({ totalRecord: dishList.length, dishList, message: "Dish list get successfully" });
             }).catch(error => {
                 res.status(constants.BAD_REQUEST).json({ message: "Error while Dish list get", error: error });
             });

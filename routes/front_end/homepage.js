@@ -246,6 +246,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     name: { $first: "$name" },
                     description: { $first: "$description" },
                     price: { $first: "$price" },
+                    new: { $first: "$new" },
                     dishPriceUnit: { $first: "$dishPriceUnit" },
                     image: { $first: "$image" },
                     allergensList: { $first: "$allergensList" },
@@ -263,6 +264,7 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     name: "$name",
                     description: "$description",
                     price: "$price",
+                    new: "$new",
                     priceUnit: "$dishPriceUnit",
                     image: "$image",
                     allergensList: {
@@ -420,14 +422,16 @@ router.post('/restaurant_dish_suggestion', async (req, res) => {
                 $group: {
                     _id: "$_id",
                     name: { $first: "$name" },
-                    image: { $first: "$image" }
+                    image: { $first: "$image" },
+                    new: { $first: "$new" },
                 }
             },
             {
                 $project: {
                     _id: "$_id",
                     name: "$name",
-                    image: "$image"
+                    image: "$image",
+                    new: "$new",
                 }
             }
         ];

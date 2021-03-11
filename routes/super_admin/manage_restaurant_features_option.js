@@ -128,7 +128,8 @@ router.put('/:id', ingredient_management.restaurant_feature_option, validation_r
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const data = await common_helper.softDelete(Restaurant_features_option, { "_id": req.params.id })
+        // const data = await common_helper.softDelete(Restaurant_features_option, { "_id": req.params.id })
+        const data = await common_helper.delete(Restaurant_features_option, { "_id": req.params.id })
 
         if (data.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });

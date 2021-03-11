@@ -229,6 +229,22 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            {
+                $lookup: {
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantInfo"
+                }
+            },
+            {
+                $unwind: "$restaurantInfo"
+            },
+            {
+                $match: {
+                    "restaurantInfo.isDeleted": 0,
+                }
+            },
             // {
             //     $match: {
             //         "menusDetail.availability": moment().format("dddd"),
@@ -416,6 +432,22 @@ router.post('/restaurant_dish_suggestion', async (req, res) => {
                 $match: {
                     "subcategoryDetail.isDeleted": 0,
                     "subcategoryDetail.isActive": true,
+                }
+            },
+            {
+                $lookup: {
+                    from: "restaurants",
+                    localField: "restaurantId",
+                    foreignField: "_id",
+                    as: "restaurantInfo"
+                }
+            },
+            {
+                $unwind: "$restaurantInfo"
+            },
+            {
+                $match: {
+                    "restaurantInfo.isDeleted": 0,
                 }
             },
             {

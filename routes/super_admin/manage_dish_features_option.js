@@ -65,7 +65,8 @@ router.get('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
     try {
-        const delete_resp = await common_helper.softDelete(Dish_features_option, { "_id": req.params.id })
+        // const delete_resp = await common_helper.softDelete(Dish_features_option, { "_id": req.params.id })
+        const delete_resp = await common_helper.delete(Dish_features_option, { "_id": req.params.id })
 
         if (delete_resp.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...delete_resp, message: "Invalid request !" });

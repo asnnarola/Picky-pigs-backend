@@ -126,7 +126,8 @@ router.put('/:id', ingredient_management.allergen, validation_response, async (r
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const data = await common_helper.softDelete(Allergen, { "_id": req.params.id })
+        // const data = await common_helper.softDelete(Allergen, { "_id": req.params.id })
+        const data = await common_helper.delete(Allergen, { "_id": req.params.id })
 
         if (data.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });

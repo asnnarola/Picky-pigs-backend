@@ -119,7 +119,8 @@ router.put('/:id', ingredient_management.cuisine_type, validation_response, asyn
 
 router.delete('/:id', async (req, res, next) => {
     try {
-        const data = await common_helper.softDelete(Cuisine_type, { "_id": req.params.id })
+        // const data = await common_helper.softDelete(Cuisine_type, { "_id": req.params.id })
+        const data = await common_helper.delete(Cuisine_type, { "_id": req.params.id })
 
         if (data.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...data, message: "Invalid request !" });

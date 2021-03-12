@@ -85,18 +85,18 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('makes')
-            .not().isEmpty().withMessage('Makes is required')
-            .exists().withMessage('Makes is required')
-            .isFloat(),
+        // check('makes')
+        //     .not().isEmpty().withMessage('Makes is required')
+        //     .exists().withMessage('Makes is required')
+        //     .isFloat(),
         check('price')
             .not().isEmpty().withMessage('price is required')
             .exists().withMessage('price is required')
             .isFloat(),
-        check('grossProfit')
-            .not().isEmpty().withMessage('grossProfit is required')
-            .exists().withMessage('grossProfit is required')
-            .isFloat(),
+        // check('grossProfit')
+        //     .not().isEmpty().withMessage('grossProfit is required')
+        //     .exists().withMessage('grossProfit is required')
+        //     .isFloat(),
         // check('image')
         //     .trim()
         //     .not().isEmpty().withMessage('image is required')
@@ -113,10 +113,10 @@ module.exports = {
             .trim()
             .not().isEmpty().withMessage('subcategoryId is required')
             .exists().withMessage('subcategoryId is required'),
-        check('description')
-            .trim()
-            .not().isEmpty().withMessage('description is required')
-            .exists().withMessage('description is required'),
+        // check('description')
+        //     .trim()
+        //     .not().isEmpty().withMessage('description is required')
+        //     .exists().withMessage('description is required'),
         check('allergenId')
             .trim()
             .not().isEmpty().withMessage('allergenId is required')
@@ -129,10 +129,10 @@ module.exports = {
             .trim()
             .not().isEmpty().withMessage('lifestyleId is required')
             .exists().withMessage('lifestyleId is required'),
-        check('instructions')
-            .trim()
-            .not().isEmpty().withMessage('instructions is required')
-            .exists().withMessage('instructions is required')
+        // check('instructions')
+        //     .trim()
+        //     .not().isEmpty().withMessage('instructions is required')
+        //     .exists().withMessage('instructions is required')
 
 
     ],

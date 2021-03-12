@@ -107,26 +107,15 @@ router.post('/', async (req, res, next) => {
             if (req.body.openingTimings && req.body.openingTimings.time.length > 0) {
                 for (let timeArray of req.body.openingTimings.time) {
                     let counter = 0;
-                    if (req.body.openingTimings.isMultiTime === false) {
-                        if (timeArray.timeList[0].startTime > timeArray.timeList[0].endTime) {
-                            // console.log("----------------", singleTime)
+                    for (let singleTime of timeArray.timeList) {
+                        if (singleTime.startTime > singleTime.endTime) {
                             return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
                         }
-                    }
-                    else {
-                        for (let singleTime of timeArray.timeList) {
-                            if (singleTime.startTime > singleTime.endTime) {
-                                // console.log("----------------", singleTime)
-                                return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
-                            }
-                            if (req.body.openingTimings.isMultiTime === true && counter !== 0 && timeArray.timeList[counter - 1].endTime > singleTime.startTime) {
-                                // console.log("()()(()()))")
-                                return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
-                            }
-                            counter++;
+                        if (req.body.openingTimings.isMultiTime === true && counter !== 0 && timeArray.timeList[counter - 1].endTime > singleTime.startTime) {
+                            return res.status(constants.BAD_REQUEST).json({ message: "Please select proper opening and closing time." });
                         }
+                        counter++;
                     }
-
                 }
             }
             const save_restaurantdetail_response = await common_helper.updatewithupsert(RestaurantDetails, { restaurantId: new ObjectId(req.body.restaurantId) }, req.body);

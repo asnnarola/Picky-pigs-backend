@@ -9,6 +9,15 @@ const common_helper = require('../../helpers/common');
 const config = require('../../config/config');
 const constants = require('../../config/constants');
 
+const calculateTotalDishesPrice = (cartId) => {
+    try {
+
+    }
+    catch (error) {
+
+        res.status(constants.BAD_REQUEST).json(error);
+    }
+}
 
 router.post('/cart/add_dish', async (req, res, next) => {
     try {
@@ -30,25 +39,23 @@ router.post('/cart/add_dish', async (req, res, next) => {
 
 
 
-        const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
-        if (cart_resp) {
-            const cart_dish_resp = await CartDish.findOne({ dishId: req.body.dishes.dishId, cartId: cart_resp._id });
+        if (req.body._id) {
+            const cart_dish_resp = await CartDish.findOne({ dishId: req.body.dishes.dishId, cartId: req.body._id });
             if (cart_dish_resp) {
 
                 res.status(constants.BAD_REQUEST).json({ message: "This dish already added into cart." });
             } else {
-                const update_order = await common_helper.update(Cart, { "_id": cart_resp._id }, { itemTotalPrice: req.body.itemTotalPrice })
+                const update_order = await common_helper.update(Cart, { "_id": req.body._id }, { itemTotalPrice: req.body.itemTotalPrice })
 
-                req.body.dishes.cartId = cart_resp._id;
-                req.body.dishes.restaurantAdminId = cart_resp.restaurantAdminId;
+                req.body.dishes.cartId = req.body._id;
+                req.body.dishes.restaurantId = update_order.data.restaurantId;
                 const insert_cart_dish = await common_helper.insert(CartDish, req.body.dishes);
                 res.status(constants.OK_STATUS).json(update_order);
-
             }
         } else {
             const data = await common_helper.insert(Cart, req.body);
             req.body.dishes.cartId = data.data._id;
-            req.body.dishes.restaurantAdminId = data.data.restaurantAdminId;
+            req.body.dishes.restaurantId = data.data.restaurantId;
             const insert_cart_dish = await common_helper.insert(CartDish, req.body.dishes);
             if (data.status === 1 && data.data) {
                 res.status(constants.OK_STATUS).json(data);
@@ -69,9 +76,10 @@ router.post('/cart/add_dish', async (req, res, next) => {
 router.post('/cart/remove_dish', async (req, res, next) => {
     try {
         //find into the cart table base on the login user/table number with restaurant id
-        const cart_resp = await Cart.findOne({ tableNo: req.body.tableNo });
+        const cart_resp = await Cart.findOne({ _id: req.body.cartId });
         if (cart_resp) {
-            const update_order = await common_helper.update(Cart, { "_id": cart_resp._id }, { itemTotalPrice: req.body.itemTotalPrice, $pull: { dishes: { _id: req.body.dishId } } })
+            const update_order = await common_helper.update(Cart, { "_id": cart_resp._id }, { itemTotalPrice: req.body.itemTotalPrice })
+            const remove_dish_resp = await common_helper.delete(CartDish, { _id: req.body.cartDishId })
             res.status(constants.OK_STATUS).json(update_order);
         } else {
             res.status(constants.BAD_REQUEST).json({ message: "cart not found" });
@@ -88,12 +96,11 @@ router.post('/cart/remove_dish', async (req, res, next) => {
 router.post('/cart/change_quantity', async (req, res, next) => {
     try {
         const obj = {
-            "dishes.$.orderQuantity": req.body.orderQuantity,
-            "dishes.$.dishPrice": req.body.dishPrice,
-            'itemTotalPrice': req.body.itemTotalPrice
+            "orderQuantity": req.body.orderQuantity
         }
-        const update_order = await common_helper.update(Cart, { "_id": req.body.cartId, 'dishes._id': new ObjectId(req.body.cartItemId) }, { $set: obj })
-        if (update_order.status === 0) {
+        const update_cart_resp = await common_helper.update(Cart, { "_id": req.body.cartId }, { itemTotalPrice: req.body.itemTotalPrice })
+        const update_cartdish_order = await common_helper.update(CartDish, { "_id": req.body.cartDishId }, obj)
+        if (update_cart_resp.status === 0) {
             res.status(constants.BAD_REQUEST).json({ ...update_order, message: "Invalid request !" });
         }
         else {
@@ -152,7 +159,7 @@ router.post('/place_order', async (req, res, next) => {
 
             /** insert/remove order related field with cart object */
             let cartCloneDetail = JSON.parse(JSON.stringify(cart_resp));
-            
+
             delete cartCloneDetail._id
             cartCloneDetail.orderTakenTime = new Date();
             cartCloneDetail.comment = req.body.comment;

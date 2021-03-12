@@ -16,19 +16,16 @@ let cartDishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'dish'
         },
-        allergenId: [{
+        addAllergen: [{
             type: Schema.Types.ObjectId,
             ref: 'allergen'
         }],
-        items: [{
+        // addAllergen: [{ type: String }],
+        cookingMethod: [{ type: String }],
+        ingredients: [{
             name: { type: String },
-            qty: { type: Number },
-            unit: { type: String },
-            allergeies: { type: String },
-            name: { type: String },
-            stokUnit: { type: String },
             recipeCost: { type: Number },
-            isRemove: { type: Boolean }
+            isAdd: { type: Boolean }
         }],
         dishPrice: { type: Number },
         orderQuantity: { type: Number },

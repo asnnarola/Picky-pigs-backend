@@ -19,13 +19,25 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     /**********/
 
 
-    req.body.menuId = JSON.parse(req.body.menuId),
+    req.body.menuId = JSON.parse(req.body.menuId);
+    if (req.body.allergenId && req.body.allergenId.length > 0) {
         req.body.allergenId = JSON.parse(req.body.allergenId);
-    req.body.dietaryId = JSON.parse(req.body.dietaryId);
-    req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
-    req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
-    req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
-    req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+    }
+    if (req.body.dietaryId && req.body.dietaryId.length > 0) {
+        req.body.dietaryId = JSON.parse(req.body.dietaryId);
+    }
+    if (req.body.lifestyleId && req.body.lifestyleId.length > 0) {
+        req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
+    }
+    if (req.body.cookingMethodId && req.body.cookingMethodId.length > 0) {
+        req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
+    }
+    if (req.body.ingredientSection) {
+        req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
+    }
+    if (req.body.caloriesAndMacros) {
+        req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+    }
     // req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
     var duplicate_insert_resp = {};
@@ -48,15 +60,21 @@ router.post('/', validation.dish, validation_response, async (req, res, next) =>
     }
     req.body.available = true;
     const insert_resp = await common_helper.insert(Dish, req.body);
-    req.body.caloriesAndMacros.dishId = insert_resp.data._id;
-    req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
-    const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
-    req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
-        singleElement.dishId = insert_resp.data._id;
-        singleElement.restaurantId = req.body.restaurantId;
-        return singleElement;
-    })
-    const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
+
+    if (req.body.caloriesAndMacros) {
+        req.body.caloriesAndMacros.dishId = insert_resp.data._id;
+        req.body.caloriesAndMacros.restaurantId = req.body.restaurantId;
+        const insert_resp_caloriesAndMacros = await common_helper.insert(DishCaloriesAndMacros, req.body.caloriesAndMacros);
+    }
+
+    if (req.body.ingredientSection && req.body.ingredientSection.ingredient && req.body.ingredientSection.ingredient.length > 0) {
+        req.body.ingredientSection.ingredient = req.body.ingredientSection.ingredient.map(singleElement => {
+            singleElement.dishId = insert_resp.data._id;
+            singleElement.restaurantId = req.body.restaurantId;
+            return singleElement;
+        })
+        const insert_DishIngredient_resp = await common_helper.insertMany(DishIngredient, req.body.ingredientSection.ingredient);
+    }
 
 
     if (insert_resp.status === 1 && insert_resp.data) {
@@ -230,6 +248,19 @@ router.get('/:id', async (req, res) => {
         ];
         await Dish.aggregate(aggregate)
             .then(dishDetails => {
+
+                let dish_ingredientsArray = [];
+                if (dishDetails.length > 0) {
+                    if (dishDetails[0].ingredientSection !== undefined && dishDetails[0].ingredientSection.dish_ingredients.length > 0) {
+                        for (let singleIngredient of dishDetails[0].ingredientSection.dish_ingredients) {
+                            if (singleIngredient._id) {
+                                dish_ingredientsArray.push(singleIngredient)
+                            }
+                        }
+                        dishDetails[0].ingredientSection.dish_ingredients = dish_ingredientsArray
+                    }
+                }
+
                 res.status(constants.OK_STATUS).json(dishDetails);
             }).catch(error => {
                 console.log("error", error)
@@ -324,13 +355,13 @@ router.post('/list', async (req, res, next) => {
             });
 
         }
-        if (req.body.category && req.body.category != "") {
-            aggregate.push({
-                "$match":
-                    { "categoryId": new ObjectId(req.body.category) }
-            });
+        // if (req.body.category && req.body.category != "") {
+        //     aggregate.push({
+        //         "$match":
+        //             { "categoryId": new ObjectId(req.body.category) }
+        //     });
 
-        }
+        // }
         if (req.body.menu && req.body.menu != "") {
             aggregate.push({
                 "$match":
@@ -402,18 +433,30 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
         }
 
         req.body.menuId = JSON.parse(req.body.menuId);
-        req.body.allergenId = JSON.parse(req.body.allergenId);
-        req.body.dietaryId = JSON.parse(req.body.dietaryId);
-        req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
-        req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
-        req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
-        req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+        if (req.body.allergenId && req.body.allergenId.length > 0) {
+            req.body.allergenId = JSON.parse(req.body.allergenId);
+        }
+        if (req.body.dietaryId && req.body.dietaryId.length > 0) {
+            req.body.dietaryId = JSON.parse(req.body.dietaryId);
+        }
+        if (req.body.lifestyleId && req.body.lifestyleId.length > 0) {
+            req.body.lifestyleId = JSON.parse(req.body.lifestyleId);
+        }
+        if (req.body.cookingMethodId && req.body.cookingMethodId.length > 0) {
+            req.body.cookingMethodId = JSON.parse(req.body.cookingMethodId);
+        }
+        if (req.body.ingredientSection) {
+            req.body.ingredientSection = JSON.parse(req.body.ingredientSection);
+        }
+        if (req.body.caloriesAndMacros) {
+            req.body.caloriesAndMacros = JSON.parse(req.body.caloriesAndMacros);
+        }
         // req.body.dish_features_optionId = JSON.parse(req.body.dish_features_optionId);
 
         const update_resp = await common_helper.update(Dish, { "_id": req.params.id }, req.body);
         const update_DishCaloriesAndMacros_resp = await common_helper.update(DishCaloriesAndMacros, { "_id": req.body.caloriesAndMacros._id }, req.body.caloriesAndMacros);
 
-        if (req.body.ingredientSection.ingredient.length > 0) {
+        if (req.body.ingredientSection.ingredient && req.body.ingredientSection.ingredient.length > 0) {
             for (let singleIngredient of req.body.ingredientSection.ingredient) {
                 if (singleIngredient._id === undefined) {
                     singleIngredient.dishId = req.params.id;
@@ -423,7 +466,7 @@ router.put('/:id', validation.dish, validation_response, async (req, res) => {
             }
         }
 
-        if (req.body.ingredientSection.deleteIngredients.length > 0) {
+        if (req.body.ingredientSection.deleteIngredients && req.body.ingredientSection.deleteIngredients.length > 0) {
             await DishIngredient.deleteMany({ _id: { $in: req.body.ingredientSection.deleteIngredients } });
         }
 

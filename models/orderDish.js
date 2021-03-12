@@ -3,7 +3,7 @@ let Schema = mongoose.Schema;
 let orderDishSchema = new Schema(
     {
         name: { type: String },
-        status: { type: String, default: "pending" },   //pending, completed, delete, unavailable
+        status: { type: String, default: "pending" },   //pending, completed, delete, unavailable, cancel
         dishId: {
             type: Schema.Types.ObjectId,
             ref: 'dish'
@@ -12,7 +12,7 @@ let orderDishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'order'
         },
-        allergenId: [{
+        addAllergen: [{
             type: Schema.Types.ObjectId,
             ref: 'allergen'
         }],
@@ -20,17 +20,12 @@ let orderDishSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'restaurant'
         },
-        orderTakenTime: { type: Date },
-        orderCompletedTime: { type: Date },
-        items: [{
+        // orderTakenTime: { type: Date },
+        // orderCompletedTime: { type: Date },
+        ingredients: [{
             name: { type: String },
-            qty: { type: Number },
-            unit: { type: String },
-            allergeies: { type: String },
-            name: { type: String },
-            stokUnit: { type: String },
             recipeCost: { type: Number },
-            isRemove: { type: Boolean }
+            isAdd: { type: Boolean }
         }],
         dishPrice: { type: Number },
         orderQuantity: { type: Number },

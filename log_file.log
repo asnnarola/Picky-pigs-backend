@@ -7941,3 +7941,154 @@
     forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTM3MTk1ODAsImV4cCI6MTYxNDMyNDM4MH0.y_s7KzBBKAnex5sDdJanWck7EzEIbbKLJCzVPx_zC2I'
   }
 }
+[2021-03-10T17:25:12.820] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 602cdba361d5735fa05a347e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant555@gmail.com',
+    password: '$2b$10$65pXF2mUKmV.oyaM4aYKHuI/hZcYML1VDAaGEUogfewMQMttLzQO.',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-17T09:02:27.273Z,
+    updatedAt: 2021-03-02T12:38:29.175Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMmNkYmEzNjFkNTczNWZhMDVhMzQ3ZSIsImVtYWlsIjoicmVzdGF1cmFudDU1NUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ2ODg3MDksImV4cCI6MTYxNTI5MzUwOX0.7UX12fyYc7vxXs3No_5KMskgbvtfcSGINFqyd-FRfiY'
+  }
+}
+[2021-03-11T10:39:24.637] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 602cdba361d5735fa05a347e,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant555@gmail.com',
+    password: '$2b$10$65pXF2mUKmV.oyaM4aYKHuI/hZcYML1VDAaGEUogfewMQMttLzQO.',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-17T09:02:27.273Z,
+    updatedAt: 2021-03-02T12:38:29.175Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMmNkYmEzNjFkNTczNWZhMDVhMzQ3ZSIsImVtYWlsIjoicmVzdGF1cmFudDU1NUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ2ODg3MDksImV4cCI6MTYxNTI5MzUwOX0.7UX12fyYc7vxXs3No_5KMskgbvtfcSGINFqyd-FRfiY'
+  }
+}
+[2021-03-11T15:26:18.299] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}
+[2021-03-12T09:46:14.481] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 6024f0f3ce589600247b1b93,
+    emailVerified: false,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant123@gmail.com',
+    password: '$2b$10$D0fEftIsYxAE9VfgspRFoOEs0AKquwxraD.HedT5wgT3TiiFDwnr6',
+    role: 'user',
+    createdAt: 2021-02-11T08:55:15.538Z,
+    updatedAt: 2021-02-11T08:55:15.538Z,
+    __v: 0
+  }
+}
+[2021-03-12T09:46:22.635] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}
+[2021-03-12T09:46:32.429] [ERROR] development - invalid password request =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}
+[2021-03-12T09:46:39.513] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}
+[2021-03-12T16:15:10.598] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}

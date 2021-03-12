@@ -16,6 +16,7 @@ let orderSchema = new Schema(
             ref: 'restaurant'
         },
         isDeleted: { type: Number, default: 0 },
+        orderUrgency: { type: Boolean, default: false },
         covers: { type: Number }    /**covers means numberOfPeople on table*/
 
     },

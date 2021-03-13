@@ -436,6 +436,35 @@ router.post('/disheslist', async (req, res, next) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$subcategoryDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "subcategoryDetail.isDeleted": 0 },
+            //                     { "subcategoryDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "subcategoryDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $lookup: {
                     from: "restaurants",
@@ -571,6 +600,7 @@ router.post('/disheslist', async (req, res, next) => {
                 name: { $first: "$name" },
                 dishPhoto: { $first: "$image" },
                 dishPrice: { $first: "$price" },
+                dishnew: { $first: "$new" },
                 dishPriceUnit: { $first: "$dishPriceUnit" },
                 description: { $first: "$description" },
                 menuList: { $addToSet: "$menuDetail" },
@@ -588,6 +618,7 @@ router.post('/disheslist', async (req, res, next) => {
                 _id: "$_id",
                 name: "$name",
                 dishPhoto: "$dishPhoto",
+                dishnew: "$dishnew",
                 dishPrice: "$dishPrice",
                 dishPriceUnit: "$dishPriceUnit",
                 dishDescription: "$description",
@@ -655,6 +686,7 @@ router.post('/disheslist', async (req, res, next) => {
                 _id: "$_id",
                 name: "$name",
                 dishPhoto: "$dishPhoto",
+                new: "$dishnew",
                 dishPrice: "$dishPrice",
                 dishPriceUnit: "$dishPriceUnit",
                 dishDescription: "$dishDescription",
@@ -807,6 +839,23 @@ router.post('/page_1_dishes', async (req, res, next) => {
                     "categoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: "$subcategoryDetail"
+            // },
+            // {
+            //     $match: {
+            //         "subcategoryDetail.isDeleted": 0,
+            //         "subcategoryDetail.isActive": true,
+            //     }
+            // },
             {
                 $lookup: {
                     from: "subcategories",
@@ -816,12 +865,24 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 }
             },
             {
-                $unwind: "$subcategoryDetail"
+                $unwind: {
+                    path: "$subcategoryDetail",
+                    preserveNullAndEmptyArrays: true
+
+                }
             },
             {
                 $match: {
-                    "subcategoryDetail.isDeleted": 0,
-                    "subcategoryDetail.isActive": true,
+                    $or: [
+                        {
+                            $and: [
+                                { "subcategoryDetail.isDeleted": 0 },
+                                { "subcategoryDetail.isActive": true }
+                            ]
+                        },
+                        { "subcategoryDetail.isDeleted": undefined },
+
+                    ]
                 }
             },
             {
@@ -1435,6 +1496,35 @@ router.post('/green_slider_dishes', async (req, res, next) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "categoriesDetail.dishesDetail.subcategoriesDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$categoriesDetail.dishesDetail.subcategoriesDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "categoriesDetail.dishesDetail.subcategoriesDetail.isDeleted": 0 },
+            //                     { "categoriesDetail.dishesDetail.subcategoriesDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "categoriesDetail.dishesDetail.subcategoriesDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $lookup: {
                     from: "restaurants",

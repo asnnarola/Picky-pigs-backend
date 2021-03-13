@@ -229,6 +229,35 @@ router.post('/homepage_dishes', async (req, res, next) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$subcategoryDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "subcategoryDetail.isDeleted": 0 },
+            //                     { "subcategoryDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "subcategoryDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $lookup: {
                     from: "restaurants",
@@ -434,6 +463,35 @@ router.post('/restaurant_dish_suggestion', async (req, res) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$subcategoryDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "subcategoryDetail.isDeleted": 0 },
+            //                     { "subcategoryDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "subcategoryDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $lookup: {
                     from: "restaurants",

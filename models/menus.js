@@ -15,7 +15,7 @@ let menusSchema = new Schema(
             ref: 'restaurant'
         },
         type: { type: String },
-        styleOfmenu: { type: String },
+        styleOfmenu: [{ type: String }],
         isDeleted: { type: Number, default: 0 },
         isActive: { type: Boolean, default: true },     /**active, inactive */
         parentMenu: {

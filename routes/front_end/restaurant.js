@@ -788,6 +788,35 @@ router.post('/restaurant_top_pick_dishes', async (req, res, next) => {
                     "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$subcategoryDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "subcategoryDetail.isDeleted": 0 },
+            //                     { "subcategoryDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "subcategoryDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $group: {
                     _id: "$_id",
@@ -1004,7 +1033,22 @@ router.post('/test_category_subcategory_dishes', async (req, res, next) => {
                     subcategories: {
                         "_id": "$_id",
                         "name": "$subcategories.name",
-                        "dishes": "$dishes",
+                        "dishes": {
+                            $map: {
+                                input: "$dishes",
+                                as: "singledishes",
+                                in: {
+                                    '_id': '$$singledishes._id',
+                                    'name': '$$singledishes.name',
+                                    'new': '$$singledishes.new',
+                                    'image': '$$singledishes.image',
+                                    'description': '$$singledishes.description',
+                                    'price': '$$singledishes.price',
+                                    'priceUnit': '$$singledishes.priceUnit',
+                                    'customisable': '$$singledishes.customisable'
+                                }
+                            }
+                        },
                         countDishes: "$count",
                         maxDishPriceOfSingleSubcategory: { "$max": "$dishes.price" },
                         miniDishPriceOfSingleSubcategory: { "$min": "$dishes.price" }

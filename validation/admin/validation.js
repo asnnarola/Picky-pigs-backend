@@ -7,11 +7,11 @@ module.exports = {
             .not().isEmpty().withMessage('Name is required')
             .exists().withMessage('Name is required')
             .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('styleOfmenu')
-            .trim()
-            .not().isEmpty().withMessage('styleOfmenu is required')
-            .exists().withMessage('styleOfmenu is required')
-            .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
+        // check('styleOfmenu')
+        //     .trim()
+        //     .not().isEmpty().withMessage('styleOfmenu is required')
+        //     .exists().withMessage('styleOfmenu is required'),
+        // .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
         check('availability')
             .isArray().withMessage('availability is required')
             .not().isEmpty().withMessage('availability is required')
@@ -29,13 +29,13 @@ module.exports = {
         check('name')
             .trim()
             .not().isEmpty().withMessage('Name is required')
-            .exists().withMessage('Name is required')
-            .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
-        check('styleOfmenu')
-            .trim()
-            .not().isEmpty().withMessage('styleOfmenu is required')
-            .exists().withMessage('styleOfmenu is required')
-            .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
+            .exists().withMessage('Name is required'),
+        // .isLength({ min: 2, max: 100 }).withMessage('Name should be between 2 to 100 characters long'),
+        // check('styleOfmenu')
+        //     .trim()
+        //     .not().isEmpty().withMessage('styleOfmenu is required')
+        //     .exists().withMessage('styleOfmenu is required')
+        //     .isLength({ min: 2, max: 100 }).withMessage('styleOfmenu should be between 2 to 100 characters long'),
         check('availability')
             .isArray().withMessage('availability is required')
             .not().isEmpty().withMessage('availability is required')
@@ -136,7 +136,7 @@ module.exports = {
 
 
     ],
-    hide_unhide:[
+    hide_unhide: [
         check('isActive')
             .trim()
             .not().isEmpty().withMessage('isActive is required')

@@ -8092,3 +8092,22 @@
     forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
   }
 }
+[2021-03-15T11:20:16.625] [TRACE] development - Login successfully =  {
+  status: 1,
+  message: 'Data found',
+  data: {
+    _id: 60177f66946b3f0024270707,
+    emailVerified: true,
+    accountType: 'email',
+    googleId: null,
+    facebookId: null,
+    isDeleted: 0,
+    email: 'restaurant111@gmail.com',
+    password: '$2b$10$mz03U9OmFBzKcctbVwZRj.Mxe/bBvF.l6VePA2UU0R6a4SlSF7JK6',
+    role: 'restaurant_admin',
+    createdAt: 2021-02-01T04:11:18.683Z,
+    updatedAt: 2021-02-27T07:25:09.215Z,
+    __v: 0,
+    forgotPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMTc3ZjY2OTQ2YjNmMDAyNDI3MDcwNyIsImVtYWlsIjoicmVzdGF1cmFudDExMUBnbWFpbC5jb20iLCJpYXQiOjE2MTQ0MTA3MDksImV4cCI6MTYxNTAxNTUwOX0.gUunXmNZWZGNulgHYNhHdFLAuJtL0-FP_5RDF67oHGk'
+  }
+}

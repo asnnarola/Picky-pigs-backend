@@ -113,11 +113,6 @@ router.post('/restaurantlist', async (req, res, next) => {
                 }
             },
             // {
-            //     $match: {
-            //         "dishesDetails.isDeleted": 0,
-            //     }
-            // },
-            // {
             //     $lookup: {
             //         from: "reviews",
             //         localField: "_id",
@@ -321,9 +316,7 @@ router.post('/restaurantlist', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
 
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });
@@ -546,7 +539,7 @@ router.post('/disheslist', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, isActive: true },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, 'menusList.type': "menu", "menusList.isDeleted": 0, isActive: true },
                 }
             )
         }
@@ -559,7 +552,6 @@ router.post('/disheslist', async (req, res, next) => {
                 {
                     $or: [
                         { "name": RE, "restaurantDishes.name": RE },
-                        // { "itemSection.item.name": RE }
                     ]
                 }
             });
@@ -601,7 +593,7 @@ router.post('/disheslist', async (req, res, next) => {
                 dishPhoto: { $first: "$image" },
                 dishPrice: { $first: "$price" },
                 dishnew: { $first: "$new" },
-                dishPriceUnit: { $first: "$dishPriceUnit" },
+                dishPriceUnit: { $first: "$priceUnit" },
                 description: { $first: "$description" },
                 menuList: { $addToSet: "$menuDetail" },
                 restaurantFeaturesOptions: { $first: "$restaurantInfo.restaurantFeatures.restaurantFeaturesOptions" },
@@ -733,10 +725,8 @@ router.post('/disheslist', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishesList)
 
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
 
@@ -839,23 +829,6 @@ router.post('/page_1_dishes', async (req, res, next) => {
                     "categoryDetail.isActive": true,
                 }
             },
-            // {
-            //     $lookup: {
-            //         from: "subcategories",
-            //         localField: "subcategoryId",
-            //         foreignField: "_id",
-            //         as: "subcategoryDetail"
-            //     }
-            // },
-            // {
-            //     $unwind: "$subcategoryDetail"
-            // },
-            // {
-            //     $match: {
-            //         "subcategoryDetail.isDeleted": 0,
-            //         "subcategoryDetail.isActive": true,
-            //     }
-            // },
             {
                 $lookup: {
                     from: "subcategories",
@@ -865,26 +838,43 @@ router.post('/page_1_dishes', async (req, res, next) => {
                 }
             },
             {
-                $unwind: {
-                    path: "$subcategoryDetail",
-                    preserveNullAndEmptyArrays: true
-
-                }
+                $unwind: "$subcategoryDetail"
             },
             {
                 $match: {
-                    $or: [
-                        {
-                            $and: [
-                                { "subcategoryDetail.isDeleted": 0 },
-                                { "subcategoryDetail.isActive": true }
-                            ]
-                        },
-                        { "subcategoryDetail.isDeleted": undefined },
-
-                    ]
+                    "subcategoryDetail.isDeleted": 0,
+                    "subcategoryDetail.isActive": true,
                 }
             },
+            // {
+            //     $lookup: {
+            //         from: "subcategories",
+            //         localField: "subcategoryId",
+            //         foreignField: "_id",
+            //         as: "subcategoryDetail"
+            //     }
+            // },
+            // {
+            //     $unwind: {
+            //         path: "$subcategoryDetail",
+            //         preserveNullAndEmptyArrays: true
+
+            //     }
+            // },
+            // {
+            //     $match: {
+            //         $or: [
+            //             {
+            //                 $and: [
+            //                     { "subcategoryDetail.isDeleted": 0 },
+            //                     { "subcategoryDetail.isActive": true }
+            //                 ]
+            //             },
+            //             { "subcategoryDetail.isDeleted": undefined },
+
+            //         ]
+            //     }
+            // },
             {
                 $lookup: {
                     from: "restaurants",
@@ -1032,9 +1022,8 @@ router.post('/page_1_dishes', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishList)
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
+
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Dish list get successfully." });
@@ -1170,7 +1159,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
                     }
                 },
                 {
-                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0 },
+                    "$match": { "menusList.styleOfmenu": req.body.styleOfmenu, "menusList.isDeleted": 0, "menusList.isActive": true },
                 }
             )
         }
@@ -1267,6 +1256,16 @@ router.post('/page_1_restaurants', async (req, res, next) => {
             aggregate.push({
                 $sort: { createdAt: -1 }
             })
+
+            /**Extarct Data of last 1 month*/
+            // aggregate.push({
+            //     '$match': {
+            //         $and: [
+            //             { 'createdAt': { '$gt': new Date(moment().subtract(1, 'months')) } },
+            //             { 'createdAt': { '$lt': new Date(moment()) } },
+            //         ]
+            //     }
+            // })
         }
         else if (req.body.option && req.body.option === "toppick") {
             aggregate.push({
@@ -1279,9 +1278,7 @@ router.post('/page_1_restaurants', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
 
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });
@@ -1389,9 +1386,7 @@ router.post('/green_slider_restaurants', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, restaurantList)
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
 
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Restaurant list get successfully." });
@@ -1501,12 +1496,12 @@ router.post('/green_slider_dishes', async (req, res, next) => {
             //         from: "subcategories",
             //         localField: "subcategoryId",
             //         foreignField: "_id",
-            //         as: "categoriesDetail.dishesDetail.subcategoriesDetail"
+            //         as: "subcategoriesDetail"
             //     }
             // },
             // {
             //     $unwind: {
-            //         path: "$categoriesDetail.dishesDetail.subcategoriesDetail",
+            //         path: "$subcategoriesDetail",
             //         preserveNullAndEmptyArrays: true
 
             //     }
@@ -1516,11 +1511,11 @@ router.post('/green_slider_dishes', async (req, res, next) => {
             //         $or: [
             //             {
             //                 $and: [
-            //                     { "categoriesDetail.dishesDetail.subcategoriesDetail.isDeleted": 0 },
-            //                     { "categoriesDetail.dishesDetail.subcategoriesDetail.isActive": true }
+            //                     { "subcategoriesDetail.isDeleted": 0 },
+            //                     { "subcategoriesDetail.isActive": true }
             //                 ]
             //             },
-            //             { "categoriesDetail.dishesDetail.subcategoriesDetail.isDeleted": undefined },
+            //             { "subcategoriesDetail.isDeleted": undefined },
 
             //         ]
             //     }
@@ -1570,7 +1565,15 @@ router.post('/green_slider_dishes', async (req, res, next) => {
                     preserveNullAndEmptyArrays: true
 
                 }
-            }
+            },
+            {
+                $lookup: {
+                    from: 'allergens',
+                    localField: 'allergenId',
+                    foreignField: '_id',
+                    as: 'allergenList'
+                }
+            },
         ];
 
         if (req.body.search && req.body.search != "") {
@@ -1605,7 +1608,9 @@ router.post('/green_slider_dishes', async (req, res, next) => {
                     priceUnit: { $first: "$priceUnit" },
                     image: { $first: "$image" },
                     description: { $first: "$description" },
-                    address: { $first: "$restaurantInfo.address" }
+                    address: { $first: "$restaurantInfo.address" },
+                    allergenList: { $first: "$allergenList" },
+                    menuList: { $push: "$menuDetail" },
                 }
             }
         )
@@ -1623,6 +1628,25 @@ router.post('/green_slider_dishes', async (req, res, next) => {
                     description: "$description",
                     address: {
                         "map": "$address.map"
+                    },
+                    allergenList: {
+                        $map: {
+                            input: "$allergenList",
+                            as: "singleallergenList",
+                            in: {
+                                'name': '$$singleallergenList.name',
+                                'image': '$$singleallergenList.image'
+                            }
+                        }
+                    },
+                    menuList: {
+                        $map: {
+                            input: "$menuList",
+                            as: "singleMenuList",
+                            in: {
+                                'name': "$$singleMenuList.name"
+                            }
+                        }
                     }
                 }
             }
@@ -1634,9 +1658,7 @@ router.post('/green_slider_dishes', async (req, res, next) => {
 
                 let tempArray = await common_helper.distanceCalculationAndFiler(req.body, dishList)
 
-                if (req.body.sort && req.body.sort.distance && req.body.sort.distance == "l2h") {
-                    tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
-                }
+                // tempArray.sort(function (a, b) { return a.distance.value - b.distance.value });
                 const pagination_resp = await common_helper.pagination(tempArray, req.body.start, req.body.length)
 
                 res.status(constants.OK_STATUS).json({ ...pagination_resp, message: "Dish list get successfully." });

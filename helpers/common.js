@@ -471,7 +471,7 @@ common_helper.distanceCalculationAndFiler = async (body, data) => {
         tempArray.push(singleclone)
       }
 
-      if (body.distance !== undefined && body.distance !== null && tempArray.length > 0) {
+      if (body.distance !== undefined && body.distance !== null && body.distance > 0 && tempArray.length > 0) {
         tempArray = tempArray.filter(singleElement => {
           if (singleElement.distance.value !== null && (singleElement.distance.value < body.distance)) {
             return singleElement;

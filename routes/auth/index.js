@@ -190,10 +190,10 @@ router.post('/google', async (req, res, next) => {
             const register_user_resp = await common_helper.insert(UserPreference, obj);
             let token_data = {
                 id: register_allUser_resp.data._id,
-                sociaId: register_allUser_resp.data.googleId,
+                // sociaId: register_allUser_resp.data.googleId,
                 email: register_allUser_resp.data.email,
                 register_user_resp: register_user_resp.data.name,
-                accountType: register_allUser_resp.data.accountType,
+                // accountType: register_allUser_resp.data.accountType,
                 emailVerified: register_allUser_resp.data.emailVerified,
                 role: register_allUser_resp.data.role
             }
@@ -248,10 +248,10 @@ router.post('/facebook', async (req, res, next) => {
             //token generate with user data then send it
             let token_data = {
                 id: register_allUser_resp.data._id,
-                sociaId: register_allUser_resp.data.facebookId,
+                // sociaId: register_allUser_resp.data.facebookId,
                 email: register_allUser_resp.data.email,
                 fullName: register_user_resp.data.fullName,
-                accountType: register_allUser_resp.data.accountType,
+                // accountType: register_allUser_resp.data.accountType,
                 emailVerified: register_allUser_resp.data.emailVerified,
                 role: register_allUser_resp.data.role
             }

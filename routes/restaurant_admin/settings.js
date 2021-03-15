@@ -31,6 +31,9 @@ passwordValidatorSchema
 router.post('/', async (req, res, next) => {
     try {
 
+        if (req.body.name !== undefined && req.body.name === "") {
+            return res.status(constants.BAD_REQUEST).json({ "status": 0, "message": "Please Enter Restaurant Name" })
+        }
         const save_response = await common_helper.update(Restaurant, { userId: new ObjectId(req.loginUser.id) }, req.body);
         /**For multiple restaurant to set retaurant id */
         req.body.restaurantId = save_response.data._id;
